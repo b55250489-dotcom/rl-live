@@ -2,7 +2,7 @@
     --background: #06080d;
     --surface: #0c1018;
     --surface-light: #111722;
-    --border: rgba(255,255,255,.08);
+    --border: rgba(255, 255, 255, 0.08);
 
     --text: #f5f7fb;
     --muted: #8791a3;
@@ -11,6 +11,9 @@
     --purple: #9147ff;
     --red: #ff4964;
 }
+
+
+/* RESET */
 
 * {
     box-sizing: border-box;
@@ -23,10 +26,12 @@ html {
 }
 
 body {
+    min-height: 100vh;
+
     background:
         radial-gradient(
             circle at 50% -20%,
-            rgba(77,140,255,.12),
+            rgba(77, 140, 255, 0.12),
             transparent 35%
         ),
         var(--background);
@@ -34,22 +39,23 @@ body {
     color: var(--text);
 
     font-family: "Inter", sans-serif;
-
-    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
 }
 
 
-/* NAV */
+/* HEADER */
 
 header {
     height: 76px;
 
-    border-bottom: 1px solid var(--border);
-
-    background: rgba(6,8,13,.9);
-
     display: flex;
     align-items: center;
+
+    background: rgba(6, 8, 13, 0.9);
+
+    border-bottom: 1px solid var(--border);
+
+    backdrop-filter: blur(15px);
 }
 
 .nav {
@@ -58,9 +64,12 @@ header {
     margin: auto;
 
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
+
+
+/* BRAND */
 
 .brand {
     display: flex;
@@ -73,15 +82,23 @@ header {
     width: 42px;
     height: 42px;
 
-    border-radius: 10px;
-
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: var(--blue);
+    background: linear-gradient(
+        135deg,
+        #3677ee,
+        #659cff
+    );
 
+    border-radius: 10px;
+
+    font-size: 14px;
     font-weight: 800;
+
+    box-shadow:
+        0 8px 25px rgba(77, 140, 255, 0.2);
 }
 
 .brand > div:last-child {
@@ -91,42 +108,47 @@ header {
 
 .brand strong {
     font-size: 15px;
+    font-weight: 800;
 }
 
 .brand span {
+    margin-top: 3px;
+
     color: var(--muted);
 
     font-size: 9px;
     font-weight: 700;
 
     letter-spacing: 1.6px;
-
-    margin-top: 3px;
 }
 
+
+/* HEADER STATUS */
+
 .status {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
     color: var(--muted);
 
     font-size: 10px;
     font-weight: 700;
 
     letter-spacing: 1.2px;
-
-    display: flex;
-    align-items: center;
-
-    gap: 8px;
 }
 
 .status-dot {
     width: 7px;
     height: 7px;
 
-    border-radius: 50%;
-
     background: var(--red);
 
-    box-shadow: 0 0 10px var(--red);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 10px var(--red);
 }
 
 
@@ -144,9 +166,9 @@ main {
 /* INTRO */
 
 .intro {
-    text-align: center;
-
     margin-bottom: 36px;
+
+    text-align: center;
 }
 
 .eyebrow {
@@ -159,11 +181,12 @@ main {
 }
 
 .intro h1 {
+    margin: 10px 0 12px;
+
     font-size: clamp(32px, 5vw, 52px);
+    font-weight: 800;
 
     letter-spacing: -2px;
-
-    margin: 10px 0 12px;
 }
 
 .intro p {
@@ -173,19 +196,22 @@ main {
 }
 
 
-/* PLAYER */
+/* PLAYER CARD */
 
 .player-card {
-    border: 1px solid var(--border);
-
-    border-radius: 14px;
-
     overflow: hidden;
 
     background: var(--surface);
 
-    box-shadow: 0 30px 80px rgba(0,0,0,.35);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+
+    box-shadow:
+        0 30px 80px rgba(0, 0, 0, 0.35);
 }
+
+
+/* PLAYER HEADER */
 
 .player-header {
     height: 54px;
@@ -214,7 +240,21 @@ main {
 
     border-radius: 50%;
 
-    box-shadow: 0 0 9px var(--red);
+    box-shadow:
+        0 0 9px var(--red);
+
+    animation: livePulse 1.8s infinite;
+}
+
+@keyframes livePulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
 }
 
 .live-text {
@@ -232,6 +272,9 @@ main {
     font-size: 11px;
     font-weight: 600;
 }
+
+
+/* TWITCH PLAYER */
 
 .player-wrapper {
     width: 100%;
@@ -251,7 +294,7 @@ main {
 }
 
 
-/* CHANNELS */
+/* CHANNEL SECTION */
 
 .channels {
     margin-top: 55px;
@@ -267,6 +310,9 @@ main {
     font-size: 23px;
 }
 
+
+/* CHANNEL GRID */
+
 .channel-grid {
     display: grid;
 
@@ -276,25 +322,29 @@ main {
     gap: 12px;
 }
 
+
+/* CHANNEL BUTTON */
+
 .channel {
-    border: 1px solid var(--border);
-
-    border-radius: 12px;
-
-    background: var(--surface);
-
-    color: var(--text);
-
     padding: 16px;
 
     display: flex;
     align-items: center;
 
+    background: var(--surface);
+    color: var(--text);
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
     text-align: left;
 
     cursor: pointer;
 
-    transition: .2s ease;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
 
     font-family: inherit;
 }
@@ -304,15 +354,19 @@ main {
 
     background: var(--surface-light);
 
-    border-color: rgba(255,255,255,.16);
+    border-color: rgba(255, 255, 255, 0.16);
 }
 
 .channel.active {
-    border-color: rgba(145,71,255,.7);
+    border-color: rgba(145, 71, 255, 0.7);
 
     box-shadow:
-        inset 0 0 0 1px rgba(145,71,255,.15);
+        inset 0 0 0 1px
+        rgba(145, 71, 255, 0.15);
 }
+
+
+/* CHANNEL ICON */
 
 .channel-icon {
     width: 46px;
@@ -320,30 +374,32 @@ main {
 
     flex-shrink: 0;
 
-    border-radius: 9px;
+    margin-right: 12px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background:
-        linear-gradient(
-            135deg,
-            var(--purple),
-            #6441a5
-        );
+    background: linear-gradient(
+        135deg,
+        var(--purple),
+        #6441a5
+    );
+
+    border-radius: 9px;
 
     font-size: 12px;
     font-weight: 800;
-
-    margin-right: 12px;
 }
 
+
+/* CHANNEL INFORMATION */
+
 .channel-info {
+    min-width: 0;
+
     display: flex;
     flex-direction: column;
-
-    min-width: 0;
 }
 
 .channel-info strong {
@@ -351,12 +407,15 @@ main {
 }
 
 .channel-info span {
+    margin-top: 4px;
+
     color: var(--muted);
 
     font-size: 10px;
-
-    margin-top: 4px;
 }
+
+
+/* WATCH TEXT */
 
 .watch {
     margin-left: auto;
@@ -379,12 +438,12 @@ footer {
 
     padding: 25px 0 40px;
 
-    border-top: 1px solid var(--border);
-
     display: flex;
     justify-content: space-between;
 
     color: var(--muted);
+
+    border-top: 1px solid var(--border);
 
     font-size: 10px;
 }
@@ -398,6 +457,16 @@ footer > div {
 
 footer strong {
     color: var(--text);
+}
+
+
+/* TABLET */
+
+@media (max-width: 900px) {
+
+    .channel-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -419,8 +488,16 @@ footer strong {
         display: none;
     }
 
-    .channel-grid {
-        grid-template-columns: 1fr;
+    .intro {
+        margin-bottom: 25px;
+    }
+
+    .intro h1 {
+        font-size: 34px;
+    }
+
+    .channels {
+        margin-top: 35px;
     }
 
     footer {
