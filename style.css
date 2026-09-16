@@ -1,0 +1,115 @@
+/* ===== RESET ===== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #080b12;
+    color: #ffffff;
+    min-height: 100vh;
+}
+
+
+/* ===== NAVBAR ===== */
+
+.navbar {
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 6%;
+
+    background: rgba(8, 11, 18, 0.95);
+    border-bottom: 1px solid #202633;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #4d8dff;
+}
+
+
+/* ===== HERO ===== */
+
+.hero {
+    min-height: calc(100vh - 80px);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background:
+        radial-gradient(
+            circle at 50% 40%,
+            rgba(52, 105, 255, 0.18),
+            transparent 40%
+        ),
+        #080b12;
+}
+
+.hero h1 {
+    font-size: clamp(50px, 8vw, 100px);
+    font-weight: 900;
+    letter-spacing: -4px;
+}
+
+.hero h1 span {
+    color: #4d8dff;
+}
+
+.hero p {
+    margin-top: 20px;
+
+    max-width: 650px;
+
+    color: #9ca7ba;
+
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+
+/* ===== BUTTON ===== */
+
+.primary-button {
+    display: inline-block;
+
+    margin-top: 30px;
+    padding: 15px 28px;
+
+    background: #4d8dff;
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    border-radius: 8px;
+
+    transition: 0.2s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-2px);
+    background: #6ca1ff;
+}
