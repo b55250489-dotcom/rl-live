@@ -1,1137 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RL Live | Rocket League Esports</title>
-
-    <meta
-        name="description"
-        content="Follow Rocket League esports matches, events, standings and official broadcasts."
-    >
+    <title>RL Live</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="style.css?v=11">
+    <link rel="stylesheet" href="style.css?v=20">
 </head>
 
 <body>
 
-    <!-- =========================
-         NAVIGATION
-    ========================== -->
-
-    <header class="topbar">
-
-        <div class="nav-container">
-
-            <a href="#" class="brand">
-
-                <div class="brand-mark">
-                    <span>RL</span>
-                </div>
-
-                <div class="brand-text">
-                    <strong>RL LIVE</strong>
-                    <small>ESPORTS</small>
-                </div>
-
-            </a>
-
-
-            <nav class="main-nav">
-                <a href="#" class="active">Home</a>
-                <a href="#matches">Matches</a>
-                <a href="#events">Events</a>
-                <a href="#standings">Standings</a>
-                <a href="#watch">Watch</a>
-            </nav>
-
-
-            <div class="nav-status">
-                <span class="pulse"></span>
-                LIVE COVERAGE
-            </div>
-
-        </div>
-
-    </header>
-
-
-    <!-- =========================
-         EVENT BAR
-    ========================== -->
-
-    <div class="event-bar">
-
-        <div class="container event-bar-inner">
-
-            <div class="event-info">
-
-                <span class="event-tag">
-                    FEATURED EVENT
-                </span>
-
-                <strong>
-                    Rocket League Championship Series
-                </strong>
-
-            </div>
-
-
-            <div class="event-meta">
-
-                <span>International</span>
-
-                <span class="divider"></span>
-
-                <span>3v3</span>
-
-                <span class="divider"></span>
-
-                <span>BO7</span>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =========================
-         MAIN CONTENT
-    ========================== -->
-
-    <main class="container page-content">
-
-
-        <!-- PAGE HEADER -->
-
-        <section class="page-heading">
+<header>
+    <div class="nav">
+        <div class="brand">
+            <div class="logo">RL</div>
 
             <div>
+                <strong>RL LIVE</strong>
+                <span>ROCKET LEAGUE STREAMS</span>
+            </div>
+        </div>
 
-                <span class="eyebrow">
-                    MATCH CENTER
-                </span>
+        <div class="status">
+            <span class="status-dot"></span>
+            OFFICIAL BROADCASTS
+        </div>
+    </div>
+</header>
 
-                <h1>
-                    Rocket League Esports
-                </h1>
 
-                <p>
-                    Live matches, upcoming series, results,
-                    standings and tournament coverage in one place.
-                </p>
+<main>
 
+    <section class="intro">
+        <span class="eyebrow">ROCKET LEAGUE ESPORTS</span>
+        <h1>Watch Rocket League Live</h1>
+        <p>
+            Watch official Rocket League broadcasts without leaving RL Live.
+        </p>
+    </section>
+
+
+    <section class="player-card">
+
+        <div class="player-header">
+
+            <div>
+                <span class="live-dot"></span>
+                <span class="live-text">LIVE STREAM</span>
             </div>
 
+            <span id="current-channel">
+                RocketLeague
+            </span>
 
-            <div class="date-box">
+        </div>
 
-                <span>TODAY</span>
 
-                <strong>SEP 16</strong>
+        <div class="player-wrapper">
 
-            </div>
+            <iframe
+                id="twitch-player"
+                src="https://player.twitch.tv/?channel=rocketleague&parent=b55250489-dotcom.github.io&autoplay=false"
+                allowfullscreen
+                scrolling="no"
+                frameborder="0">
+            </iframe>
 
-        </section>
+        </div>
 
+    </section>
 
 
-        <!-- =========================
-             FEATURED MATCH
-        ========================== -->
+    <section class="channels">
 
-        <section class="featured-match">
+        <div class="section-heading">
+            <span class="eyebrow">CHANNELS</span>
+            <h2>Rocket League Broadcasts</h2>
+        </div>
 
 
-            <!-- TOP -->
+        <div class="channel-grid">
 
-            <div class="featured-header">
-
-                <div>
-
-                    <span class="live-badge">
-
-                        <span class="pulse"></span>
-
-                        LIVE
-
-                    </span>
-
-
-                    <span class="stage-name">
-                        GROUP STAGE • ROUND 2
-                    </span>
-
-                </div>
-
-
-                <span class="series-type">
-                    BEST OF 7
-                </span>
-
-            </div>
-
-
-
-            <!-- TEAMS -->
-
-            <div class="featured-body">
-
-
-                <!-- KARMINE CORP -->
-
-                <div class="featured-team">
-
-                    <div class="team-logo kc">
-                        KC
-                    </div>
-
-
-                    <div class="team-details">
-
-                        <span>
-                            EUROPE
-                        </span>
-
-                        <h2>
-                            Karmine Corp
-                        </h2>
-
-                        <small>
-                            KC
-                        </small>
-
-                    </div>
-
-                </div>
-
-
-
-                <!-- SCORE -->
-
-                <div class="featured-score">
-
-                    <span class="game-status">
-                        GAME 3
-                    </span>
-
-
-                    <div class="score-numbers">
-
-                        <strong>
-                            2
-                        </strong>
-
-                        <span>
-                            :
-                        </span>
-
-                        <strong>
-                            0
-                        </strong>
-
-                    </div>
-
-
-                    <span class="series-status">
-                        KC LEADS SERIES
-                    </span>
-
-                </div>
-
-
-
-                <!-- NRG -->
-
-                <div class="featured-team right">
-
-                    <div class="team-details">
-
-                        <span>
-                            NORTH AMERICA
-                        </span>
-
-                        <h2>
-                            NRG
-                        </h2>
-
-                        <small>
-                            NRG
-                        </small>
-
-                    </div>
-
-
-                    <div class="team-logo nrg">
-                        NRG
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- BROADCAST -->
-
-            <div class="featured-footer">
-
-                <div class="broadcast-info">
-
-                    <span class="broadcast-dot"></span>
-
-
-                    <div>
-
-                        <small>
-                            OFFICIAL BROADCAST
-                        </small>
-
-                        <strong>
-                            Rocket League
-                        </strong>
-
-                    </div>
-
-                </div>
-
-
-                <a
-                    href="https://www.twitch.tv/rocketleague"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="watch-button"
-                >
-                    WATCH OFFICIAL STREAM
-                    <span>↗</span>
-                </a>
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================
-             DASHBOARD
-        ========================== -->
-
-        <div class="dashboard-grid">
-
-
-            <!-- =====================
-                 MATCH LIST
-            ====================== -->
-
-            <section
-                class="matches-panel"
-                id="matches"
+            <button
+                class="channel active"
+                onclick="changeChannel('rocketleague', 'RocketLeague', this)"
             >
+                <div class="channel-icon">RL</div>
 
-
-                <div class="panel-heading">
-
-                    <div>
-
-                        <span class="eyebrow">
-                            SCHEDULE
-                        </span>
-
-                        <h2>
-                            Today's Matches
-                        </h2>
-
-                    </div>
-
-
-                    <div class="match-filters">
-
-                        <button class="filter active">
-                            All
-                        </button>
-
-                        <button class="filter">
-                            Live
-                        </button>
-
-                        <button class="filter">
-                            Upcoming
-                        </button>
-
-                        <button class="filter">
-                            Results
-                        </button>
-
-                    </div>
-
+                <div class="channel-info">
+                    <strong>RocketLeague</strong>
+                    <span>Main RL Esports Broadcast</span>
                 </div>
 
-
-
-                <div class="match-list">
-
-
-                    <!-- MATCH 1 -->
-
-                    <article class="match-card live-match">
-
-
-                        <div class="match-time">
-
-                            <span class="live-badge small">
-
-                                <span class="pulse"></span>
-
-                                LIVE
-
-                            </span>
-
-                            <small>
-                                BO7
-                            </small>
-
-                        </div>
-
-
-
-                        <div class="match-card-teams">
-
-
-                            <div class="card-team">
-
-                                <div class="mini-logo kc">
-                                    KC
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Karmine Corp
-                                    </strong>
-
-                                    <span>
-                                        Europe
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="card-score">
-
-                                <strong>
-                                    2
-                                </strong>
-
-                                <span>
-                                    –
-                                </span>
-
-                                <strong>
-                                    0
-                                </strong>
-
-                            </div>
-
-
-
-                            <div class="card-team right">
-
-                                <div>
-
-                                    <strong>
-                                        NRG
-                                    </strong>
-
-                                    <span>
-                                        North America
-                                    </span>
-
-                                </div>
-
-                                <div class="mini-logo nrg">
-                                    NRG
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="match-arrow">
-                            ›
-                        </div>
-
-                    </article>
-
-
-
-                    <!-- MATCH 2 -->
-
-                    <article class="match-card">
-
-
-                        <div class="match-time">
-
-                            <strong>
-                                4:00 PM
-                            </strong>
-
-                            <small>
-                                BO7
-                            </small>
-
-                        </div>
-
-
-
-                        <div class="match-card-teams">
-
-
-                            <div class="card-team">
-
-                                <div class="mini-logo falcons">
-                                    F
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Team Falcons
-                                    </strong>
-
-                                    <span>
-                                        MENA
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="versus">
-                                VS
-                            </div>
-
-
-
-                            <div class="card-team right">
-
-                                <div>
-
-                                    <strong>
-                                        Team Vitality
-                                    </strong>
-
-                                    <span>
-                                        Europe
-                                    </span>
-
-                                </div>
-
-                                <div class="mini-logo vitality">
-                                    V
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="match-arrow">
-                            ›
-                        </div>
-
-                    </article>
-
-
-
-                    <!-- MATCH 3 -->
-
-                    <article class="match-card">
-
-
-                        <div class="match-time">
-
-                            <strong>
-                                5:00 PM
-                            </strong>
-
-                            <small>
-                                BO7
-                            </small>
-
-                        </div>
-
-
-
-                        <div class="match-card-teams">
-
-
-                            <div class="card-team">
-
-                                <div class="mini-logo geng">
-                                    G
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Gen.G
-                                    </strong>
-
-                                    <span>
-                                        North America
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="versus">
-                                VS
-                            </div>
-
-
-
-                            <div class="card-team right">
-
-                                <div>
-
-                                    <strong>
-                                        Spacestation
-                                    </strong>
-
-                                    <span>
-                                        North America
-                                    </span>
-
-                                </div>
-
-                                <div class="mini-logo ssg">
-                                    S
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="match-arrow">
-                            ›
-                        </div>
-
-                    </article>
-
-
-
-                    <!-- FINISHED MATCH -->
-
-                    <article class="match-card finished">
-
-
-                        <div class="match-time">
-
-                            <span class="finished-label">
-                                FINAL
-                            </span>
-
-                            <small>
-                                BO7
-                            </small>
-
-                        </div>
-
-
-
-                        <div class="match-card-teams">
-
-
-                            <div class="card-team">
-
-                                <div class="mini-logo bds">
-                                    B
-                                </div>
-
-                                <div>
-
-                                    <strong>
-                                        Team BDS
-                                    </strong>
-
-                                    <span>
-                                        Europe
-                                    </span>
-
-                                </div>
-
-                            </div>
-
-
-
-                            <div class="card-score">
-
-                                <strong>
-                                    4
-                                </strong>
-
-                                <span>
-                                    –
-                                </span>
-
-                                <strong class="loser">
-                                    2
-                                </strong>
-
-                            </div>
-
-
-
-                            <div class="card-team right">
-
-                                <div>
-
-                                    <strong>
-                                        G2 Esports
-                                    </strong>
-
-                                    <span>
-                                        North America
-                                    </span>
-
-                                </div>
-
-                                <div class="mini-logo g2">
-                                    G2
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <div class="match-arrow">
-                            ›
-                        </div>
-
-                    </article>
-
+                <span class="watch">WATCH</span>
+            </button>
+
+
+            <button
+                class="channel"
+                onclick="changeChannel('rlesports', 'RLEsports', this)"
+            >
+                <div class="channel-icon">RL</div>
+
+                <div class="channel-info">
+                    <strong>RLEsports</strong>
+                    <span>Rocket League Esports</span>
                 </div>
 
-            </section>
-
-
-
-            <!-- =====================
-                 SIDEBAR
-            ====================== -->
-
-            <aside class="sidebar">
-
-
-                <!-- CURRENT EVENT -->
-
-                <section
-                    class="side-panel"
-                    id="events"
-                >
-
-                    <div class="side-heading">
-
-                        <div>
-
-                            <span class="eyebrow">
-                                CURRENT EVENT
-                            </span>
-
-                            <h3>
-                                RLCS Championship
-                            </h3>
-
-                        </div>
-
-
-                        <span class="event-live">
-                            LIVE
-                        </span>
-
-                    </div>
-
-
-
-                    <div class="event-visual">
-
-                        <div class="event-logo">
-                            RLCS
-                        </div>
-
-
-                        <div>
-
-                            <strong>
-                                World Championship
-                            </strong>
-
-                            <span>
-                                International
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <div class="event-stats">
-
-
-                        <div>
-
-                            <span>
-                                FORMAT
-                            </span>
-
-                            <strong>
-                                3v3
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                TEAMS
-                            </span>
-
-                            <strong>
-                                16
-                            </strong>
-
-                        </div>
-
-
-                        <div>
-
-                            <span>
-                                STATUS
-                            </span>
-
-                            <strong class="green">
-                                Live
-                            </strong>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-
-
-                <!-- STANDINGS -->
-
-                <section
-                    class="side-panel"
-                    id="standings"
-                >
-
-                    <div class="side-heading">
-
-                        <div>
-
-                            <span class="eyebrow">
-                                GROUP A
-                            </span>
-
-                            <h3>
-                                Standings
-                            </h3>
-
-                        </div>
-
-
-                        <a href="#standings">
-                            View all
-                        </a>
-
-                    </div>
-
-
-
-                    <div class="standings">
-
-
-                        <div class="standing-row">
-
-                            <span class="position">
-                                1
-                            </span>
-
-                            <div class="standing-logo kc">
-                                KC
-                            </div>
-
-                            <strong>
-                                Karmine Corp
-                            </strong>
-
-                            <span class="record">
-                                2–0
-                            </span>
-
-                        </div>
-
-
-
-                        <div class="standing-row">
-
-                            <span class="position">
-                                2
-                            </span>
-
-                            <div class="standing-logo falcons">
-                                F
-                            </div>
-
-                            <strong>
-                                Falcons
-                            </strong>
-
-                            <span class="record">
-                                1–0
-                            </span>
-
-                        </div>
-
-
-
-                        <div class="standing-row">
-
-                            <span class="position">
-                                3
-                            </span>
-
-                            <div class="standing-logo vitality">
-                                V
-                            </div>
-
-                            <strong>
-                                Vitality
-                            </strong>
-
-                            <span class="record">
-                                1–1
-                            </span>
-
-                        </div>
-
-
-
-                        <div class="standing-row">
-
-                            <span class="position">
-                                4
-                            </span>
-
-                            <div class="standing-logo nrg">
-                                NRG
-                            </div>
-
-                            <strong>
-                                NRG
-                            </strong>
-
-                            <span class="record">
-                                0–2
-                            </span>
-
-                        </div>
-
-                    </div>
-
-                </section>
-
-            </aside>
+                <span class="watch">WATCH</span>
+            </button>
+
+
+            <button
+                class="channel"
+                onclick="changeChannel('rocketleague2', 'RocketLeague2', this)"
+            >
+                <div class="channel-icon">RL2</div>
+
+                <div class="channel-info">
+                    <strong>RocketLeague2</strong>
+                    <span>Secondary Broadcast</span>
+                </div>
+
+                <span class="watch">WATCH</span>
+            </button>
 
         </div>
 
+    </section>
 
+</main>
 
-        <!-- =========================
-             BROADCASTS
-        ========================== -->
 
-        <section
-            class="watch-section"
-            id="watch"
-        >
+<footer>
+    <div>
+        <strong>RL LIVE</strong>
+        <span>Independent Rocket League broadcast viewer.</span>
+    </div>
 
+    <p>
+        Streams provided through official Twitch embeds.
+        Not affiliated with Epic Games, Psyonix or Twitch.
+    </p>
+</footer>
 
-            <div class="watch-heading">
 
-                <div>
+<script>
 
-                    <span class="eyebrow">
-                        BROADCASTS
-                    </span>
+const twitchParent = "b55250489-dotcom.github.io";
 
-                    <h2>
-                        Watch Officially
-                    </h2>
+function changeChannel(channel, displayName, button) {
 
-                </div>
+    const player = document.getElementById("twitch-player");
+    const channelName = document.getElementById("current-channel");
 
+    player.src =
+        "https://player.twitch.tv/?channel=" +
+        encodeURIComponent(channel) +
+        "&parent=" +
+        twitchParent +
+        "&autoplay=true";
 
-                <p>
-                    Continue watching through official
-                    Rocket League broadcast channels.
-                </p>
+    channelName.textContent = displayName;
 
-            </div>
+    document.querySelectorAll(".channel").forEach(item => {
+        item.classList.remove("active");
+    });
 
+    button.classList.add("active");
+}
 
-
-            <div class="broadcast-grid">
-
-
-                <!-- TWITCH -->
-
-                <a
-                    href="https://www.twitch.tv/rocketleague"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="broadcast-card"
-                >
-
-                    <div class="platform-icon twitch">
-                        T
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            Twitch
-                        </strong>
-
-                        <span>
-                            RocketLeague
-                        </span>
-
-                    </div>
-
-
-                    <div class="broadcast-right">
-
-                        <span class="live-badge small">
-
-                            <span class="pulse"></span>
-
-                            LIVE
-
-                        </span>
-
-                        <span class="external">
-                            ↗
-                        </span>
-
-                    </div>
-
-                </a>
-
-
-
-                <!-- YOUTUBE -->
-
-                <a
-                    href="https://www.youtube.com/@rlesports"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="broadcast-card"
-                >
-
-                    <div class="platform-icon youtube">
-                        ▶
-                    </div>
-
-
-                    <div>
-
-                        <strong>
-                            YouTube
-                        </strong>
-
-                        <span>
-                            RL Esports
-                        </span>
-
-                    </div>
-
-
-                    <div class="broadcast-right">
-
-                        <span class="external">
-                            ↗
-                        </span>
-
-                    </div>
-
-                </a>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-
-    <!-- =========================
-         FOOTER
-    ========================== -->
-
-    <footer>
-
-        <div class="container footer-inner">
-
-            <div class="footer-brand">
-
-                <strong>
-                    RL<span>LIVE</span>
-                </strong>
-
-                <p>
-                    Independent Rocket League esports companion.
-                </p>
-
-            </div>
-
-
-            <p class="disclaimer">
-                Not affiliated with Epic Games or Psyonix.
-            </p>
-
-        </div>
-
-    </footer>
+</script>
 
 </body>
-
 </html>
