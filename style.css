@@ -1,4 +1,6 @@
-/* ===== RESET ===== */
+/* =========================
+   RL LIVE - MAIN STYLESHEET
+   ========================= */
 
 * {
     margin: 0;
@@ -11,130 +13,295 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #080b12;
-    color: #ffffff;
     min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #06080d;
+    color: #ffffff;
+    overflow-x: hidden;
 }
 
 
-/* ===== NAVBAR ===== */
+/* =========================
+   NAVBAR
+   ========================= */
 
 .navbar {
-    height: 80px;
+    width: 100%;
+    height: 76px;
+
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     padding: 0 6%;
 
-    background: rgba(8, 11, 18, 0.95);
-    border-bottom: 1px solid #202633;
+    background: rgba(6, 8, 13, 0.92);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    position: relative;
+    z-index: 10;
 }
 
 .logo {
     font-size: 24px;
     font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .logo span {
-    color: #4d8dff;
-}
-
-
-/* ===== HERO ===== */
-
-.hero {
-    min-height: calc(100vh - 80px);
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    text-align: center;
-
-    padding: 40px 20px;
-
-    background:
-        radial-gradient(
-            circle at 50% 40%,
-            rgba(52, 105, 255, 0.18),
-            transparent 40%
-        ),
-        #080b12;
-}
-
-.hero h1 {
-    font-size: clamp(50px, 8vw, 100px);
-    font-weight: 900;
-    letter-spacing: -4px;
-}
-
-.hero h1 span {
-    color: #4d8dff;
-}
-
-.hero p {
-    margin-top: 20px;
-
-    max-width: 650px;
-
-    color: #9ca7ba;
-
-    font-size: 18px;
-    line-height: 1.6;
-}
-
-
-/* ===== BUTTON ===== */
-
-.primary-button {
-    display: inline-block;
-
-    margin-top: 30px;
-    padding: 15px 28px;
-
-    background: #4d8dff;
-    color: white;
-
-    text-decoration: none;
-
-    font-size: 15px;
-    font-weight: 700;
-
-    border-radius: 8px;
-
-    transition: 0.2s ease;
-}
-
-.primary-button:hover {
-    transform: translateY(-2px);
-    background: #6ca1ff;
+    color: #4b8cff;
 }
 
 .navbar nav {
     display: flex;
-    gap: 32px;
+    align-items: center;
+    gap: 35px;
 }
 
 .navbar nav a {
-    color: #9ca7ba;
+    color: #8e98aa;
     text-decoration: none;
+
     font-size: 14px;
     font-weight: 700;
-    transition: 0.2s;
+
+    transition: 0.2s ease;
+}
+
+.navbar nav a:first-child {
+    color: #ffffff;
 }
 
 .navbar nav a:hover {
-    color: white;
+    color: #ffffff;
 }
 
+
+/* =========================
+   HERO
+   ========================= */
+
+.hero {
+    min-height: calc(100vh - 76px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    padding: 80px 25px;
+
+    text-align: center;
+
+    overflow: hidden;
+}
+
+
+/* Blue background glow */
+
+.hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 750px;
+    height: 750px;
+
+    top: 40%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    background: radial-gradient(
+        circle,
+        rgba(52, 112, 255, 0.22) 0%,
+        rgba(29, 70, 180, 0.10) 35%,
+        transparent 70%
+    );
+
+    pointer-events: none;
+}
+
+
+/* Grid effect */
+
+.hero::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,0.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 55px 55px;
+
+    mask-image: linear-gradient(
+        to bottom,
+        transparent,
+        black 30%,
+        transparent
+    );
+
+    pointer-events: none;
+}
+
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 900px;
+}
+
+
+/* =========================
+   LIVE LABEL
+   ========================= */
+
 .live-label {
-    color: #4d8dff !important;
-    font-size: 13px !important;
+    display: inline-flex;
+    align-items: center;
+
+    padding: 8px 13px;
+
+    margin-bottom: 24px !important;
+    margin-top: 0 !important;
+
+    border: 1px solid rgba(75, 140, 255, 0.3);
+    border-radius: 100px;
+
+    background: rgba(75, 140, 255, 0.08);
+
+    color: #6ca1ff !important;
+
+    font-size: 11px !important;
     font-weight: 800;
     letter-spacing: 2px;
-    margin-bottom: 10px;
+}
+
+
+/* =========================
+   HERO TITLE
+   ========================= */
+
+.hero h1 {
+    margin: 0;
+
+    font-size: clamp(58px, 8vw, 110px);
+    line-height: 0.9;
+
+    font-weight: 900;
+    letter-spacing: -5px;
+
+    text-transform: uppercase;
+}
+
+.hero h1 span {
+    color: #4b8cff;
+
+    text-shadow:
+        0 0 35px rgba(75, 140, 255, 0.25);
+}
+
+
+/* =========================
+   HERO DESCRIPTION
+   ========================= */
+
+.hero p {
+    max-width: 620px;
+
+    margin: 28px auto 0;
+
+    color: #9099aa;
+
+    font-size: 17px;
+    line-height: 1.7;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-top: 32px;
+
+    padding: 15px 28px;
+
+    background: #4b8cff;
+    color: #ffffff;
+
+    border: 1px solid #619aff;
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.7px;
+
+    box-shadow:
+        0 8px 30px rgba(75, 140, 255, 0.20);
+
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.primary-button:hover {
+    transform: translateY(-3px);
+
+    background: #639cff;
+
+    box-shadow:
+        0 12px 35px rgba(75, 140, 255, 0.32);
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+    .navbar {
+        padding: 0 20px;
+    }
+
+    .navbar nav {
+        gap: 18px;
+    }
+
+    .navbar nav a {
+        font-size: 12px;
+    }
+
+    .hero {
+        padding: 60px 20px;
+    }
+
+    .hero h1 {
+        font-size: clamp(52px, 17vw, 80px);
+        letter-spacing: -3px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
 }
