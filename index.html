@@ -1,30 +1,466 @@
-<div class="page-tabs">
-    <button
-        id="watch-tab"
-        class="page-tab active"
-        onclick="showWatch()">
-        WATCH
-    </button>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <button
-        id="liquipedia-tab"
-        class="page-tab"
-        onclick="showLiquipedia()">
-        LIQUIPEDIA
-    </button>
+    <title>RL Live</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css?v=21">
+</head>
+
+<body>
+
+<header>
+    <div class="nav">
+
+        <div class="brand">
+            <div class="logo">RL</div>
+
+            <div>
+                <strong>RL LIVE</strong>
+                <span>ROCKET LEAGUE ESPORTS</span>
+            </div>
+        </div>
+
+        <div class="nav-tabs">
+
+            <button
+                id="watch-tab"
+                class="nav-tab active"
+                onclick="showWatch()"
+            >
+                WATCH
+            </button>
+
+            <button
+                id="liquipedia-tab"
+                class="nav-tab"
+                onclick="showLiquipedia()"
+            >
+                LIQUIPEDIA
+            </button>
+
+        </div>
+
+        <div class="status">
+            <span class="status-dot"></span>
+            OFFICIAL BROADCASTS
+        </div>
+
+    </div>
+</header>
+
+
+<!-- WATCH PAGE -->
+
+<div id="watch-page">
+
+    <main>
+
+        <section class="intro">
+
+            <span class="eyebrow">
+                ROCKET LEAGUE ESPORTS
+            </span>
+
+            <h1>
+                Watch Rocket League Live
+            </h1>
+
+            <p>
+                Watch official Rocket League broadcasts
+                without leaving RL Live.
+            </p>
+
+        </section>
+
+
+        <section class="player-card">
+
+            <div class="player-header">
+
+                <div>
+                    <span class="live-dot"></span>
+
+                    <span class="live-text">
+                        LIVE STREAM
+                    </span>
+                </div>
+
+                <span id="current-channel">
+                    RocketLeague
+                </span>
+
+            </div>
+
+
+            <div class="player-wrapper">
+
+                <iframe
+                    id="twitch-player"
+                    src="https://player.twitch.tv/?channel=rocketleague&parent=b55250489-dotcom.github.io&autoplay=false"
+                    allowfullscreen
+                    scrolling="no"
+                    frameborder="0">
+                </iframe>
+
+            </div>
+
+        </section>
+
+
+        <section class="channels">
+
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    CHANNELS
+                </span>
+
+                <h2>
+                    Rocket League Broadcasts
+                </h2>
+
+            </div>
+
+
+            <div class="channel-grid">
+
+                <button
+                    class="channel active"
+                    onclick="changeChannel(
+                        'rocketleague',
+                        'RocketLeague',
+                        this
+                    )"
+                >
+
+                    <div class="channel-icon">
+                        RL
+                    </div>
+
+                    <div class="channel-info">
+
+                        <strong>
+                            RocketLeague
+                        </strong>
+
+                        <span>
+                            Main RL Esports Broadcast
+                        </span>
+
+                    </div>
+
+                    <span class="watch">
+                        WATCH
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="channel"
+                    onclick="changeChannel(
+                        'rlesports',
+                        'RLEsports',
+                        this
+                    )"
+                >
+
+                    <div class="channel-icon">
+                        RL
+                    </div>
+
+                    <div class="channel-info">
+
+                        <strong>
+                            RLEsports
+                        </strong>
+
+                        <span>
+                            Rocket League Esports
+                        </span>
+
+                    </div>
+
+                    <span class="watch">
+                        WATCH
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="channel"
+                    onclick="changeChannel(
+                        'rocketleague2',
+                        'RocketLeague2',
+                        this
+                    )"
+                >
+
+                    <div class="channel-icon">
+                        RL2
+                    </div>
+
+                    <div class="channel-info">
+
+                        <strong>
+                            RocketLeague2
+                        </strong>
+
+                        <span>
+                            Secondary Broadcast
+                        </span>
+
+                    </div>
+
+                    <span class="watch">
+                        WATCH
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <div>
+
+            <strong>
+                RL LIVE
+            </strong>
+
+            <span>
+                Independent Rocket League broadcast viewer.
+            </span>
+
+        </div>
+
+        <p>
+            Streams provided through official Twitch embeds.
+            Not affiliated with Epic Games, Psyonix or Twitch.
+        </p>
+
+    </footer>
+
 </div>
 
-<div id="liquipedia-page" style="display:none;">
+
+<!-- LIQUIPEDIA PAGE -->
+
+<div id="liquipedia-page">
+
+    <div class="liquipedia-bar">
+
+        <div>
+
+            <span class="eyebrow">
+                ROCKET LEAGUE ESPORTS
+            </span>
+
+            <strong>
+                Liquipedia
+            </strong>
+
+        </div>
+
+        <span>
+            Rocket League Wiki
+        </span>
+
+    </div>
+
+
     <iframe
         id="liquipedia-frame"
         src="about:blank"
-        style="
-            width:100%;
-            height:calc(100vh - 120px);
-            border:none;
-            background:white;
-        ">
+        referrerpolicy="strict-origin-when-cross-origin">
     </iframe>
+
 </div>
 
-<div id="watch-page">
+
+<script>
+
+const twitchParent =
+    "b55250489-dotcom.github.io";
+
+
+/* =========================
+   TWITCH CHANNELS
+========================= */
+
+function changeChannel(
+    channel,
+    displayName,
+    button
+) {
+
+    const player =
+        document.getElementById(
+            "twitch-player"
+        );
+
+    const channelName =
+        document.getElementById(
+            "current-channel"
+        );
+
+
+    player.src =
+        "https://player.twitch.tv/?" +
+        "channel=" +
+        encodeURIComponent(channel) +
+        "&parent=" +
+        twitchParent +
+        "&autoplay=true";
+
+
+    channelName.textContent =
+        displayName;
+
+
+    document
+        .querySelectorAll(".channel")
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    button.classList.add(
+        "active"
+    );
+}
+
+
+/* =========================
+   WATCH TAB
+========================= */
+
+function showWatch() {
+
+    const watchPage =
+        document.getElementById(
+            "watch-page"
+        );
+
+    const liquipediaPage =
+        document.getElementById(
+            "liquipedia-page"
+        );
+
+    const watchTab =
+        document.getElementById(
+            "watch-tab"
+        );
+
+    const liquipediaTab =
+        document.getElementById(
+            "liquipedia-tab"
+        );
+
+
+    watchPage.style.display =
+        "block";
+
+    liquipediaPage.style.display =
+        "none";
+
+
+    watchTab.classList.add(
+        "active"
+    );
+
+    liquipediaTab.classList.remove(
+        "active"
+    );
+}
+
+
+/* =========================
+   LIQUIPEDIA TAB
+========================= */
+
+function showLiquipedia() {
+
+    const watchPage =
+        document.getElementById(
+            "watch-page"
+        );
+
+    const liquipediaPage =
+        document.getElementById(
+            "liquipedia-page"
+        );
+
+    const watchTab =
+        document.getElementById(
+            "watch-tab"
+        );
+
+    const liquipediaTab =
+        document.getElementById(
+            "liquipedia-tab"
+        );
+
+    const frame =
+        document.getElementById(
+            "liquipedia-frame"
+        );
+
+
+    watchPage.style.display =
+        "none";
+
+    liquipediaPage.style.display =
+        "block";
+
+
+    watchTab.classList.remove(
+        "active"
+    );
+
+    liquipediaTab.classList.add(
+        "active"
+    );
+
+
+    /*
+        Only load Liquipedia the
+        first time the tab is opened.
+    */
+
+    if (
+        frame.getAttribute("src") ===
+        "about:blank"
+    ) {
+
+        frame.src =
+            "https://liquipedia.net/rocketleague/Main_Page";
+
+    }
+}
+
+</script>
+
+</body>
+</html>
