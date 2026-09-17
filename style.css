@@ -22,8 +22,6 @@
 }
 
 
-/* RESET */
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -60,7 +58,16 @@ body {
 }
 
 
-/* HEADER */
+button {
+    font-family:
+        "Inter",
+        sans-serif;
+}
+
+
+/* =====================
+   HEADER
+===================== */
 
 header {
 
@@ -102,8 +109,6 @@ header {
 
 }
 
-
-/* BRAND */
 
 .brand {
 
@@ -181,8 +186,6 @@ header {
 }
 
 
-/* STATUS */
-
 .status {
 
     margin-left: auto;
@@ -221,7 +224,9 @@ header {
 }
 
 
-/* MAIN */
+/* =====================
+   MAIN / HERO
+===================== */
 
 main {
 
@@ -235,8 +240,6 @@ main {
 
 }
 
-
-/* HERO */
 
 .intro {
 
@@ -295,7 +298,9 @@ main {
 }
 
 
-/* VIEW CONTROLS */
+/* =====================
+   VIEW CONTROLS
+===================== */
 
 .view-controls {
 
@@ -338,10 +343,6 @@ main {
 
     border-radius: 7px;
 
-    font-family:
-        "Inter",
-        sans-serif;
-
     font-size: 8px;
 
     font-weight: 800;
@@ -349,17 +350,6 @@ main {
     letter-spacing: .6px;
 
     cursor: pointer;
-
-    transition:
-        background .15s,
-        color .15s;
-
-}
-
-
-.view-button:hover {
-
-    color: #aab5c6;
 
 }
 
@@ -382,8 +372,6 @@ main {
 }
 
 
-/* HIDDEN */
-
 .hidden {
 
     display: none !important;
@@ -391,7 +379,9 @@ main {
 }
 
 
-/* PLAYER */
+/* =====================
+   SINGLE PLAYER
+===================== */
 
 .player-card {
 
@@ -451,8 +441,7 @@ main {
 
     border-radius: 50%;
 
-    background:
-        var(--red);
+    background: var(--red);
 
     box-shadow:
         0 0 10px
@@ -485,8 +474,6 @@ main {
 }
 
 
-/* SINGLE PLAYER */
-
 .player-wrapper {
 
     position: relative;
@@ -515,7 +502,9 @@ main {
 }
 
 
-/* CHANNELS */
+/* =====================
+   CHANNELS
+===================== */
 
 .channels {
 
@@ -553,8 +542,6 @@ main {
 }
 
 
-/* CHANNEL GRID */
-
 .channel-grid {
 
     display: grid;
@@ -589,10 +576,6 @@ main {
         1px solid var(--border);
 
     border-radius: 11px;
-
-    font-family:
-        "Inter",
-        sans-serif;
 
     text-align: left;
 
@@ -728,7 +711,8 @@ main {
 
     align-items: flex-end;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     gap: 20px;
 
@@ -748,8 +732,7 @@ main {
 
     margin-top: 7px;
 
-    color:
-        var(--muted);
+    color: var(--muted);
 
     font-size: 10px;
 
@@ -787,21 +770,73 @@ main {
 }
 
 
-/* MULTI GRID */
+/* =====================
+   DYNAMIC GRID
+===================== */
 
 .multi-grid {
 
     display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
 
     gap: 12px;
 
 }
 
 
-/* MULTI CARD */
+.multi-grid.streams-1 {
+
+    grid-template-columns:
+        1fr;
+
+}
+
+
+.multi-grid.streams-1
+.multi-card {
+
+    max-width: 100%;
+
+}
+
+
+.multi-grid.streams-2 {
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+}
+
+
+.multi-grid.streams-3 {
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0,1fr)
+        );
+
+}
+
+
+.multi-grid.streams-3
+.multi-card:last-child {
+
+    grid-column:
+        1 / -1;
+
+    width: 50%;
+
+    justify-self: center;
+
+}
+
+
+/* =====================
+   MULTI CARD
+===================== */
 
 .multi-card {
 
@@ -824,20 +859,6 @@ main {
 }
 
 
-.multi-card-wide {
-
-    grid-column:
-        1 / -1;
-
-    width: 50%;
-
-    justify-self: center;
-
-}
-
-
-/* MULTI HEADER */
-
 .multi-header {
 
     height: 46px;
@@ -848,7 +869,8 @@ main {
 
     align-items: center;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     gap: 10px;
 
@@ -892,7 +914,8 @@ main {
 
     white-space: nowrap;
 
-    text-overflow: ellipsis;
+    text-overflow:
+        ellipsis;
 
 }
 
@@ -910,7 +933,16 @@ main {
 }
 
 
-/* FOCUS */
+.multi-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+}
+
 
 .focus-button {
 
@@ -929,10 +961,6 @@ main {
 
     border-radius: 6px;
 
-    font-family:
-        "Inter",
-        sans-serif;
-
     font-size: 6px;
 
     font-weight: 800;
@@ -940,10 +968,6 @@ main {
     letter-spacing: .6px;
 
     cursor: pointer;
-
-    transition:
-        background .15s,
-        border-color .15s;
 
 }
 
@@ -953,13 +977,49 @@ main {
     background:
         rgba(77,140,255,.16);
 
-    border-color:
-        rgba(77,140,255,.35);
+}
+
+
+.remove-button {
+
+    width: 27px;
+
+    height: 27px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        rgba(255,77,94,.06);
+
+    color: #c97c84;
+
+    border:
+        1px solid
+        rgba(255,77,94,.12);
+
+    border-radius: 6px;
+
+    font-size: 15px;
+
+    cursor: pointer;
 
 }
 
 
-/* MULTI PLAYER */
+.remove-button:hover {
+
+    background:
+        rgba(255,77,94,.14);
+
+    color:
+        #ff7b88;
+
+}
+
 
 .multi-player {
 
@@ -989,7 +1049,336 @@ main {
 }
 
 
-/* FOOTER */
+/* =====================
+   EMPTY MULTI VIEW
+===================== */
+
+.empty-multi {
+
+    padding:
+        65px 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        var(--surface);
+
+    border:
+        1px dashed
+        rgba(255,255,255,.10);
+
+    border-radius: 12px;
+
+    text-align: center;
+
+}
+
+
+.empty-icon {
+
+    margin-bottom: 12px;
+
+    color:
+        #5c78aa;
+
+    font-size: 28px;
+
+}
+
+
+.empty-multi h3 {
+
+    font-size: 13px;
+
+}
+
+
+.empty-multi p {
+
+    margin-top: 6px;
+
+    color:
+        var(--muted);
+
+    font-size: 9px;
+
+}
+
+
+/* =====================
+   ADD STREAM
+===================== */
+
+.add-stream-area {
+
+    position: relative;
+
+    width: fit-content;
+
+    margin:
+        18px auto 0;
+
+}
+
+
+.add-stream-button {
+
+    height: 38px;
+
+    padding:
+        0 17px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    background:
+        rgba(77,140,255,.08);
+
+    color:
+        var(--blue-light);
+
+    border:
+        1px solid
+        rgba(77,140,255,.18);
+
+    border-radius: 8px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+    letter-spacing: .6px;
+
+    cursor: pointer;
+
+}
+
+
+.add-stream-button > span {
+
+    font-size: 16px;
+
+    line-height: 0;
+
+}
+
+
+.add-stream-button:hover {
+
+    background:
+        rgba(77,140,255,.14);
+
+    border-color:
+        rgba(77,140,255,.30);
+
+}
+
+
+.add-stream-button.disabled {
+
+    opacity: .35;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* =====================
+   ADD MENU
+===================== */
+
+.add-stream-menu {
+
+    position: absolute;
+
+    z-index: 50;
+
+    bottom:
+        calc(100% + 9px);
+
+    left: 50%;
+
+    width: 290px;
+
+    padding: 7px;
+
+    transform:
+        translateX(-50%);
+
+    background:
+        #101620;
+
+    border:
+        1px solid
+        rgba(255,255,255,.10);
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 18px 55px
+        rgba(0,0,0,.55);
+
+}
+
+
+.add-menu-header {
+
+    padding:
+        7px 8px 9px;
+
+    color:
+        #657184;
+
+    font-size: 6px;
+
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+}
+
+
+.available-streams {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 4px;
+
+}
+
+
+.stream-option {
+
+    width: 100%;
+
+    padding: 9px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    border: none;
+
+    border-radius: 7px;
+
+    text-align: left;
+
+    cursor: pointer;
+
+}
+
+
+.stream-option:hover {
+
+    background:
+        rgba(255,255,255,.05);
+
+}
+
+
+.option-icon {
+
+    width: 34px;
+
+    height: 34px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        var(--surface3);
+
+    color:
+        #8eb3ff;
+
+    border-radius: 7px;
+
+    font-size: 8px;
+
+    font-weight: 800;
+
+}
+
+
+.option-info {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+
+}
+
+
+.option-info strong {
+
+    font-size: 9px;
+
+}
+
+
+.option-info span {
+
+    overflow: hidden;
+
+    color:
+        #657184;
+
+    font-size: 7px;
+
+    white-space: nowrap;
+
+    text-overflow:
+        ellipsis;
+
+}
+
+
+.option-add {
+
+    margin-left: auto;
+
+    color:
+        var(--blue-light);
+
+    font-size: 17px;
+
+}
+
+
+/* =====================
+   FOOTER
+===================== */
 
 footer {
 
@@ -1009,7 +1398,8 @@ footer {
 
     align-items: center;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     gap: 30px;
 
@@ -1072,7 +1462,8 @@ footer p {
     }
 
 
-    .multi-grid {
+    .multi-grid.streams-2,
+    .multi-grid.streams-3 {
 
         grid-template-columns:
             1fr;
@@ -1080,7 +1471,8 @@ footer p {
     }
 
 
-    .multi-card-wide {
+    .multi-grid.streams-3
+    .multi-card:last-child {
 
         grid-column: auto;
 
@@ -1108,13 +1500,6 @@ footer p {
     .brand span {
 
         display: none;
-
-    }
-
-
-    .status {
-
-        font-size: 7px;
 
     }
 
@@ -1155,7 +1540,8 @@ footer p {
 
         flex: 1;
 
-        justify-content: center;
+        justify-content:
+            center;
 
     }
 
@@ -1167,6 +1553,27 @@ footer p {
 
         flex-direction:
             column;
+
+    }
+
+
+    .add-stream-area {
+
+        width: 100%;
+
+    }
+
+
+    .add-stream-button {
+
+        width: 100%;
+
+    }
+
+
+    .add-stream-menu {
+
+        width: 100%;
 
     }
 
@@ -1194,10 +1601,6 @@ footer p {
 }
 
 
-/* =====================
-   SMALL MOBILE
-===================== */
-
 @media (max-width: 480px) {
 
     header {
@@ -1219,13 +1622,6 @@ footer p {
     .status {
 
         display: none;
-
-    }
-
-
-    .multi-header {
-
-        height: 43px;
 
     }
 
