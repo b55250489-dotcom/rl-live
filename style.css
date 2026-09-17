@@ -1,8 +1,8 @@
 :root {
     --bg: #07090e;
     --surface: #0d1119;
-    --surface-2: #121824;
-    --surface-3: #171f2c;
+    --surface2: #121824;
+    --surface3: #171f2c;
 
     --border:
         rgba(255,255,255,.08);
@@ -11,7 +11,7 @@
     --muted: #7f8999;
 
     --blue: #4d8cff;
-    --blue-light: #6fa2ff;
+    --blue-light: #76a6ff;
 
     --red: #ff4d5e;
 }
@@ -32,7 +32,14 @@ html {
 body {
     min-height: 100vh;
 
-    background: var(--bg);
+    background:
+        radial-gradient(
+            circle at 50% -200px,
+            rgba(77,140,255,.09),
+            transparent 500px
+        ),
+        var(--bg);
+
     color: var(--text);
 
     font-family:
@@ -42,13 +49,14 @@ body {
 }
 
 
-/* =========================
+/* ========================================
    HEADER
-========================= */
+======================================== */
 
 header {
     position: sticky;
     top: 0;
+
     z-index: 100;
 
     height: 72px;
@@ -60,15 +68,16 @@ header {
         1px solid var(--border);
 
     backdrop-filter:
-        blur(16px);
+        blur(18px);
 }
 
 
 .nav {
-    width: min(
-        1200px,
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            1200px,
+            calc(100% - 40px)
+        );
 
     height: 100%;
 
@@ -77,17 +86,19 @@ header {
     display: flex;
     align-items: center;
 
-    gap: 30px;
+    gap: 25px;
 }
 
 
-/* BRAND */
+/* ========================================
+   BRAND
+======================================== */
 
 .brand {
     display: flex;
     align-items: center;
 
-    gap: 12px;
+    gap: 11px;
 
     flex-shrink: 0;
 }
@@ -112,9 +123,9 @@ header {
 
     box-shadow:
         0 10px 30px
-        rgba(77,140,255,.22);
+        rgba(77,140,255,.25);
 
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 800;
 }
 
@@ -128,58 +139,58 @@ header {
 
 
 .brand strong {
-    font-size: 13px;
+    font-size: 12px;
 
-    letter-spacing: .5px;
+    letter-spacing: .6px;
 }
 
 
 .brand span {
     color: #657083;
 
-    font-size: 8px;
+    font-size: 7px;
     font-weight: 700;
 
     letter-spacing: 1px;
 }
 
 
-/* =========================
-   NAV TABS
-========================= */
+/* ========================================
+   TABS
+======================================== */
 
-.nav-tabs {
+.tabs {
     height: 100%;
 
     display: flex;
     align-items: center;
 
-    gap: 4px;
+    gap: 3px;
 
-    margin-left: 15px;
+    margin-left: 18px;
 }
 
 
-.nav-tab {
+.tab {
     position: relative;
 
     height: 100%;
 
     padding: 0 16px;
 
-    background: transparent;
-    color: #727d8f;
-
     border: none;
+
+    background: transparent;
+    color: #707b8d;
 
     font-family:
         "Inter",
         sans-serif;
 
-    font-size: 10px;
-    font-weight: 700;
+    font-size: 9px;
+    font-weight: 800;
 
-    letter-spacing: .8px;
+    letter-spacing: .9px;
 
     cursor: pointer;
 
@@ -187,17 +198,17 @@ header {
 }
 
 
-.nav-tab:hover {
+.tab:hover {
+    color: #dfe5ee;
+}
+
+
+.tab.active {
     color: white;
 }
 
 
-.nav-tab.active {
-    color: white;
-}
-
-
-.nav-tab.active::after {
+.tab.active::after {
     content: "";
 
     position: absolute;
@@ -208,14 +219,16 @@ header {
 
     height: 2px;
 
-    background: var(--blue);
-
     border-radius:
         2px 2px 0 0;
+
+    background: var(--blue);
 }
 
 
-/* STATUS */
+/* ========================================
+   STATUS
+======================================== */
 
 .status {
     margin-left: auto;
@@ -248,23 +261,34 @@ header {
 }
 
 
-/* =========================
-   MAIN
-========================= */
+/* ========================================
+   PAGES
+======================================== */
+
+.page {
+    display: none;
+}
+
+
+.page.active-page {
+    display: block;
+}
+
 
 main {
-    width: min(
-        1100px,
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            1100px,
+            calc(100% - 40px)
+        );
 
     margin: auto;
 }
 
 
-/* =========================
+/* ========================================
    INTRO
-========================= */
+======================================== */
 
 .intro {
     padding:
@@ -280,7 +304,7 @@ main {
 
     color: var(--blue-light);
 
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 800;
 
     letter-spacing: 1.3px;
@@ -302,30 +326,28 @@ main {
 
 
 .intro p {
-    max-width: 520px;
+    max-width: 530px;
 
     margin-top: 13px;
 
     color: var(--muted);
 
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.7;
 }
 
 
-/* =========================
-   PLAYER
-========================= */
+/* ========================================
+   TWITCH PLAYER
+======================================== */
 
 .player-card {
     overflow: hidden;
 
-    background:
-        var(--surface);
+    background: var(--surface);
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius: 14px;
 
@@ -346,8 +368,7 @@ main {
         space-between;
 
     border-bottom:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 }
 
 
@@ -376,7 +397,7 @@ main {
 .live-text {
     color: #a9b2c1;
 
-    font-size: 9px;
+    font-size: 8px;
     font-weight: 800;
 
     letter-spacing: 1px;
@@ -386,7 +407,7 @@ main {
 #current-channel {
     color: #6f7a8c;
 
-    font-size: 10px;
+    font-size: 9px;
     font-weight: 600;
 }
 
@@ -398,7 +419,7 @@ main {
 
     aspect-ratio: 16 / 9;
 
-    background: black;
+    background: #000;
 }
 
 
@@ -414,9 +435,9 @@ main {
 }
 
 
-/* =========================
+/* ========================================
    CHANNELS
-========================= */
+======================================== */
 
 .channels {
     padding:
@@ -430,8 +451,9 @@ main {
 }
 
 
-.section-heading h2 {
-    font-size: 21px;
+.section-heading h2,
+.section-title-row h2 {
+    font-size: 20px;
 
     letter-spacing: -.7px;
 }
@@ -457,14 +479,11 @@ main {
 
     gap: 12px;
 
-    background:
-        var(--surface);
-
+    background: var(--surface);
     color: var(--text);
 
     border:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 
     border-radius: 11px;
 
@@ -476,10 +495,7 @@ main {
 
     cursor: pointer;
 
-    transition:
-        transform .15s,
-        border-color .15s,
-        background .15s;
+    transition: .15s;
 }
 
 
@@ -488,7 +504,7 @@ main {
         translateY(-2px);
 
     background:
-        var(--surface-2);
+        var(--surface2);
 
     border-color:
         rgba(255,255,255,.13);
@@ -516,12 +532,11 @@ main {
 
     border-radius: 9px;
 
-    background:
-        var(--surface-3);
+    background: var(--surface3);
 
     color: #8eb3ff;
 
-    font-size: 11px;
+    font-size: 10px;
     font-weight: 800;
 }
 
@@ -537,7 +552,7 @@ main {
 
 
 .channel-info strong {
-    font-size: 11px;
+    font-size: 10px;
 }
 
 
@@ -546,114 +561,239 @@ main {
 
     color: #697486;
 
-    font-size: 9px;
+    font-size: 8px;
 
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 
-.watch {
+.watch-button {
     margin-left: auto;
 
     color: #638fe6;
 
-    font-size: 8px;
+    font-size: 7px;
     font-weight: 800;
 
     letter-spacing: .7px;
 }
 
 
-/* =========================
-   LIQUIPEDIA PAGE
-========================= */
+/* ========================================
+   ESPORTS
+======================================== */
 
-#liquipedia-page {
-    display: none;
-
-    width: 100%;
-
-    height:
-        calc(
-            100vh - 72px
-        );
-
-    background: #080b11;
+.esports-intro {
+    padding-bottom: 50px;
 }
 
 
-.liquipedia-bar {
-    height: 58px;
+.esports-section {
+    margin-bottom: 55px;
+}
 
-    padding: 0 22px;
+
+.section-title-row {
+    margin-bottom: 17px;
 
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content:
         space-between;
-
-    background:
-        var(--surface);
-
-    border-bottom:
-        1px solid
-        var(--border);
 }
 
 
-.liquipedia-bar > div {
+.section-title-row .eyebrow {
+    margin-bottom: 6px;
+}
+
+
+.section-badge {
+    padding: 6px 9px;
+
+    border:
+        1px solid
+        rgba(77,140,255,.2);
+
+    border-radius: 6px;
+
+    background:
+        rgba(77,140,255,.08);
+
+    color: #7da8ff;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: .8px;
+}
+
+
+/* EMPTY / DATA CARD */
+
+.empty-card {
+    min-height: 105px;
+
+    padding: 20px;
+
     display: flex;
     align-items: center;
+
+    gap: 17px;
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
+}
+
+
+.empty-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background:
+        rgba(77,140,255,.08);
+
+    border:
+        1px solid
+        rgba(77,140,255,.12);
+
+    color: #78a5ff;
+
+    font-size: 9px;
+    font-weight: 800;
+}
+
+
+.empty-card strong {
+    display: block;
+
+    margin-bottom: 6px;
+
+    font-size: 11px;
+}
+
+
+.empty-card p {
+    max-width: 500px;
+
+    color: #697486;
+
+    font-size: 9px;
+    line-height: 1.6;
+}
+
+
+.match-list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 9px;
+}
+
+
+/* EVENTS */
+
+.event-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
 
     gap: 12px;
 }
 
 
-.liquipedia-bar .eyebrow {
-    margin: 0;
+.event-card {
+    min-height: 190px;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 12px;
 }
 
 
-.liquipedia-bar strong {
-    font-size: 13px;
+.event-icon {
+    width: 43px;
+    height: 43px;
+
+    margin-bottom: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background:
+        rgba(77,140,255,.08);
+
+    color: #79a5ff;
+
+    font-size: 8px;
+    font-weight: 800;
 }
 
 
-.liquipedia-bar > span {
-    color: #626d7e;
+.event-type {
+    margin-bottom: 6px;
+
+    color: #536175;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+
+.event-card strong {
+    margin-bottom: 7px;
+
+    font-size: 11px;
+}
+
+
+.event-card p {
+    color: #697486;
 
     font-size: 9px;
+    line-height: 1.6;
 }
 
 
-#liquipedia-frame {
-    display: block;
-
-    width: 100%;
-
-    height:
-        calc(
-            100vh - 130px
-        );
-
-    background: white;
-
-    border: none;
-}
-
-
-/* =========================
+/* ========================================
    FOOTER
-========================= */
+======================================== */
 
 footer {
-    width: min(
-        1100px,
-        calc(100% - 40px)
-    );
+    width:
+        min(
+            1100px,
+            calc(100% - 40px)
+        );
 
-    margin: auto;
+    margin: 35px auto 0;
 
     padding:
         25px 0
@@ -667,8 +807,7 @@ footer {
     gap: 30px;
 
     border-top:
-        1px solid
-        var(--border);
+        1px solid var(--border);
 }
 
 
@@ -681,7 +820,7 @@ footer > div {
 
 
 footer strong {
-    font-size: 10px;
+    font-size: 9px;
 }
 
 
@@ -689,7 +828,7 @@ footer span,
 footer p {
     color: #4f5969;
 
-    font-size: 8px;
+    font-size: 7px;
 }
 
 
@@ -701,26 +840,17 @@ footer p {
 }
 
 
-/* =========================
-   MOBILE
-========================= */
+/* ========================================
+   MOBILE / CHROMEBOOK
+======================================== */
 
-@media (
-    max-width: 760px
-) {
-
-    header {
-        height: auto;
-    }
-
+@media (max-width: 760px) {
 
     .nav {
         width:
-            calc(100% - 24px);
+            calc(100% - 22px);
 
-        min-height: 66px;
-
-        gap: 10px;
+        gap: 8px;
     }
 
 
@@ -729,15 +859,15 @@ footer p {
     }
 
 
-    .nav-tabs {
+    .tabs {
         margin-left: auto;
     }
 
 
-    .nav-tab {
+    .tab {
         padding: 0 9px;
 
-        font-size: 9px;
+        font-size: 8px;
     }
 
 
@@ -759,7 +889,8 @@ footer p {
     }
 
 
-    .channel-grid {
+    .channel-grid,
+    .event-grid {
         grid-template-columns:
             1fr;
     }
