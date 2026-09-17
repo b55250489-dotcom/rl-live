@@ -14,7 +14,7 @@
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="style.css?v=40">
+    <link rel="stylesheet" href="style.css?v=50">
 </head>
 
 <body>
@@ -23,16 +23,12 @@
     <div class="nav">
 
         <div class="brand">
-
-            <div class="logo">
-                RL
-            </div>
+            <div class="logo">RL</div>
 
             <div class="brand-text">
                 <strong>RL LIVE</strong>
                 <span>ROCKET LEAGUE STREAMS</span>
             </div>
-
         </div>
 
         <div class="status">
@@ -54,9 +50,7 @@
             ROCKET LEAGUE ESPORTS
         </span>
 
-        <h1>
-            Watch Rocket League Live
-        </h1>
+        <h1>Watch Rocket League Live</h1>
 
         <p>
             Watch official Rocket League esports broadcasts
@@ -66,169 +60,336 @@
     </section>
 
 
-    <!-- PLAYER -->
+    <!-- VIEW MODE -->
 
-    <section class="player-card">
+    <div class="view-controls">
 
-        <div class="player-header">
+        <button
+            id="singleViewButton"
+            class="view-button active"
+            onclick="setView('single')"
+        >
+            <span class="view-icon">▣</span>
+            SINGLE VIEW
+        </button>
 
-            <div class="live-label">
+        <button
+            id="multiViewButton"
+            class="view-button"
+            onclick="setView('multi')"
+        >
+            <span class="view-icon">▦</span>
+            MULTI VIEW
+        </button>
 
-                <span class="live-dot"></span>
+    </div>
 
-                <span class="live-text">
-                    LIVE STREAM
+
+    <!-- SINGLE VIEW -->
+
+    <section id="singleView">
+
+        <div class="player-card">
+
+            <div class="player-header">
+
+                <div class="live-label">
+                    <span class="live-dot"></span>
+                    <span class="live-text">LIVE STREAM</span>
+                </div>
+
+                <span id="current-channel">
+                    RocketLeague
                 </span>
 
             </div>
 
 
-            <span id="current-channel">
-                RocketLeague
-            </span>
+            <div class="player-wrapper">
+
+                <iframe
+                    id="twitch-player"
+                    src="https://player.twitch.tv/?channel=rocketleague&parent=b55250489-dotcom.github.io&autoplay=false"
+                    allow="autoplay; fullscreen"
+                    allowfullscreen
+                    scrolling="no"
+                    frameborder="0">
+                </iframe>
+
+            </div>
 
         </div>
 
 
-        <div class="player-wrapper">
+        <!-- CHANNELS -->
 
-            <iframe
-                id="twitch-player"
-                src="https://player.twitch.tv/?channel=rocketleague&parent=b55250489-dotcom.github.io&autoplay=false"
-                allowfullscreen
-                scrolling="no"
-                frameborder="0">
-            </iframe>
+        <section class="channels">
 
-        </div>
+            <div class="section-heading">
+
+                <span class="eyebrow">
+                    CHANNELS
+                </span>
+
+                <h2>Rocket League Broadcasts</h2>
+
+                <p>
+                    Choose which official broadcast
+                    you want to watch.
+                </p>
+
+            </div>
+
+
+            <div class="channel-grid">
+
+                <button
+                    class="channel active"
+                    onclick="changeChannel(
+                        'rocketleague',
+                        'RocketLeague',
+                        this
+                    )"
+                >
+
+                    <div class="channel-icon">
+                        RL
+                    </div>
+
+                    <div class="channel-info">
+                        <strong>RocketLeague</strong>
+                        <span>Main RL Esports Broadcast</span>
+                    </div>
+
+                    <span class="watch-button">
+                        WATCH
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="channel"
+                    onclick="changeChannel(
+                        'rlesports',
+                        'RLEsports',
+                        this
+                    )"
+                >
+
+                    <div class="channel-icon">
+                        RL
+                    </div>
+
+                    <div class="channel-info">
+                        <strong>RLEsports</strong>
+                        <span>Rocket League Esports</span>
+                    </div>
+
+                    <span class="watch-button">
+                        WATCH
+                    </span>
+
+                </button>
+
+
+                <button
+                    class="channel"
+                    onclick="changeChannel(
+                        'rocketleague2',
+                        'RocketLeague2',
+                        this
+                    )"
+                >
+
+                    <div class="channel-icon">
+                        RL2
+                    </div>
+
+                    <div class="channel-info">
+                        <strong>RocketLeague2</strong>
+                        <span>Secondary Broadcast</span>
+                    </div>
+
+                    <span class="watch-button">
+                        WATCH
+                    </span>
+
+                </button>
+
+            </div>
+
+        </section>
 
     </section>
 
 
-    <!-- CHANNELS -->
+    <!-- MULTI VIEW -->
 
-    <section class="channels">
+    <section id="multiView" class="hidden">
 
-        <div class="section-heading">
+        <div class="multi-heading">
 
-            <span class="eyebrow">
-                CHANNELS
-            </span>
+            <div>
+                <span class="eyebrow">
+                    MULTI VIEW
+                </span>
 
-            <h2>
-                Rocket League Broadcasts
-            </h2>
+                <h2>All Broadcasts</h2>
 
-            <p>
-                Switch between official Rocket League
-                esports channels.
-            </p>
+                <p>
+                    Watch multiple Rocket League broadcasts
+                    at the same time.
+                </p>
+            </div>
+
+            <div class="multi-live">
+                <span class="live-dot"></span>
+                3 STREAMS
+            </div>
 
         </div>
 
 
-        <div class="channel-grid">
-
-            <!-- ROCKET LEAGUE -->
-
-            <button
-                class="channel active"
-                onclick="changeChannel(
-                    'rocketleague',
-                    'RocketLeague',
-                    this
-                )"
-            >
-
-                <div class="channel-icon">
-                    RL
-                </div>
-
-                <div class="channel-info">
-
-                    <strong>
-                        RocketLeague
-                    </strong>
-
-                    <span>
-                        Main RL Esports Broadcast
-                    </span>
-
-                </div>
-
-                <span class="watch-button">
-                    WATCH
-                </span>
-
-            </button>
+        <div class="multi-grid">
 
 
-            <!-- RL ESPORTS -->
+            <!-- STREAM 1 -->
 
-            <button
-                class="channel"
-                onclick="changeChannel(
-                    'rlesports',
-                    'RLEsports',
-                    this
-                )"
-            >
+            <div class="multi-card">
 
-                <div class="channel-icon">
-                    RL
-                </div>
+                <div class="multi-header">
 
-                <div class="channel-info">
+                    <div class="multi-channel">
 
-                    <strong>
-                        RLEsports
-                    </strong>
+                        <span class="live-dot"></span>
 
-                    <span>
-                        Rocket League Esports
-                    </span>
+                        <div>
+                            <strong>RocketLeague</strong>
+                            <span>MAIN BROADCAST</span>
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="focus-button"
+                        onclick="focusStream(
+                            'rocketleague',
+                            'RocketLeague'
+                        )"
+                    >
+                        FOCUS
+                    </button>
 
                 </div>
 
-                <span class="watch-button">
-                    WATCH
-                </span>
 
-            </button>
+                <div class="multi-player">
 
-
-            <!-- ROCKET LEAGUE 2 -->
-
-            <button
-                class="channel"
-                onclick="changeChannel(
-                    'rocketleague2',
-                    'RocketLeague2',
-                    this
-                )"
-            >
-
-                <div class="channel-icon">
-                    RL2
-                </div>
-
-                <div class="channel-info">
-
-                    <strong>
-                        RocketLeague2
-                    </strong>
-
-                    <span>
-                        Secondary Broadcast
-                    </span>
+                    <iframe
+                        id="multi-rocketleague"
+                        data-channel="rocketleague"
+                        allow="autoplay; fullscreen"
+                        allowfullscreen
+                        scrolling="no"
+                        frameborder="0">
+                    </iframe>
 
                 </div>
 
-                <span class="watch-button">
-                    WATCH
-                </span>
+            </div>
 
-            </button>
+
+            <!-- STREAM 2 -->
+
+            <div class="multi-card">
+
+                <div class="multi-header">
+
+                    <div class="multi-channel">
+
+                        <span class="live-dot"></span>
+
+                        <div>
+                            <strong>RLEsports</strong>
+                            <span>ESPORTS BROADCAST</span>
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="focus-button"
+                        onclick="focusStream(
+                            'rlesports',
+                            'RLEsports'
+                        )"
+                    >
+                        FOCUS
+                    </button>
+
+                </div>
+
+
+                <div class="multi-player">
+
+                    <iframe
+                        id="multi-rlesports"
+                        data-channel="rlesports"
+                        allow="autoplay; fullscreen"
+                        allowfullscreen
+                        scrolling="no"
+                        frameborder="0">
+                    </iframe>
+
+                </div>
+
+            </div>
+
+
+            <!-- STREAM 3 -->
+
+            <div class="multi-card multi-card-wide">
+
+                <div class="multi-header">
+
+                    <div class="multi-channel">
+
+                        <span class="live-dot"></span>
+
+                        <div>
+                            <strong>RocketLeague2</strong>
+                            <span>SECONDARY BROADCAST</span>
+                        </div>
+
+                    </div>
+
+                    <button
+                        class="focus-button"
+                        onclick="focusStream(
+                            'rocketleague2',
+                            'RocketLeague2'
+                        )"
+                    >
+                        FOCUS
+                    </button>
+
+                </div>
+
+
+                <div class="multi-player">
+
+                    <iframe
+                        id="multi-rocketleague2"
+                        data-channel="rocketleague2"
+                        allow="autoplay; fullscreen"
+                        allowfullscreen
+                        scrolling="no"
+                        frameborder="0">
+                    </iframe>
+
+                </div>
+
+            </div>
 
         </div>
 
@@ -240,17 +401,9 @@
 <footer>
 
     <div class="footer-brand">
-
-        <strong>
-            RL LIVE
-        </strong>
-
-        <span>
-            Rocket League esports viewer
-        </span>
-
+        <strong>RL LIVE</strong>
+        <span>Rocket League esports viewer</span>
     </div>
-
 
     <p>
         Streams are provided through official Twitch embeds.
@@ -265,12 +418,28 @@
 const twitchParent =
     "b55250489-dotcom.github.io";
 
+let currentChannel =
+    "rocketleague";
+
+let currentDisplayName =
+    "RocketLeague";
+
+let multiLoaded =
+    false;
+
+
+/* -----------------------
+   CHANGE SINGLE STREAM
+----------------------- */
 
 function changeChannel(
     channel,
     displayName,
     button
 ) {
+
+    currentChannel = channel;
+    currentDisplayName = displayName;
 
     const player =
         document.getElementById(
@@ -284,12 +453,11 @@ function changeChannel(
 
 
     player.src =
-        "https://player.twitch.tv/?" +
-        "channel=" +
-        encodeURIComponent(channel) +
-        "&parent=" +
-        twitchParent +
-        "&autoplay=true";
+        createTwitchURL(
+            channel,
+            true,
+            false
+        );
 
 
     channelName.textContent =
@@ -307,9 +475,290 @@ function changeChannel(
         });
 
 
-    button.classList.add(
-        "active"
+    if (button) {
+        button.classList.add(
+            "active"
+        );
+    }
+
+}
+
+
+/* -----------------------
+   CREATE TWITCH URL
+----------------------- */
+
+function createTwitchURL(
+    channel,
+    autoplay = false,
+    muted = false
+) {
+
+    return (
+        "https://player.twitch.tv/?" +
+        "channel=" +
+        encodeURIComponent(channel) +
+        "&parent=" +
+        twitchParent +
+        "&autoplay=" +
+        autoplay +
+        "&muted=" +
+        muted
     );
+
+}
+
+
+/* -----------------------
+   VIEW SWITCHER
+----------------------- */
+
+function setView(view) {
+
+    const singleView =
+        document.getElementById(
+            "singleView"
+        );
+
+    const multiView =
+        document.getElementById(
+            "multiView"
+        );
+
+    const singleButton =
+        document.getElementById(
+            "singleViewButton"
+        );
+
+    const multiButton =
+        document.getElementById(
+            "multiViewButton"
+        );
+
+
+    if (view === "multi") {
+
+        singleView.classList.add(
+            "hidden"
+        );
+
+        multiView.classList.remove(
+            "hidden"
+        );
+
+        singleButton.classList.remove(
+            "active"
+        );
+
+        multiButton.classList.add(
+            "active"
+        );
+
+
+        /*
+        Stop the single stream so we don't
+        have four Twitch players running.
+        */
+
+        document.getElementById(
+            "twitch-player"
+        ).src = "about:blank";
+
+
+        loadMultiView();
+
+    }
+
+    else {
+
+        multiView.classList.add(
+            "hidden"
+        );
+
+        singleView.classList.remove(
+            "hidden"
+        );
+
+        multiButton.classList.remove(
+            "active"
+        );
+
+        singleButton.classList.add(
+            "active"
+        );
+
+
+        unloadMultiView();
+
+
+        document.getElementById(
+            "twitch-player"
+        ).src =
+            createTwitchURL(
+                currentChannel,
+                false,
+                false
+            );
+
+    }
+
+}
+
+
+/* -----------------------
+   LOAD MULTI VIEW
+----------------------- */
+
+function loadMultiView() {
+
+    if (multiLoaded) {
+        return;
+    }
+
+
+    const streams = [
+        "rocketleague",
+        "rlesports",
+        "rocketleague2"
+    ];
+
+
+    streams.forEach(channel => {
+
+        const frame =
+            document.getElementById(
+                "multi-" + channel
+            );
+
+
+        /*
+        Autoplay is enabled but streams
+        start muted to prevent 3 audio
+        feeds playing at once.
+        */
+
+        frame.src =
+            createTwitchURL(
+                channel,
+                true,
+                true
+            );
+
+    });
+
+
+    multiLoaded = true;
+
+}
+
+
+/* -----------------------
+   UNLOAD MULTI VIEW
+----------------------- */
+
+function unloadMultiView() {
+
+    const streams = [
+        "rocketleague",
+        "rlesports",
+        "rocketleague2"
+    ];
+
+
+    streams.forEach(channel => {
+
+        const frame =
+            document.getElementById(
+                "multi-" + channel
+            );
+
+        frame.src =
+            "about:blank";
+
+    });
+
+
+    multiLoaded = false;
+
+}
+
+
+/* -----------------------
+   FOCUS A STREAM
+----------------------- */
+
+function focusStream(
+    channel,
+    displayName
+) {
+
+    currentChannel =
+        channel;
+
+    currentDisplayName =
+        displayName;
+
+
+    document
+        .querySelectorAll(".channel")
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const buttons =
+        document.querySelectorAll(
+            ".channel"
+        );
+
+
+    const channelOrder = {
+        rocketleague: 0,
+        rlesports: 1,
+        rocketleague2: 2
+    };
+
+
+    const index =
+        channelOrder[channel];
+
+
+    if (buttons[index]) {
+
+        buttons[index].classList.add(
+            "active"
+        );
+
+    }
+
+
+    document.getElementById(
+        "current-channel"
+    ).textContent =
+        displayName;
+
+
+    setView("single");
+
+
+    document.getElementById(
+        "twitch-player"
+    ).src =
+        createTwitchURL(
+            channel,
+            true,
+            false
+        );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
 
 }
 
