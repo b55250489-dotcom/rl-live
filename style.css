@@ -14,6 +14,7 @@
     --blue-light: #76a6ff;
 
     --red: #ff4d5e;
+    --green: #4ee088;
 }
 
 
@@ -49,9 +50,7 @@ body {
 }
 
 
-/* ========================================
-   HEADER
-======================================== */
+/* HEADER */
 
 header {
     position: sticky;
@@ -90,9 +89,7 @@ header {
 }
 
 
-/* ========================================
-   BRAND
-======================================== */
+/* BRAND */
 
 .brand {
     display: flex;
@@ -130,7 +127,7 @@ header {
 }
 
 
-.brand > div:last-child {
+.brand-text {
     display: flex;
     flex-direction: column;
 
@@ -155,9 +152,7 @@ header {
 }
 
 
-/* ========================================
-   TABS
-======================================== */
+/* NAV TABS */
 
 .tabs {
     height: 100%;
@@ -226,9 +221,7 @@ header {
 }
 
 
-/* ========================================
-   STATUS
-======================================== */
+/* HEADER STATUS */
 
 .status {
     margin-left: auto;
@@ -253,7 +246,7 @@ header {
 
     border-radius: 50%;
 
-    background: #4ee088;
+    background: var(--green);
 
     box-shadow:
         0 0 10px
@@ -261,9 +254,7 @@ header {
 }
 
 
-/* ========================================
-   PAGES
-======================================== */
+/* PAGES */
 
 .page {
     display: none;
@@ -286,9 +277,7 @@ main {
 }
 
 
-/* ========================================
-   INTRO
-======================================== */
+/* INTRO */
 
 .intro {
     padding:
@@ -337,9 +326,7 @@ main {
 }
 
 
-/* ========================================
-   TWITCH PLAYER
-======================================== */
+/* PLAYER */
 
 .player-card {
     overflow: hidden;
@@ -372,7 +359,7 @@ main {
 }
 
 
-.player-header > div {
+.live-label {
     display: flex;
     align-items: center;
 
@@ -435,9 +422,7 @@ main {
 }
 
 
-/* ========================================
-   CHANNELS
-======================================== */
+/* CHANNELS */
 
 .channels {
     padding:
@@ -580,12 +565,109 @@ main {
 }
 
 
-/* ========================================
-   ESPORTS
-======================================== */
+/* ESPORTS */
 
 .esports-intro {
-    padding-bottom: 50px;
+    padding-bottom: 30px;
+}
+
+
+.data-status {
+    margin-bottom: 55px;
+
+    padding: 13px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content:
+        space-between;
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 10px;
+}
+
+
+.data-status-left {
+    display: flex;
+    align-items: center;
+
+    gap: 10px;
+}
+
+
+.data-status-left > div {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+.data-status strong {
+    font-size: 8px;
+
+    letter-spacing: .8px;
+}
+
+
+.data-status span:not(.data-dot) {
+    color: #647083;
+
+    font-size: 7px;
+}
+
+
+.data-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #697486;
+}
+
+
+.refresh-button {
+    padding: 8px 12px;
+
+    border:
+        1px solid
+        rgba(77,140,255,.2);
+
+    border-radius: 6px;
+
+    background:
+        rgba(77,140,255,.08);
+
+    color: #82aaff;
+
+    font-family:
+        "Inter",
+        sans-serif;
+
+    font-size: 7px;
+    font-weight: 800;
+
+    letter-spacing: .7px;
+
+    cursor: pointer;
+}
+
+
+.refresh-button:hover {
+    background:
+        rgba(77,140,255,.14);
+}
+
+
+.refresh-button:disabled {
+    opacity: .5;
+
+    cursor: default;
 }
 
 
@@ -630,7 +712,7 @@ main {
 }
 
 
-/* EMPTY / DATA CARD */
+/* EMPTY CARDS */
 
 .empty-card {
     min-height: 105px;
@@ -677,6 +759,11 @@ main {
 }
 
 
+.live-empty {
+    color: var(--red);
+}
+
+
 .empty-card strong {
     display: block;
 
@@ -696,11 +783,66 @@ main {
 }
 
 
+/* MATCHES */
+
 .match-list {
     display: flex;
     flex-direction: column;
 
     gap: 9px;
+}
+
+
+.match-card {
+    padding: 16px 18px;
+
+    background: var(--surface);
+
+    border:
+        1px solid var(--border);
+
+    border-radius: 11px;
+}
+
+
+.match-meta {
+    margin-bottom: 13px;
+
+    display: flex;
+    justify-content:
+        space-between;
+
+    color: #657083;
+
+    font-size: 7px;
+    font-weight: 700;
+
+    letter-spacing: .4px;
+}
+
+
+.match-team {
+    min-height: 31px;
+
+    display: flex;
+    align-items: center;
+    justify-content:
+        space-between;
+}
+
+
+.match-team strong {
+    font-size: 11px;
+}
+
+
+.match-score {
+    min-width: 25px;
+
+    text-align: center;
+
+    font-size: 15px;
+    font-weight: 800;
 }
 
 
@@ -782,9 +924,7 @@ main {
 }
 
 
-/* ========================================
-   FOOTER
-======================================== */
+/* FOOTER */
 
 footer {
     width:
@@ -836,13 +976,12 @@ footer p {
     max-width: 390px;
 
     text-align: right;
+
     line-height: 1.6;
 }
 
 
-/* ========================================
-   MOBILE / CHROMEBOOK
-======================================== */
+/* CHROMEBOOK / MOBILE */
 
 @media (max-width: 760px) {
 
@@ -909,4 +1048,5 @@ footer p {
     footer p {
         text-align: left;
     }
+
 }
