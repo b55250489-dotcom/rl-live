@@ -14,7 +14,7 @@
         rel="stylesheet"
     >
 
-    <link rel="stylesheet" href="style.css?v=50">
+    <link rel="stylesheet" href="style.css?v=60">
 </head>
 
 <body>
@@ -60,7 +60,7 @@
     </section>
 
 
-    <!-- VIEW MODE -->
+    <!-- VIEW SWITCHER -->
 
     <div class="view-controls">
 
@@ -85,7 +85,9 @@
     </div>
 
 
-    <!-- SINGLE VIEW -->
+    <!-- =======================
+         SINGLE VIEW
+    ======================== -->
 
     <section id="singleView">
 
@@ -145,6 +147,7 @@
 
                 <button
                     class="channel active"
+                    data-channel="rocketleague"
                     onclick="changeChannel(
                         'rocketleague',
                         'RocketLeague',
@@ -170,6 +173,7 @@
 
                 <button
                     class="channel"
+                    data-channel="rlesports"
                     onclick="changeChannel(
                         'rlesports',
                         'RLEsports',
@@ -195,6 +199,7 @@
 
                 <button
                     class="channel"
+                    data-channel="rocketleague2"
                     onclick="changeChannel(
                         'rocketleague2',
                         'RocketLeague2',
@@ -224,170 +229,98 @@
     </section>
 
 
-    <!-- MULTI VIEW -->
+    <!-- =======================
+         MULTI VIEW
+    ======================== -->
 
     <section id="multiView" class="hidden">
 
         <div class="multi-heading">
 
             <div>
+
                 <span class="eyebrow">
                     MULTI VIEW
                 </span>
 
-                <h2>All Broadcasts</h2>
+                <h2>Your Broadcasts</h2>
 
                 <p>
-                    Watch multiple Rocket League broadcasts
-                    at the same time.
+                    Add or remove Rocket League streams
+                    from your Multi View.
                 </p>
+
             </div>
 
+
             <div class="multi-live">
+
                 <span class="live-dot"></span>
-                3 STREAMS
+
+                <span id="streamCount">
+                    3 STREAMS
+                </span>
+
             </div>
 
         </div>
 
 
-        <div class="multi-grid">
+        <!-- ACTIVE STREAMS -->
+
+        <div
+            id="multiGrid"
+            class="multi-grid"
+        ></div>
 
 
-            <!-- STREAM 1 -->
+        <!-- EMPTY STATE -->
 
-            <div class="multi-card">
+        <div
+            id="emptyMulti"
+            class="empty-multi hidden"
+        >
 
-                <div class="multi-header">
-
-                    <div class="multi-channel">
-
-                        <span class="live-dot"></span>
-
-                        <div>
-                            <strong>RocketLeague</strong>
-                            <span>MAIN BROADCAST</span>
-                        </div>
-
-                    </div>
-
-                    <button
-                        class="focus-button"
-                        onclick="focusStream(
-                            'rocketleague',
-                            'RocketLeague'
-                        )"
-                    >
-                        FOCUS
-                    </button>
-
-                </div>
-
-
-                <div class="multi-player">
-
-                    <iframe
-                        id="multi-rocketleague"
-                        data-channel="rocketleague"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen
-                        scrolling="no"
-                        frameborder="0">
-                    </iframe>
-
-                </div>
-
+            <div class="empty-icon">
+                ▦
             </div>
 
+            <h3>No streams selected</h3>
 
-            <!-- STREAM 2 -->
+            <p>
+                Add a Rocket League stream to start watching.
+            </p>
 
-            <div class="multi-card">
+        </div>
 
-                <div class="multi-header">
 
-                    <div class="multi-channel">
+        <!-- ADD STREAM -->
 
-                        <span class="live-dot"></span>
+        <div class="add-stream-area">
 
-                        <div>
-                            <strong>RLEsports</strong>
-                            <span>ESPORTS BROADCAST</span>
-                        </div>
+            <button
+                id="addStreamButton"
+                class="add-stream-button"
+                onclick="toggleAddMenu()"
+            >
+                <span>+</span>
+                ADD STREAM
+            </button>
 
-                    </div>
 
-                    <button
-                        class="focus-button"
-                        onclick="focusStream(
-                            'rlesports',
-                            'RLEsports'
-                        )"
-                    >
-                        FOCUS
-                    </button>
+            <div
+                id="addStreamMenu"
+                class="add-stream-menu hidden"
+            >
 
+                <div class="add-menu-header">
+                    AVAILABLE STREAMS
                 </div>
 
-
-                <div class="multi-player">
-
-                    <iframe
-                        id="multi-rlesports"
-                        data-channel="rlesports"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen
-                        scrolling="no"
-                        frameborder="0">
-                    </iframe>
-
-                </div>
-
-            </div>
-
-
-            <!-- STREAM 3 -->
-
-            <div class="multi-card multi-card-wide">
-
-                <div class="multi-header">
-
-                    <div class="multi-channel">
-
-                        <span class="live-dot"></span>
-
-                        <div>
-                            <strong>RocketLeague2</strong>
-                            <span>SECONDARY BROADCAST</span>
-                        </div>
-
-                    </div>
-
-                    <button
-                        class="focus-button"
-                        onclick="focusStream(
-                            'rocketleague2',
-                            'RocketLeague2'
-                        )"
-                    >
-                        FOCUS
-                    </button>
-
-                </div>
-
-
-                <div class="multi-player">
-
-                    <iframe
-                        id="multi-rocketleague2"
-                        data-channel="rocketleague2"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen
-                        scrolling="no"
-                        frameborder="0">
-                    </iframe>
-
-                </div>
+                <div
+                    id="availableStreams"
+                    class="available-streams"
+                ></div>
 
             </div>
 
@@ -415,8 +348,40 @@
 
 <script>
 
+/* ===========================
+   CONFIG
+=========================== */
+
 const twitchParent =
     "b55250489-dotcom.github.io";
+
+
+const availableChannels = {
+
+    rocketleague: {
+        name: "RocketLeague",
+        description: "Main RL Esports Broadcast",
+        icon: "RL"
+    },
+
+    rlesports: {
+        name: "RLEsports",
+        description: "Rocket League Esports",
+        icon: "RL"
+    },
+
+    rocketleague2: {
+        name: "RocketLeague2",
+        description: "Secondary Broadcast",
+        icon: "RL2"
+    }
+
+};
+
+
+/* ===========================
+   STATE
+=========================== */
 
 let currentChannel =
     "rocketleague";
@@ -424,69 +389,17 @@ let currentChannel =
 let currentDisplayName =
     "RocketLeague";
 
-let multiLoaded =
-    false;
+
+let activeStreams = [
+    "rocketleague",
+    "rlesports",
+    "rocketleague2"
+];
 
 
-/* -----------------------
-   CHANGE SINGLE STREAM
------------------------ */
-
-function changeChannel(
-    channel,
-    displayName,
-    button
-) {
-
-    currentChannel = channel;
-    currentDisplayName = displayName;
-
-    const player =
-        document.getElementById(
-            "twitch-player"
-        );
-
-    const channelName =
-        document.getElementById(
-            "current-channel"
-        );
-
-
-    player.src =
-        createTwitchURL(
-            channel,
-            true,
-            false
-        );
-
-
-    channelName.textContent =
-        displayName;
-
-
-    document
-        .querySelectorAll(".channel")
-        .forEach(item => {
-
-            item.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    if (button) {
-        button.classList.add(
-            "active"
-        );
-    }
-
-}
-
-
-/* -----------------------
-   CREATE TWITCH URL
------------------------ */
+/* ===========================
+   TWITCH URL
+=========================== */
 
 function createTwitchURL(
     channel,
@@ -509,9 +422,64 @@ function createTwitchURL(
 }
 
 
-/* -----------------------
-   VIEW SWITCHER
------------------------ */
+/* ===========================
+   SINGLE VIEW
+=========================== */
+
+function changeChannel(
+    channel,
+    displayName,
+    button
+) {
+
+    currentChannel =
+        channel;
+
+    currentDisplayName =
+        displayName;
+
+
+    document.getElementById(
+        "current-channel"
+    ).textContent =
+        displayName;
+
+
+    document.getElementById(
+        "twitch-player"
+    ).src =
+        createTwitchURL(
+            channel,
+            true,
+            false
+        );
+
+
+    document
+        .querySelectorAll(".channel")
+        .forEach(item => {
+
+            item.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    if (button) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+/* ===========================
+   SWITCH VIEW
+=========================== */
 
 function setView(view) {
 
@@ -556,16 +524,17 @@ function setView(view) {
 
 
         /*
-        Stop the single stream so we don't
-        have four Twitch players running.
+        Stop single stream while
+        Multi View is active.
         */
 
         document.getElementById(
             "twitch-player"
-        ).src = "about:blank";
+        ).src =
+            "about:blank";
 
 
-        loadMultiView();
+        renderMultiView();
 
     }
 
@@ -588,8 +557,18 @@ function setView(view) {
         );
 
 
-        unloadMultiView();
+        /*
+        Remove Multi View players.
+        */
 
+        document.getElementById(
+            "multiGrid"
+        ).innerHTML = "";
+
+
+        /*
+        Reload selected single stream.
+        */
 
         document.getElementById(
             "twitch-player"
@@ -605,99 +584,412 @@ function setView(view) {
 }
 
 
-/* -----------------------
-   LOAD MULTI VIEW
------------------------ */
+/* ===========================
+   RENDER MULTI VIEW
+=========================== */
 
-function loadMultiView() {
+function renderMultiView() {
 
-    if (multiLoaded) {
+    const grid =
+        document.getElementById(
+            "multiGrid"
+        );
+
+    const empty =
+        document.getElementById(
+            "emptyMulti"
+        );
+
+    const count =
+        document.getElementById(
+            "streamCount"
+        );
+
+
+    grid.innerHTML = "";
+
+
+    /*
+    Change layout depending
+    on stream count.
+    */
+
+    grid.className =
+        "multi-grid streams-" +
+        activeStreams.length;
+
+
+    /*
+    Update count.
+    */
+
+    count.textContent =
+        activeStreams.length +
+        (
+            activeStreams.length === 1
+                ? " STREAM"
+                : " STREAMS"
+        );
+
+
+    /*
+    Empty state.
+    */
+
+    if (activeStreams.length === 0) {
+
+        empty.classList.remove(
+            "hidden"
+        );
+
+    }
+
+    else {
+
+        empty.classList.add(
+            "hidden"
+        );
+
+    }
+
+
+    /*
+    Build each active player.
+    */
+
+    activeStreams.forEach(
+        channel => {
+
+            const info =
+                availableChannels[channel];
+
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+
+            card.className =
+                "multi-card";
+
+
+            card.innerHTML = `
+
+                <div class="multi-header">
+
+                    <div class="multi-channel">
+
+                        <span class="live-dot"></span>
+
+                        <div>
+
+                            <strong>
+                                ${info.name}
+                            </strong>
+
+                            <span>
+                                ${info.description}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="multi-actions">
+
+                        <button
+                            class="focus-button"
+                            onclick="focusStream('${channel}')"
+                        >
+                            FOCUS
+                        </button>
+
+
+                        <button
+                            class="remove-button"
+                            onclick="removeStream('${channel}')"
+                            title="Remove stream"
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <div class="multi-player">
+
+                    <iframe
+                        src="${createTwitchURL(
+                            channel,
+                            true,
+                            true
+                        )}"
+                        allow="autoplay; fullscreen"
+                        allowfullscreen
+                        scrolling="no"
+                        frameborder="0">
+                    </iframe>
+
+                </div>
+
+            `;
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+
+    renderAddMenu();
+
+}
+
+
+/* ===========================
+   REMOVE STREAM
+=========================== */
+
+function removeStream(channel) {
+
+    activeStreams =
+        activeStreams.filter(
+            stream =>
+                stream !== channel
+        );
+
+
+    renderMultiView();
+
+}
+
+
+/* ===========================
+   ADD STREAM
+=========================== */
+
+function addStream(channel) {
+
+    if (
+        !availableChannels[channel]
+    ) {
         return;
     }
 
 
-    const streams = [
-        "rocketleague",
-        "rlesports",
-        "rocketleague2"
-    ];
+    if (
+        activeStreams.includes(
+            channel
+        )
+    ) {
+        return;
+    }
 
 
-    streams.forEach(channel => {
-
-        const frame =
-            document.getElementById(
-                "multi-" + channel
-            );
+    activeStreams.push(
+        channel
+    );
 
 
-        /*
-        Autoplay is enabled but streams
-        start muted to prevent 3 audio
-        feeds playing at once.
-        */
-
-        frame.src =
-            createTwitchURL(
-                channel,
-                true,
-                true
-            );
-
-    });
+    renderMultiView();
 
 
-    multiLoaded = true;
+    /*
+    Close menu after adding.
+    */
+
+    document.getElementById(
+        "addStreamMenu"
+    ).classList.add(
+        "hidden"
+    );
 
 }
 
 
-/* -----------------------
-   UNLOAD MULTI VIEW
------------------------ */
+/* ===========================
+   ADD MENU
+=========================== */
 
-function unloadMultiView() {
+function toggleAddMenu() {
 
-    const streams = [
-        "rocketleague",
-        "rlesports",
-        "rocketleague2"
-    ];
-
-
-    streams.forEach(channel => {
-
-        const frame =
-            document.getElementById(
-                "multi-" + channel
-            );
-
-        frame.src =
-            "about:blank";
-
-    });
+    const menu =
+        document.getElementById(
+            "addStreamMenu"
+        );
 
 
-    multiLoaded = false;
+    renderAddMenu();
+
+
+    menu.classList.toggle(
+        "hidden"
+    );
 
 }
 
 
-/* -----------------------
-   FOCUS A STREAM
------------------------ */
+/* ===========================
+   RENDER AVAILABLE STREAMS
+=========================== */
 
-function focusStream(
-    channel,
-    displayName
-) {
+function renderAddMenu() {
+
+    const container =
+        document.getElementById(
+            "availableStreams"
+        );
+
+    const addButton =
+        document.getElementById(
+            "addStreamButton"
+        );
+
+    const menu =
+        document.getElementById(
+            "addStreamMenu"
+        );
+
+
+    container.innerHTML = "";
+
+
+    const missing =
+        Object.keys(
+            availableChannels
+        ).filter(
+            channel =>
+                !activeStreams.includes(
+                    channel
+                )
+        );
+
+
+    /*
+    All streams already added.
+    */
+
+    if (missing.length === 0) {
+
+        addButton.disabled =
+            true;
+
+        addButton.classList.add(
+            "disabled"
+        );
+
+        menu.classList.add(
+            "hidden"
+        );
+
+        return;
+
+    }
+
+
+    addButton.disabled =
+        false;
+
+    addButton.classList.remove(
+        "disabled"
+    );
+
+
+    missing.forEach(
+        channel => {
+
+            const info =
+                availableChannels[
+                    channel
+                ];
+
+
+            const option =
+                document.createElement(
+                    "button"
+                );
+
+
+            option.className =
+                "stream-option";
+
+
+            option.onclick =
+                () =>
+                    addStream(
+                        channel
+                    );
+
+
+            option.innerHTML = `
+
+                <div class="option-icon">
+                    ${info.icon}
+                </div>
+
+                <div class="option-info">
+
+                    <strong>
+                        ${info.name}
+                    </strong>
+
+                    <span>
+                        ${info.description}
+                    </span>
+
+                </div>
+
+                <div class="option-add">
+                    +
+                </div>
+
+            `;
+
+
+            container.appendChild(
+                option
+            );
+
+        }
+    );
+
+}
+
+
+/* ===========================
+   FOCUS STREAM
+=========================== */
+
+function focusStream(channel) {
+
+    const info =
+        availableChannels[
+            channel
+        ];
+
 
     currentChannel =
         channel;
 
     currentDisplayName =
-        displayName;
+        info.name;
 
+
+    document.getElementById(
+        "current-channel"
+    ).textContent =
+        info.name;
+
+
+    /*
+    Update selected channel card.
+    */
 
     document
         .querySelectorAll(".channel")
@@ -710,40 +1002,35 @@ function focusStream(
         });
 
 
-    const buttons =
-        document.querySelectorAll(
-            ".channel"
+    const selected =
+        document.querySelector(
+            '.channel[data-channel="' +
+            channel +
+            '"]'
         );
 
 
-    const channelOrder = {
-        rocketleague: 0,
-        rlesports: 1,
-        rocketleague2: 2
-    };
+    if (selected) {
 
-
-    const index =
-        channelOrder[channel];
-
-
-    if (buttons[index]) {
-
-        buttons[index].classList.add(
+        selected.classList.add(
             "active"
         );
 
     }
 
 
-    document.getElementById(
-        "current-channel"
-    ).textContent =
-        displayName;
+    /*
+    Switch back to single.
+    */
+
+    setView(
+        "single"
+    );
 
 
-    setView("single");
-
+    /*
+    Autoplay focused stream.
+    */
 
     document.getElementById(
         "twitch-player"
@@ -761,6 +1048,42 @@ function focusStream(
     });
 
 }
+
+
+/* ===========================
+   CLOSE ADD MENU
+=========================== */
+
+document.addEventListener(
+    "click",
+    function(event) {
+
+        const area =
+            document.querySelector(
+                ".add-stream-area"
+            );
+
+        const menu =
+            document.getElementById(
+                "addStreamMenu"
+            );
+
+
+        if (
+            area &&
+            !area.contains(
+                event.target
+            )
+        ) {
+
+            menu.classList.add(
+                "hidden"
+            );
+
+        }
+
+    }
+);
 
 </script>
 
