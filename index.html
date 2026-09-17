@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="style.css?v=30">
+    <link rel="stylesheet" href="style.css?v=31">
 </head>
 
 <body>
@@ -21,7 +21,7 @@
         <div class="brand">
             <div class="logo">RL</div>
 
-            <div>
+            <div class="brand-text">
                 <strong>RL LIVE</strong>
                 <span>ROCKET LEAGUE ESPORTS</span>
             </div>
@@ -52,9 +52,7 @@
 </header>
 
 
-<!-- ========================================
-     WATCH
-======================================== -->
+<!-- WATCH PAGE -->
 
 <div id="watchPage" class="page active-page">
 
@@ -80,7 +78,7 @@
 
             <div class="player-header">
 
-                <div>
+                <div class="live-label">
                     <span class="live-dot"></span>
                     <span class="live-text">LIVE STREAM</span>
                 </div>
@@ -110,8 +108,15 @@
         <section class="channels">
 
             <div class="section-heading">
-                <span class="eyebrow">CHANNELS</span>
-                <h2>Rocket League Broadcasts</h2>
+
+                <span class="eyebrow">
+                    CHANNELS
+                </span>
+
+                <h2>
+                    Rocket League Broadcasts
+                </h2>
+
             </div>
 
 
@@ -119,15 +124,24 @@
 
                 <button
                     class="channel active"
-                    onclick="changeChannel('rocketleague','RocketLeague',this)">
+                    onclick="changeChannel(
+                        'rocketleague',
+                        'RocketLeague',
+                        this
+                    )">
 
                     <div class="channel-icon">
                         RL
                     </div>
 
                     <div class="channel-info">
-                        <strong>RocketLeague</strong>
-                        <span>Main RL Esports Broadcast</span>
+                        <strong>
+                            RocketLeague
+                        </strong>
+
+                        <span>
+                            Main RL Esports Broadcast
+                        </span>
                     </div>
 
                     <span class="watch-button">
@@ -139,15 +153,24 @@
 
                 <button
                     class="channel"
-                    onclick="changeChannel('rlesports','RLEsports',this)">
+                    onclick="changeChannel(
+                        'rlesports',
+                        'RLEsports',
+                        this
+                    )">
 
                     <div class="channel-icon">
                         RL
                     </div>
 
                     <div class="channel-info">
-                        <strong>RLEsports</strong>
-                        <span>Rocket League Esports</span>
+                        <strong>
+                            RLEsports
+                        </strong>
+
+                        <span>
+                            Rocket League Esports
+                        </span>
                     </div>
 
                     <span class="watch-button">
@@ -159,15 +182,24 @@
 
                 <button
                     class="channel"
-                    onclick="changeChannel('rocketleague2','RocketLeague2',this)">
+                    onclick="changeChannel(
+                        'rocketleague2',
+                        'RocketLeague2',
+                        this
+                    )">
 
                     <div class="channel-icon">
                         RL2
                     </div>
 
                     <div class="channel-info">
-                        <strong>RocketLeague2</strong>
-                        <span>Secondary Broadcast</span>
+                        <strong>
+                            RocketLeague2
+                        </strong>
+
+                        <span>
+                            Secondary Broadcast
+                        </span>
                     </div>
 
                     <span class="watch-button">
@@ -185,9 +217,7 @@
 </div>
 
 
-<!-- ========================================
-     ESPORTS
-======================================== -->
+<!-- ESPORTS PAGE -->
 
 <div id="esportsPage" class="page">
 
@@ -202,14 +232,46 @@
             <h1>RL Esports</h1>
 
             <p>
-                Your Rocket League esports hub for
-                matches, results, events and standings.
+                Matches, schedules, results,
+                tournaments and standings.
             </p>
 
         </section>
 
 
-        <!-- LIVE -->
+        <!-- DATA STATUS -->
+
+        <div class="data-status">
+
+            <div class="data-status-left">
+
+                <span
+                    id="dataStatusDot"
+                    class="data-dot">
+                </span>
+
+                <div>
+                    <strong id="dataStatusText">
+                        ESPORTS DATA
+                    </strong>
+
+                    <span id="lastUpdated">
+                        Waiting for data provider
+                    </span>
+                </div>
+
+            </div>
+
+            <button
+                class="refresh-button"
+                onclick="refreshEsportsData()">
+                REFRESH
+            </button>
+
+        </div>
+
+
+        <!-- LIVE MATCHES -->
 
         <section class="esports-section">
 
@@ -220,7 +282,9 @@
                         LIVE
                     </span>
 
-                    <h2>Live Matches</h2>
+                    <h2>
+                        Live Matches
+                    </h2>
                 </div>
 
                 <span class="section-badge">
@@ -230,20 +294,29 @@
             </div>
 
 
-            <div class="empty-card">
+            <div
+                id="liveMatches"
+                class="match-list">
 
-                <div class="empty-icon">
-                    RL
-                </div>
+                <div class="empty-card">
 
-                <div>
-                    <strong>Live match tracking</strong>
+                    <div class="empty-icon live-empty">
+                        ●
+                    </div>
 
-                    <p>
-                        Live Rocket League match data
-                        will appear here when a data
-                        provider is connected.
-                    </p>
+                    <div>
+                        <strong>
+                            No live data connected
+                        </strong>
+
+                        <p>
+                            Live Rocket League matches
+                            will appear here automatically
+                            when the data provider is
+                            connected.
+                        </p>
+                    </div>
+
                 </div>
 
             </div>
@@ -262,13 +335,17 @@
                         SCHEDULE
                     </span>
 
-                    <h2>Upcoming Matches</h2>
+                    <h2>
+                        Upcoming Matches
+                    </h2>
                 </div>
 
             </div>
 
 
-            <div id="upcomingMatches" class="match-list">
+            <div
+                id="upcomingMatches"
+                class="match-list">
 
                 <div class="empty-card">
 
@@ -282,9 +359,9 @@
                         </strong>
 
                         <p>
-                            Match schedules will appear
-                            here once live esports data
-                            is connected.
+                            Upcoming series will appear
+                            here when esports data is
+                            available.
                         </p>
                     </div>
 
@@ -306,13 +383,17 @@
                         COMPLETED
                     </span>
 
-                    <h2>Recent Results</h2>
+                    <h2>
+                        Recent Results
+                    </h2>
                 </div>
 
             </div>
 
 
-            <div id="recentResults" class="match-list">
+            <div
+                id="recentResults"
+                class="match-list">
 
                 <div class="empty-card">
 
@@ -326,8 +407,8 @@
                         </strong>
 
                         <p>
-                            Completed series and scores
-                            will appear here.
+                            Completed series and final
+                            scores will appear here.
                         </p>
                     </div>
 
@@ -349,13 +430,17 @@
                         TOURNAMENTS
                     </span>
 
-                    <h2>Events</h2>
+                    <h2>
+                        Events
+                    </h2>
                 </div>
 
             </div>
 
 
-            <div class="event-grid">
+            <div
+                id="events"
+                class="event-grid">
 
                 <div class="event-card">
 
@@ -364,16 +449,17 @@
                     </div>
 
                     <span class="event-type">
-                        ROCKET LEAGUE
+                        EVENTS
                     </span>
 
                     <strong>
-                        RLCS Events
+                        RLCS Tournaments
                     </strong>
 
                     <p>
-                        Current and upcoming RLCS
-                        tournaments will appear here.
+                        Current and upcoming Rocket
+                        League tournaments will appear
+                        here.
                     </p>
 
                 </div>
@@ -434,7 +520,10 @@
 <footer>
 
     <div>
-        <strong>RL LIVE</strong>
+        <strong>
+            RL LIVE
+        </strong>
+
         <span>
             Independent Rocket League esports viewer.
         </span>
@@ -506,7 +595,7 @@ function changeChannel(
 
 
 /* ========================================
-   PAGE TABS
+   PAGE SWITCHING
 ======================================== */
 
 function showPage(page) {
@@ -580,6 +669,290 @@ function showPage(page) {
         behavior: "smooth"
     });
 }
+
+
+/* ========================================
+   ESPORTS DATA SYSTEM
+======================================== */
+
+/*
+    This is intentionally ready for a
+    real public esports data provider.
+
+    Once we have the endpoint, the data
+    fetch goes inside loadEsportsData().
+*/
+
+
+async function loadEsportsData() {
+
+    const statusText =
+        document.getElementById(
+            "dataStatusText"
+        );
+
+    const updated =
+        document.getElementById(
+            "lastUpdated"
+        );
+
+
+    statusText.textContent =
+        "ESPORTS DATA";
+
+    updated.textContent =
+        "Waiting for data provider";
+}
+
+
+/*
+    This renderer is already prepared
+    for actual match objects.
+
+    Example object:
+
+    {
+        event: "RLCS Major",
+        team1: "Team A",
+        team2: "Team B",
+        score1: 3,
+        score2: 2,
+        time: "3:00 PM",
+        status: "live"
+    }
+*/
+
+
+function createMatchCard(match) {
+
+    const card =
+        document.createElement("div");
+
+    card.className =
+        "match-card";
+
+
+    const event =
+        escapeHTML(
+            match.event || "Rocket League"
+        );
+
+    const team1 =
+        escapeHTML(
+            match.team1 || "TBD"
+        );
+
+    const team2 =
+        escapeHTML(
+            match.team2 || "TBD"
+        );
+
+    const time =
+        escapeHTML(
+            match.time || ""
+        );
+
+
+    const score1 =
+        match.score1 ?? "-";
+
+    const score2 =
+        match.score2 ?? "-";
+
+
+    card.innerHTML = `
+
+        <div class="match-meta">
+
+            <span>
+                ${event}
+            </span>
+
+            <span>
+                ${time}
+            </span>
+
+        </div>
+
+
+        <div class="match-team">
+
+            <strong>
+                ${team1}
+            </strong>
+
+            <span class="match-score">
+                ${score1}
+            </span>
+
+        </div>
+
+
+        <div class="match-team">
+
+            <strong>
+                ${team2}
+            </strong>
+
+            <span class="match-score">
+                ${score2}
+            </span>
+
+        </div>
+
+    `;
+
+
+    return card;
+}
+
+
+/* ========================================
+   RENDER MATCHES
+======================================== */
+
+function renderMatches(
+    elementId,
+    matches
+) {
+
+    const container =
+        document.getElementById(
+            elementId
+        );
+
+
+    container.innerHTML = "";
+
+
+    if (
+        !matches ||
+        matches.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty-card">
+
+                <div class="empty-icon">
+                    RL
+                </div>
+
+                <div>
+
+                    <strong>
+                        No matches available
+                    </strong>
+
+                    <p>
+                        There are currently no matches
+                        to display in this section.
+                    </p>
+
+                </div>
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    matches.forEach(match => {
+
+        container.appendChild(
+            createMatchCard(match)
+        );
+
+    });
+}
+
+
+/* ========================================
+   REFRESH
+======================================== */
+
+async function refreshEsportsData() {
+
+    const button =
+        document.querySelector(
+            ".refresh-button"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "REFRESHING...";
+
+
+    await loadEsportsData();
+
+
+    setTimeout(() => {
+
+        button.disabled = false;
+
+        button.textContent =
+            "REFRESH";
+
+    }, 500);
+}
+
+
+/* ========================================
+   SECURITY
+======================================== */
+
+function escapeHTML(value) {
+
+    return String(value)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+}
+
+
+/* ========================================
+   START
+======================================== */
+
+loadEsportsData();
+
+
+/*
+    When live data is connected,
+    automatically refresh once
+    every 60 seconds.
+*/
+
+setInterval(
+    loadEsportsData,
+    60000
+);
 
 </script>
 
