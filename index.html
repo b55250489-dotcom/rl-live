@@ -4,36 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RL Live</title>
+    <title>Overtime — Rocket League Esports</title>
+    <meta name="description" content="Rocket League esports matches, events, teams, players, news and live broadcasts.">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet"
-    >
-
-    <link rel="stylesheet" href="style.css?v=60">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
 
-<header>
-    <div class="nav">
+<header class="site-header">
+    <div class="nav-container">
 
-        <div class="brand">
-            <div class="logo">RL</div>
+        <a href="index.html" class="brand">
+            <div class="brand-mark">OT</div>
 
-            <div class="brand-text">
-                <strong>RL LIVE</strong>
-                <span>ROCKET LEAGUE STREAMS</span>
+            <div class="brand-copy">
+                <strong>OVERTIME</strong>
+                <span>ROCKET LEAGUE ESPORTS</span>
             </div>
-        </div>
+        </a>
 
-        <div class="status">
-            <span class="status-dot"></span>
-            OFFICIAL BROADCASTS
+        <nav class="desktop-nav">
+            <a class="active" href="index.html">Home</a>
+            <a href="matches.html">Matches</a>
+            <a href="events.html">Events</a>
+            <a href="teams.html">Teams</a>
+            <a href="players.html">Players</a>
+            <a href="news.html">News</a>
+            <a href="watch.html">Watch</a>
+        </nav>
+
+        <div class="nav-actions">
+            <a href="watch.html" class="live-nav">
+                <span></span>
+                LIVE
+            </a>
+
+            <a href="admin.html" class="admin-nav">
+                Admin
+            </a>
         </div>
 
     </div>
@@ -44,285 +57,233 @@
 
     <!-- HERO -->
 
-    <section class="intro">
+    <section class="hero">
+        <div class="hero-glow"></div>
 
-        <span class="eyebrow">
-            ROCKET LEAGUE ESPORTS
-        </span>
+        <div class="container hero-container">
 
-        <h1>Watch Rocket League Live</h1>
+            <div class="hero-content">
 
-        <p>
-            Watch official Rocket League esports broadcasts
-            directly from RL Live.
-        </p>
+                <div class="hero-eyebrow">
+                    <span class="eyebrow-line"></span>
+                    ROCKET LEAGUE ESPORTS
+                </div>
 
+                <h1>
+                    EVERY MATCH.<br>
+                    <span>EVERY MOMENT.</span>
+                </h1>
+
+                <p id="heroDescription">
+                    Follow Rocket League esports with live matches,
+                    schedules, results, events, teams and broadcasts
+                    all in one place.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="watch.html" class="button primary-button">
+                        <span class="button-live-dot"></span>
+                        WATCH LIVE
+                    </a>
+
+                    <a href="matches.html" class="button secondary-button">
+                        VIEW MATCHES
+                    </a>
+                </div>
+
+            </div>
+
+            <div class="hero-panel">
+
+                <div class="hero-panel-top">
+                    <div>
+                        <span class="small-label">OVERTIME</span>
+                        <h3>Rocket League Esports</h3>
+                    </div>
+
+                    <div class="hero-ot">OT</div>
+                </div>
+
+                <div class="hero-stat-grid">
+                    <div>
+                        <strong id="heroLiveCount">0</strong>
+                        <span>LIVE MATCHES</span>
+                    </div>
+
+                    <div>
+                        <strong id="heroTeamCount">0</strong>
+                        <span>TEAMS</span>
+                    </div>
+
+                    <div>
+                        <strong id="heroEventCount">0</strong>
+                        <span>EVENTS</span>
+                    </div>
+                </div>
+
+                <div class="hero-panel-footer">
+                    <span class="status-dot"></span>
+                    LIVE DATA
+                </div>
+
+            </div>
+
+        </div>
     </section>
 
 
-    <!-- VIEW SWITCHER -->
+    <!-- MATCH CENTER -->
 
-    <div class="view-controls">
+    <section class="section">
+        <div class="container">
 
-        <button
-            id="singleViewButton"
-            class="view-button active"
-            onclick="setView('single')"
-        >
-            <span class="view-icon">▣</span>
-            SINGLE VIEW
-        </button>
-
-        <button
-            id="multiViewButton"
-            class="view-button"
-            onclick="setView('multi')"
-        >
-            <span class="view-icon">▦</span>
-            MULTI VIEW
-        </button>
-
-    </div>
-
-
-    <!-- =======================
-         SINGLE VIEW
-    ======================== -->
-
-    <section id="singleView">
-
-        <div class="player-card">
-
-            <div class="player-header">
-
-                <div class="live-label">
-                    <span class="live-dot"></span>
-                    <span class="live-text">LIVE STREAM</span>
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">MATCH CENTER</span>
+                    <h2>What's happening</h2>
                 </div>
 
-                <span id="current-channel">
-                    RocketLeague
-                </span>
+                <a href="matches.html" class="section-link">
+                    VIEW ALL MATCHES →
+                </a>
+            </div>
+
+
+            <!-- LIVE -->
+
+            <div id="liveSection" class="match-block hidden">
+
+                <div class="block-title">
+                    <div>
+                        <span class="live-dot"></span>
+                        LIVE NOW
+                    </div>
+                </div>
+
+                <div id="liveMatches" class="match-grid"></div>
 
             </div>
 
 
-            <div class="player-wrapper">
+            <!-- UPCOMING -->
 
-                <iframe
-                    id="twitch-player"
-                    src="https://player.twitch.tv/?channel=rocketleague&parent=b55250489-dotcom.github.io&autoplay=false"
-                    allow="autoplay; fullscreen"
-                    allowfullscreen
-                    scrolling="no"
-                    frameborder="0">
-                </iframe>
+            <div class="match-block">
+
+                <div class="block-title">
+                    UPCOMING
+                </div>
+
+                <div id="upcomingMatches" class="match-grid">
+
+                    <div class="loading-card">
+                        Loading upcoming matches...
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RESULTS -->
+
+            <div class="match-block">
+
+                <div class="block-title">
+                    RECENT RESULTS
+                </div>
+
+                <div id="recentResults" class="match-grid">
+
+                    <div class="loading-card">
+                        Loading results...
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- FEATURED EVENT -->
+
+    <section class="section alt-section">
+
+        <div class="container">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">COMPETITION</span>
+                    <h2>Featured Event</h2>
+                </div>
+
+                <a href="events.html" class="section-link">
+                    ALL EVENTS →
+                </a>
+            </div>
+
+            <div id="featuredEvent">
+                <div class="loading-card large">
+                    No featured event yet.
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- NEWS -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-kicker">LATEST</span>
+                    <h2>Overtime News</h2>
+                </div>
+
+                <a href="news.html" class="section-link">
+                    ALL NEWS →
+                </a>
+            </div>
+
+            <div id="newsGrid" class="news-grid">
+
+                <div class="loading-card">
+                    No news published yet.
+                </div>
 
             </div>
 
         </div>
 
-
-        <!-- CHANNELS -->
-
-        <section class="channels">
-
-            <div class="section-heading">
-
-                <span class="eyebrow">
-                    CHANNELS
-                </span>
-
-                <h2>Rocket League Broadcasts</h2>
-
-                <p>
-                    Choose which official broadcast
-                    you want to watch.
-                </p>
-
-            </div>
-
-
-            <div class="channel-grid">
-
-                <button
-                    class="channel active"
-                    data-channel="rocketleague"
-                    onclick="changeChannel(
-                        'rocketleague',
-                        'RocketLeague',
-                        this
-                    )"
-                >
-
-                    <div class="channel-icon">
-                        RL
-                    </div>
-
-                    <div class="channel-info">
-                        <strong>RocketLeague</strong>
-                        <span>Main RL Esports Broadcast</span>
-                    </div>
-
-                    <span class="watch-button">
-                        WATCH
-                    </span>
-
-                </button>
-
-
-                <button
-                    class="channel"
-                    data-channel="rlesports"
-                    onclick="changeChannel(
-                        'rlesports',
-                        'RLEsports',
-                        this
-                    )"
-                >
-
-                    <div class="channel-icon">
-                        RL
-                    </div>
-
-                    <div class="channel-info">
-                        <strong>RLEsports</strong>
-                        <span>Rocket League Esports</span>
-                    </div>
-
-                    <span class="watch-button">
-                        WATCH
-                    </span>
-
-                </button>
-
-
-                <button
-                    class="channel"
-                    data-channel="rocketleague2"
-                    onclick="changeChannel(
-                        'rocketleague2',
-                        'RocketLeague2',
-                        this
-                    )"
-                >
-
-                    <div class="channel-icon">
-                        RL2
-                    </div>
-
-                    <div class="channel-info">
-                        <strong>RocketLeague2</strong>
-                        <span>Secondary Broadcast</span>
-                    </div>
-
-                    <span class="watch-button">
-                        WATCH
-                    </span>
-
-                </button>
-
-            </div>
-
-        </section>
-
     </section>
 
 
-    <!-- =======================
-         MULTI VIEW
-    ======================== -->
+    <!-- WATCH CTA -->
 
-    <section id="multiView" class="hidden">
+    <section class="watch-cta">
 
-        <div class="multi-heading">
+        <div class="container watch-cta-inner">
 
             <div>
+                <span class="section-kicker">OVERTIME LIVE</span>
 
-                <span class="eyebrow">
-                    MULTI VIEW
-                </span>
-
-                <h2>Your Broadcasts</h2>
+                <h2>Watch every broadcast.</h2>
 
                 <p>
-                    Add or remove Rocket League streams
-                    from your Multi View.
+                    Switch between official Rocket League broadcasts
+                    or use Multi View to watch multiple streams at once.
                 </p>
-
             </div>
 
-
-            <div class="multi-live">
-
-                <span class="live-dot"></span>
-
-                <span id="streamCount">
-                    3 STREAMS
-                </span>
-
-            </div>
-
-        </div>
-
-
-        <!-- ACTIVE STREAMS -->
-
-        <div
-            id="multiGrid"
-            class="multi-grid"
-        ></div>
-
-
-        <!-- EMPTY STATE -->
-
-        <div
-            id="emptyMulti"
-            class="empty-multi hidden"
-        >
-
-            <div class="empty-icon">
-                ▦
-            </div>
-
-            <h3>No streams selected</h3>
-
-            <p>
-                Add a Rocket League stream to start watching.
-            </p>
-
-        </div>
-
-
-        <!-- ADD STREAM -->
-
-        <div class="add-stream-area">
-
-            <button
-                id="addStreamButton"
-                class="add-stream-button"
-                onclick="toggleAddMenu()"
-            >
-                <span>+</span>
-                ADD STREAM
-            </button>
-
-
-            <div
-                id="addStreamMenu"
-                class="add-stream-menu hidden"
-            >
-
-                <div class="add-menu-header">
-                    AVAILABLE STREAMS
-                </div>
-
-                <div
-                    id="availableStreams"
-                    class="available-streams"
-                ></div>
-
-            </div>
+            <a href="watch.html" class="button primary-button">
+                OPEN LIVE VIEWER
+            </a>
 
         </div>
 
@@ -331,761 +292,45 @@
 </main>
 
 
-<footer>
+<footer class="site-footer">
 
-    <div class="footer-brand">
-        <strong>RL LIVE</strong>
-        <span>Rocket League esports viewer</span>
+    <div class="container footer-inner">
+
+        <div class="footer-brand">
+
+            <div class="brand-mark footer-mark">
+                OT
+            </div>
+
+            <div>
+                <strong>OVERTIME</strong>
+                <span>Rocket League Esports</span>
+            </div>
+
+        </div>
+
+        <div class="footer-links">
+            <a href="matches.html">Matches</a>
+            <a href="events.html">Events</a>
+            <a href="teams.html">Teams</a>
+            <a href="players.html">Players</a>
+            <a href="watch.html">Watch</a>
+        </div>
+
+        <p>
+            Overtime is an independent Rocket League esports platform.
+            Not affiliated with Epic Games or Psyonix.
+        </p>
+
     </div>
-
-    <p>
-        Streams are provided through official Twitch embeds.
-        RL Live is not affiliated with Epic Games, Psyonix or Twitch.
-    </p>
 
 </footer>
 
 
-<script>
-
-/* ===========================
-   CONFIG
-=========================== */
-
-const twitchParent =
-    "b55250489-dotcom.github.io";
-
-
-const availableChannels = {
-
-    rocketleague: {
-        name: "RocketLeague",
-        description: "Main RL Esports Broadcast",
-        icon: "RL"
-    },
-
-    rlesports: {
-        name: "RLEsports",
-        description: "Rocket League Esports",
-        icon: "RL"
-    },
-
-    rocketleague2: {
-        name: "RocketLeague2",
-        description: "Secondary Broadcast",
-        icon: "RL2"
-    }
-
-};
-
-
-/* ===========================
-   STATE
-=========================== */
-
-let currentChannel =
-    "rocketleague";
-
-let currentDisplayName =
-    "RocketLeague";
-
-
-let activeStreams = [
-    "rocketleague",
-    "rlesports",
-    "rocketleague2"
-];
-
-
-/* ===========================
-   TWITCH URL
-=========================== */
-
-function createTwitchURL(
-    channel,
-    autoplay = false,
-    muted = false
-) {
-
-    return (
-        "https://player.twitch.tv/?" +
-        "channel=" +
-        encodeURIComponent(channel) +
-        "&parent=" +
-        twitchParent +
-        "&autoplay=" +
-        autoplay +
-        "&muted=" +
-        muted
-    );
-
-}
-
-
-/* ===========================
-   SINGLE VIEW
-=========================== */
-
-function changeChannel(
-    channel,
-    displayName,
-    button
-) {
-
-    currentChannel =
-        channel;
-
-    currentDisplayName =
-        displayName;
-
-
-    document.getElementById(
-        "current-channel"
-    ).textContent =
-        displayName;
-
-
-    document.getElementById(
-        "twitch-player"
-    ).src =
-        createTwitchURL(
-            channel,
-            true,
-            false
-        );
-
-
-    document
-        .querySelectorAll(".channel")
-        .forEach(item => {
-
-            item.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    if (button) {
-
-        button.classList.add(
-            "active"
-        );
-
-    }
-
-}
-
-
-/* ===========================
-   SWITCH VIEW
-=========================== */
-
-function setView(view) {
-
-    const singleView =
-        document.getElementById(
-            "singleView"
-        );
-
-    const multiView =
-        document.getElementById(
-            "multiView"
-        );
-
-    const singleButton =
-        document.getElementById(
-            "singleViewButton"
-        );
-
-    const multiButton =
-        document.getElementById(
-            "multiViewButton"
-        );
-
-
-    if (view === "multi") {
-
-        singleView.classList.add(
-            "hidden"
-        );
-
-        multiView.classList.remove(
-            "hidden"
-        );
-
-        singleButton.classList.remove(
-            "active"
-        );
-
-        multiButton.classList.add(
-            "active"
-        );
-
-
-        /*
-        Stop single stream while
-        Multi View is active.
-        */
-
-        document.getElementById(
-            "twitch-player"
-        ).src =
-            "about:blank";
-
-
-        renderMultiView();
-
-    }
-
-    else {
-
-        multiView.classList.add(
-            "hidden"
-        );
-
-        singleView.classList.remove(
-            "hidden"
-        );
-
-        multiButton.classList.remove(
-            "active"
-        );
-
-        singleButton.classList.add(
-            "active"
-        );
-
-
-        /*
-        Remove Multi View players.
-        */
-
-        document.getElementById(
-            "multiGrid"
-        ).innerHTML = "";
-
-
-        /*
-        Reload selected single stream.
-        */
-
-        document.getElementById(
-            "twitch-player"
-        ).src =
-            createTwitchURL(
-                currentChannel,
-                false,
-                false
-            );
-
-    }
-
-}
-
-
-/* ===========================
-   RENDER MULTI VIEW
-=========================== */
-
-function renderMultiView() {
-
-    const grid =
-        document.getElementById(
-            "multiGrid"
-        );
-
-    const empty =
-        document.getElementById(
-            "emptyMulti"
-        );
-
-    const count =
-        document.getElementById(
-            "streamCount"
-        );
-
-
-    grid.innerHTML = "";
-
-
-    /*
-    Change layout depending
-    on stream count.
-    */
-
-    grid.className =
-        "multi-grid streams-" +
-        activeStreams.length;
-
-
-    /*
-    Update count.
-    */
-
-    count.textContent =
-        activeStreams.length +
-        (
-            activeStreams.length === 1
-                ? " STREAM"
-                : " STREAMS"
-        );
-
-
-    /*
-    Empty state.
-    */
-
-    if (activeStreams.length === 0) {
-
-        empty.classList.remove(
-            "hidden"
-        );
-
-    }
-
-    else {
-
-        empty.classList.add(
-            "hidden"
-        );
-
-    }
-
-
-    /*
-    Build each active player.
-    */
-
-    activeStreams.forEach(
-        channel => {
-
-            const info =
-                availableChannels[channel];
-
-
-            const card =
-                document.createElement(
-                    "div"
-                );
-
-
-            card.className =
-                "multi-card";
-
-
-            card.innerHTML = `
-
-                <div class="multi-header">
-
-                    <div class="multi-channel">
-
-                        <span class="live-dot"></span>
-
-                        <div>
-
-                            <strong>
-                                ${info.name}
-                            </strong>
-
-                            <span>
-                                ${info.description}
-                            </span>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="multi-actions">
-
-                        <button
-                            class="focus-button"
-                            onclick="focusStream('${channel}')"
-                        >
-                            FOCUS
-                        </button>
-
-
-                        <button
-                            class="remove-button"
-                            onclick="removeStream('${channel}')"
-                            title="Remove stream"
-                        >
-                            ×
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <div class="multi-player">
-
-                    <iframe
-                        src="${createTwitchURL(
-                            channel,
-                            true,
-                            true
-                        )}"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen
-                        scrolling="no"
-                        frameborder="0">
-                    </iframe>
-
-                </div>
-
-            `;
-
-
-            grid.appendChild(
-                card
-            );
-
-        }
-    );
-
-
-    renderAddMenu();
-
-}
-
-
-/* ===========================
-   REMOVE STREAM
-=========================== */
-
-function removeStream(channel) {
-
-    activeStreams =
-        activeStreams.filter(
-            stream =>
-                stream !== channel
-        );
-
-
-    renderMultiView();
-
-}
-
-
-/* ===========================
-   ADD STREAM
-=========================== */
-
-function addStream(channel) {
-
-    if (
-        !availableChannels[channel]
-    ) {
-        return;
-    }
-
-
-    if (
-        activeStreams.includes(
-            channel
-        )
-    ) {
-        return;
-    }
-
-
-    activeStreams.push(
-        channel
-    );
-
-
-    renderMultiView();
-
-
-    /*
-    Close menu after adding.
-    */
-
-    document.getElementById(
-        "addStreamMenu"
-    ).classList.add(
-        "hidden"
-    );
-
-}
-
-
-/* ===========================
-   ADD MENU
-=========================== */
-
-function toggleAddMenu() {
-
-    const menu =
-        document.getElementById(
-            "addStreamMenu"
-        );
-
-
-    renderAddMenu();
-
-
-    menu.classList.toggle(
-        "hidden"
-    );
-
-}
-
-
-/* ===========================
-   RENDER AVAILABLE STREAMS
-=========================== */
-
-function renderAddMenu() {
-
-    const container =
-        document.getElementById(
-            "availableStreams"
-        );
-
-    const addButton =
-        document.getElementById(
-            "addStreamButton"
-        );
-
-    const menu =
-        document.getElementById(
-            "addStreamMenu"
-        );
-
-
-    container.innerHTML = "";
-
-
-    const missing =
-        Object.keys(
-            availableChannels
-        ).filter(
-            channel =>
-                !activeStreams.includes(
-                    channel
-                )
-        );
-
-
-    /*
-    All streams already added.
-    */
-
-    if (missing.length === 0) {
-
-        addButton.disabled =
-            true;
-
-        addButton.classList.add(
-            "disabled"
-        );
-
-        menu.classList.add(
-            "hidden"
-        );
-
-        return;
-
-    }
-
-
-    addButton.disabled =
-        false;
-
-    addButton.classList.remove(
-        "disabled"
-    );
-
-
-    missing.forEach(
-        channel => {
-
-            const info =
-                availableChannels[
-                    channel
-                ];
-
-
-            const option =
-                document.createElement(
-                    "button"
-                );
-
-
-            option.className =
-                "stream-option";
-
-
-            option.onclick =
-                () =>
-                    addStream(
-                        channel
-                    );
-
-
-            option.innerHTML = `
-
-                <div class="option-icon">
-                    ${info.icon}
-                </div>
-
-                <div class="option-info">
-
-                    <strong>
-                        ${info.name}
-                    </strong>
-
-                    <span>
-                        ${info.description}
-                    </span>
-
-                </div>
-
-                <div class="option-add">
-                    +
-                </div>
-
-            `;
-
-
-            container.appendChild(
-                option
-            );
-
-        }
-    );
-
-}
-
-
-/* ===========================
-   FOCUS STREAM
-=========================== */
-
-function focusStream(channel) {
-
-    const info =
-        availableChannels[
-            channel
-        ];
-
-
-    currentChannel =
-        channel;
-
-    currentDisplayName =
-        info.name;
-
-
-    document.getElementById(
-        "current-channel"
-    ).textContent =
-        info.name;
-
-
-    /*
-    Update selected channel card.
-    */
-
-    document
-        .querySelectorAll(".channel")
-        .forEach(item => {
-
-            item.classList.remove(
-                "active"
-            );
-
-        });
-
-
-    const selected =
-        document.querySelector(
-            '.channel[data-channel="' +
-            channel +
-            '"]'
-        );
-
-
-    if (selected) {
-
-        selected.classList.add(
-            "active"
-        );
-
-    }
-
-
-    /*
-    Switch back to single.
-    */
-
-    setView(
-        "single"
-    );
-
-
-    /*
-    Autoplay focused stream.
-    */
-
-    document.getElementById(
-        "twitch-player"
-    ).src =
-        createTwitchURL(
-            channel,
-            true,
-            false
-        );
-
-
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
-
-}
-
-
-/* ===========================
-   CLOSE ADD MENU
-=========================== */
-
-document.addEventListener(
-    "click",
-    function(event) {
-
-        const area =
-            document.querySelector(
-                ".add-stream-area"
-            );
-
-        const menu =
-            document.getElementById(
-                "addStreamMenu"
-            );
-
-
-        if (
-            area &&
-            !area.contains(
-                event.target
-            )
-        ) {
-
-            menu.classList.add(
-                "hidden"
-            );
-
-        }
-
-    }
-);
-
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/database.js"></script>
+<script src="js/app.js"></script>
 
 </body>
 </html>
