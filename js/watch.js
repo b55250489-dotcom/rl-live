@@ -1,197 +1,746 @@
-let streams = [];
-let currentStream = null;
-let activeStreams = [];
+// =============================================
+// OVERTIME — WATCH
+// Static Rocket League Broadcast Center
+// =============================================
 
-document.addEventListener("DOMContentLoaded", initWatch);
+"use strict";
 
-async function initWatch() {
-    const { data, error } = await OvertimeDB.getStreams();
 
-    if (error || !data?.length) {
-        document.getElementById("streamList").innerHTML =
-            `<div class="loading-card">No active streams.</div>`;
-        return;
+// =============================================
+// CONFIG
+// =============================================
+
+const TWITCH_PARENT =
+    "b55250489-dotcom.github.io";
+
+
+// =============================================
+// AVAILABLE BROADCASTS
+// =============================================
+
+const STREAMS = [
+
+    {
+        id: "rocketleague",
+
+        name: "Rocket League",
+
+        shortName: "RL",
+
+        platform: "twitch",
+
+        channel: "rocketleague",
+
+        description:
+            "Official Rocket League esports broadcast."
+    },
+
+    {
+        id: "rlesports",
+
+        name: "RL Esports",
+
+        shortName: "RLE",
+
+        platform: "twitch",
+
+        channel: "rlesports",
+
+        description:
+            "Rocket League Esports broadcast."
+    },
+
+    {
+        id: "rocketleague2",
+
+        name: "Rocket League 2",
+
+        shortName: "RL2",
+
+        platform: "twitch",
+
+        channel: "rocketleague2",
+
+        description:
+            "Secondary Rocket League esports broadcast."
     }
 
-    streams = data;
-    currentStream = streams[0];
+];
 
-    // Start Multi View with up to the first 3 streams,
-    // matching the old RL Live behavior.
-    activeStreams = streams.slice(0,3).map(x => x.id);
 
-    renderStreamChoices();
-    loadMainStream(currentStream);
-    renderMulti();
+// =============================================
+// STATE
+// =============================================
 
-    document.getElementById("singleButton").onclick = () => setMode("single");
-    document.getElementById("multiButton").onclick = () => setMode("multi");
-    document.getElementById("addStreamBtn").onclick = togglePicker;
+let currentStream =
+    STREAMS[0];
+
+let activeStreams = [
+    "rocketleague",
+    "rlesports"
+];
+
+
+// =============================================
+// ELEMENTS
+// =============================================
+
+const singleViewButton =
+    document.getElementById(
+        "singleViewButton"
+    );
+
+const multiViewButton =
+    document.getElementById(
+        "multiViewButton"
+    );
+
+const singleView =
+    document.getElementById(
+        "singleView"
+    );
+
+const multiView =
+    document.getElementById(
+        "multiView"
+    );
+
+const streamList =
+    document.getElementById(
+        "streamList"
+    );
+
+const singlePlayer =
+    document.getElementById(
+        "singlePlayer"
+    );
+
+const currentStreamName =
+    document.getElementById(
+        "currentStreamName"
+    );
+
+const currentStreamTitle =
+    document.getElementById(
+        "currentStreamTitle"
+    );
+
+const currentStreamDescription =
+    document.getElementById(
+        "currentStreamDescription"
+    );
+
+const openTwitchButton =
+    document.getElementById(
+        "openTwitchButton"
+    );
+
+const multiGrid =
+    document.getElementById(
+        "multiGrid"
+    );
+
+const emptyMulti =
+    document.getElementById(
+        "emptyMulti"
+    );
+
+const addStreamButton =
+    document.getElementById(
+        "addStreamButton"
+    );
+
+const emptyAddButton =
+    document.getElementById(
+        "emptyAddButton"
+    );
+
+const streamModal =
+    document.getElementById(
+        "streamModal"
+    );
+
+const modalBackdrop =
+    document.getElementById(
+        "modalBackdrop"
+    );
+
+const closeModalButton =
+    document.getElementById(
+        "closeModal"
+    );
+
+const modalStreamList =
+    document.getElementById(
+        "modalStreamList"
+    );
+
+
+// =============================================
+// TWITCH
+// =============================================
+
+function twitchEmbed(channel) {
+
+    const params =
+        new URLSearchParams({
+            channel,
+            parent: TWITCH_PARENT,
+            autoplay: "true",
+            muted: "false"
+        });
+
+    return (
+        "https://player.twitch.tv/?" +
+        params.toString()
+    );
+
 }
 
-function twitchURL(channel, autoplay=false, muted=false) {
-    return `https://player.twitch.tv/?channel=${encodeURIComponent(channel)}&parent=${encodeURIComponent(OVERTIME_CONFIG.twitchParent)}&autoplay=${autoplay}&muted=${muted}`;
+
+function twitchPage(channel) {
+
+    return (
+        "https://www.twitch.tv/" +
+        encodeURIComponent(channel)
+    );
+
 }
 
-function youtubeURL(channel) {
-    return channel;
-}
 
-function streamURL(stream, autoplay=false, muted=false) {
-    if (stream.platform === "youtube")
-        return youtubeURL(stream.channel);
+// =============================================
+// SINGLE VIEW
+// =============================================
 
-    return twitchURL(stream.channel, autoplay, muted);
-}
+function renderStreamList() {
 
-function loadMainStream(stream) {
-    currentStream = stream;
+    streamList.innerHTML =
+        STREAMS.map(stream => {
 
-    document.getElementById("currentStreamName").textContent = stream.name;
-    document.getElementById("mainPlayer").src = streamURL(stream,false,false);
-
-    document.querySelectorAll(".stream-choice").forEach(x => {
-        x.classList.toggle("active", x.dataset.id === stream.id);
-    });
-}
-
-function renderStreamChoices() {
-    document.getElementById("streamList").innerHTML = streams.map(stream => `
-        <button class="stream-choice ${currentStream?.id === stream.id ? "active" : ""}" data-id="${stream.id}">
-            <div class="stream-icon">${html(stream.icon_text || "RL")}</div>
-            <div class="stream-copy">
-                <strong>${html(stream.name)}</strong>
-                <span>${html(stream.description || stream.platform)}</span>
-            </div>
-        </button>
-    `).join("");
-
-    document.querySelectorAll(".stream-choice").forEach(button => {
-        button.onclick = () => {
-            const stream = streams.find(x => x.id === button.dataset.id);
-            if (stream) {
-                loadMainStream(stream);
-                renderStreamChoices();
-            }
-        };
-    });
-}
-
-function setMode(mode) {
-    const single = document.getElementById("singleView");
-    const multi = document.getElementById("multiView");
-
-    const singleButton = document.getElementById("singleButton");
-    const multiButton = document.getElementById("multiButton");
-
-    if (mode === "multi") {
-        single.classList.add("hidden");
-        multi.classList.remove("hidden");
-
-        singleButton.classList.remove("active");
-        multiButton.classList.add("active");
-
-        document.getElementById("mainPlayer").src = "about:blank";
-
-        renderMulti();
-    } else {
-        multi.classList.add("hidden");
-        single.classList.remove("hidden");
-
-        multiButton.classList.remove("active");
-        singleButton.classList.add("active");
-
-        document.getElementById("multiGrid").innerHTML = "";
-
-        if (currentStream)
-            document.getElementById("mainPlayer").src =
-                streamURL(currentStream,false,false);
-    }
-}
-
-function renderMulti() {
-    const grid = document.getElementById("multiGrid");
-    const empty = document.getElementById("multiEmpty");
-
-    document.getElementById("multiCount").textContent =
-        `${activeStreams.length} ${activeStreams.length === 1 ? "STREAM" : "STREAMS"}`;
-
-    grid.classList.toggle("one", activeStreams.length === 1);
-
-    if (!activeStreams.length) {
-        grid.innerHTML = "";
-        empty.classList.remove("hidden");
-    } else {
-        empty.classList.add("hidden");
-
-        grid.innerHTML = activeStreams.map(id => {
-            const stream = streams.find(x => x.id === id);
-            if (!stream) return "";
+            const active =
+                stream.id === currentStream.id;
 
             return `
-            <article class="multi-card">
-                <div class="multi-card-header">
-                    <strong>${html(stream.name)}</strong>
-                    <button data-remove="${stream.id}" title="Remove">×</button>
-                </div>
+                <button
+                    class="stream-option ${active ? "active" : ""}"
+                    data-stream="${escapeHTML(stream.id)}"
+                    type="button"
+                >
 
-                <div class="multi-video">
-                    <iframe
-                        src="${html(streamURL(stream,true,true))}"
-                        allow="autoplay; fullscreen"
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </article>`;
+                    <div class="stream-icon">
+                        ${escapeHTML(stream.shortName)}
+                    </div>
+
+                    <div class="stream-details">
+
+                        <strong>
+                            ${escapeHTML(stream.name)}
+                        </strong>
+
+                        <span>
+                            TWITCH
+                        </span>
+
+                    </div>
+
+                </button>
+            `;
+
         }).join("");
 
-        document.querySelectorAll("[data-remove]").forEach(button => {
-            button.onclick = () => removeStream(button.dataset.remove);
+
+    streamList
+        .querySelectorAll(
+            "[data-stream]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                const stream =
+                    STREAMS.find(
+                        item =>
+                            item.id ===
+                            button.dataset.stream
+                    );
+
+                if (stream) {
+                    selectStream(stream);
+                }
+
+            };
+
         });
-    }
 
-    renderPicker();
 }
 
-function removeStream(id) {
-    activeStreams = activeStreams.filter(x => x !== id);
-    renderMulti();
+
+function selectStream(stream) {
+
+    currentStream =
+        stream;
+
+    renderStreamList();
+
+    renderSinglePlayer();
+
 }
 
-function addStream(id) {
-    if (!activeStreams.includes(id))
-        activeStreams.push(id);
 
-    document.getElementById("streamPicker").classList.add("hidden");
-    renderMulti();
+function renderSinglePlayer() {
+
+    currentStreamName.textContent =
+        currentStream.name;
+
+    currentStreamTitle.textContent =
+        currentStream.name;
+
+    currentStreamDescription.textContent =
+        currentStream.description;
+
+    openTwitchButton.href =
+        twitchPage(
+            currentStream.channel
+        );
+
+
+    singlePlayer.innerHTML = `
+        <iframe
+            src="${twitchEmbed(currentStream.channel)}"
+            allowfullscreen
+            scrolling="no"
+            allow="autoplay; fullscreen"
+            title="${escapeHTML(currentStream.name)}"
+        ></iframe>
+    `;
+
 }
 
-function togglePicker() {
-    renderPicker();
-    document.getElementById("streamPicker").classList.toggle("hidden");
+
+// =============================================
+// VIEW SWITCHING
+// =============================================
+
+function showSingleView() {
+
+    singleView.classList.remove(
+        "hidden"
+    );
+
+    multiView.classList.add(
+        "hidden"
+    );
+
+    singleViewButton.classList.add(
+        "active"
+    );
+
+    multiViewButton.classList.remove(
+        "active"
+    );
+
 }
 
-function renderPicker() {
-    const picker = document.getElementById("streamPicker");
-    const missing = streams.filter(x => !activeStreams.includes(x.id));
 
-    if (!missing.length) {
-        picker.innerHTML = `<div class="picker-option">All broadcasts are already selected.</div>`;
+function showMultiView() {
+
+    singleView.classList.add(
+        "hidden"
+    );
+
+    multiView.classList.remove(
+        "hidden"
+    );
+
+    singleViewButton.classList.remove(
+        "active"
+    );
+
+    multiViewButton.classList.add(
+        "active"
+    );
+
+    renderMultiView();
+
+}
+
+
+// =============================================
+// MULTI VIEW
+// =============================================
+
+function renderMultiView() {
+
+    const selectedStreams =
+        activeStreams
+            .map(id =>
+                STREAMS.find(
+                    stream =>
+                        stream.id === id
+                )
+            )
+            .filter(Boolean);
+
+
+    if (
+        selectedStreams.length === 0
+    ) {
+
+        multiGrid.innerHTML = "";
+
+        multiGrid.classList.add(
+            "hidden"
+        );
+
+        emptyMulti.classList.remove(
+            "hidden"
+        );
+
         return;
     }
 
-    picker.innerHTML = missing.map(stream => `
-        <button class="picker-option" data-add="${stream.id}">
-            <span>${html(stream.name)}</span>
-            <span>+</span>
-        </button>
-    `).join("");
 
-    picker.querySelectorAll("[data-add]").forEach(button => {
-        button.onclick = () => addStream(button.dataset.add);
-    });
+    multiGrid.classList.remove(
+        "hidden"
+    );
+
+    emptyMulti.classList.add(
+        "hidden"
+    );
+
+
+    multiGrid.innerHTML =
+        selectedStreams
+            .map(stream => `
+                <article class="multi-card">
+
+                    <div class="multi-card-header">
+
+                        <div class="multi-card-name">
+
+                            <span class="live-indicator">
+                                LIVE
+                            </span>
+
+                            <strong>
+                                ${escapeHTML(stream.name)}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="multi-actions">
+
+                            <button
+                                class="multi-action"
+                                data-focus="${escapeHTML(stream.id)}"
+                                type="button"
+                            >
+                                FOCUS
+                            </button>
+
+                            <button
+                                class="multi-action remove"
+                                data-remove="${escapeHTML(stream.id)}"
+                                type="button"
+                            >
+                                REMOVE
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="multi-video">
+
+                        <iframe
+                            src="${twitchEmbed(stream.channel)}"
+                            allowfullscreen
+                            scrolling="no"
+                            allow="autoplay; fullscreen"
+                            title="${escapeHTML(stream.name)}"
+                        ></iframe>
+
+                    </div>
+
+                </article>
+            `)
+            .join("");
+
+
+    multiGrid
+        .querySelectorAll(
+            "[data-remove]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                removeStream(
+                    button.dataset.remove
+                );
+
+            };
+
+        });
+
+
+    multiGrid
+        .querySelectorAll(
+            "[data-focus]"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                focusStream(
+                    button.dataset.focus
+                );
+
+            };
+
+        });
+
 }
 
-function html(v) {
-    return String(v ?? "").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+
+// =============================================
+// ADD / REMOVE
+// =============================================
+
+function removeStream(id) {
+
+    activeStreams =
+        activeStreams.filter(
+            streamId =>
+                streamId !== id
+        );
+
+    renderMultiView();
+
 }
+
+
+function addStream(id) {
+
+    if (
+        !activeStreams.includes(id)
+    ) {
+
+        activeStreams.push(id);
+
+    }
+
+    closeStreamModal();
+
+    renderMultiView();
+
+}
+
+
+function focusStream(id) {
+
+    const stream =
+        STREAMS.find(
+            item =>
+                item.id === id
+        );
+
+    if (!stream) {
+        return;
+    }
+
+    currentStream =
+        stream;
+
+    renderStreamList();
+
+    renderSinglePlayer();
+
+    showSingleView();
+
+}
+
+
+// =============================================
+// STREAM PICKER
+// =============================================
+
+function openStreamModal() {
+
+    renderModalStreams();
+
+    streamModal.classList.remove(
+        "hidden"
+    );
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+function closeStreamModal() {
+
+    streamModal.classList.add(
+        "hidden"
+    );
+
+    document.body.style.overflow =
+        "";
+
+}
+
+
+function renderModalStreams() {
+
+    modalStreamList.innerHTML =
+        STREAMS.map(stream => {
+
+            const added =
+                activeStreams.includes(
+                    stream.id
+                );
+
+            return `
+                <button
+                    class="modal-stream ${added ? "disabled" : ""}"
+                    data-add="${escapeHTML(stream.id)}"
+                    type="button"
+                    ${added ? "disabled" : ""}
+                >
+
+                    <div class="stream-icon">
+                        ${escapeHTML(stream.shortName)}
+                    </div>
+
+
+                    <div class="modal-stream-info">
+
+                        <strong>
+                            ${escapeHTML(stream.name)}
+                        </strong>
+
+                        <span>
+                            twitch.tv/${escapeHTML(stream.channel)}
+                        </span>
+
+                    </div>
+
+
+                    <span class="add-label">
+                        ${added ? "ADDED" : "+ ADD"}
+                    </span>
+
+                </button>
+            `;
+
+        }).join("");
+
+
+    modalStreamList
+        .querySelectorAll(
+            "[data-add]:not([disabled])"
+        )
+        .forEach(button => {
+
+            button.onclick = () => {
+
+                addStream(
+                    button.dataset.add
+                );
+
+            };
+
+        });
+
+}
+
+
+// =============================================
+// ESCAPE
+// =============================================
+
+function escapeHTML(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+// =============================================
+// EVENTS
+// =============================================
+
+singleViewButton.onclick =
+    showSingleView;
+
+multiViewButton.onclick =
+    showMultiView;
+
+addStreamButton.onclick =
+    openStreamModal;
+
+emptyAddButton.onclick =
+    openStreamModal;
+
+closeModalButton.onclick =
+    closeStreamModal;
+
+modalBackdrop.onclick =
+    closeStreamModal;
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape" &&
+            !streamModal.classList.contains(
+                "hidden"
+            )
+        ) {
+
+            closeStreamModal();
+
+        }
+
+    }
+);
+
+
+// =============================================
+// START
+// =============================================
+
+renderStreamList();
+
+renderSinglePlayer();
+
+console.log(
+    "[OVERTIME] Watch center ready."
+);
