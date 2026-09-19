@@ -1,265 +1,281 @@
-// =============================================
-// OVERTIME — DATABASE
-// =============================================
+"use strict";
 
-const overtimeDB = window.supabase.createClient(
-    OVERTIME_CONFIG.supabaseUrl,
-    OVERTIME_CONFIG.supabaseKey
-);
-
-// =============================================
-// AUTH
-// =============================================
-
-async function getCurrentUser() {
-    const {
-        data: { user },
-        error
-    } = await overtimeDB.auth.getUser();
-
-    if (error) {
-        return null;
+(function () {
+    if (!window.OVERTIME_CONFIG) {
+        console.error("[OVERTIME] OVERTIME_CONFIG is missing.");
+        return;
     }
 
-    return user;
-}
+    if (!window.supabase) {
+        console.error("[OVERTIME] Supabase JS library is missing.");
+        return;
+    }
 
-async function adminLogin(email, password) {
-    return await overtimeDB.auth.signInWithPassword({
-        email,
-        password
-    });
-}
+    const config = window.OVERTIME_CONFIG;
 
-async function adminLogout() {
-    return await overtimeDB.auth.signOut();
-}
+    const db = window.supabase.createClient(
+        config.supabaseUrl,
+        config.supabaseKey
+    );
 
-// =============================================
-// TEAMS
-// =============================================
+    const MATCH_SELECT = `
+        *,
+        event:events(*),
+        team1:teams!matches_team1_id_fkey(*),
+        team2:teams!matches_team2_id_fkey(*)
+    `;
 
-async function getTeams() {
-    return await overtimeDB
-        .from("teams")
-        .select("*")
-        .order("name");
-}
+    async function run(query, label) {
+        try {
+            const { data, error } = await query;
 
-async function getTeam(id) {
-    return await overtimeDB
-        .from("teams")
-        .select("*")
-        .eq("id", id)
-        .single();
-}
+            if (error) {
+                console.error(`[OVERTIME] ${label}:`, error);
+                throw error;
+            }
 
-// =============================================
-// PLAYERS
-// =============================================
+            return data;
+        } catch (error) {
+            console.error(`[OVERTIME] ${label} failed:`, error);
+            throw error;
+        }
+    }
 
-async function getPlayers() {
-    return await overtimeDB
-        .from("players")
-        .select(`
-            *,
-            team:teams(*)
-        `)
-        .order("gamer_tag");
-}
+    async function getCurrentUser() {
+        const {
+            data: { user },
+            error
+        } = await db.auth.getUser();
 
-// =============================================
-// EVENTS
-// =============================================
+        if (error) {
+            console.error("[OVERTIME] getCurrentUser:", error);
+            return null;
+        }
 
-async function getEvents() {
-    return await overtimeDB
-        .from("events")
-        .select("*")
-        .order("start_date", {
-            ascending: false
-        });
-}
+        return user;
+    }
 
-async function getFeaturedEvent() {
-    return await overtimeDB
-        .from("events")
-        .select("*")
-        .eq("featured", true)
-        .limit(1)
-        .maybeSingle();
-}
+    async function adminLogin(email, password) {
+        const { data, error } =
+            await db.auth.signInWithPassword({
+                email,
+                password
+            });
 
-// =============================================
-// MATCHES
-// =============================================
+        if (error) throw error;
 
-const MATCH_SELECT = `
-    *,
-    event:events(*),
-    team1:teams!matches_team1_id_fkey(*),
-    team2:teams!matches_team2_id_fkey(*)
-`;
+        return data;
+    }
 
-async function getMatches() {
-    return await overtimeDB
-        .from("matches")
-        .select(MATCH_SELECT)
-        .order("scheduled_at");
-}
+    async function adminLogout() {
+        const { error } = await db.auth.signOut();
 
-async function getLiveMatches() {
-    return await overtimeDB
-        .from("matches")
-        .select(MATCH_SELECT)
-        .eq("status", "live")
-        .order("scheduled_at");
-}
+        if (error) throw error;
+    }
 
-async function getUpcomingMatches(limit = 6) {
-    return await overtimeDB
-        .from("matches")
-        .select(MATCH_SELECT)
-        .eq("status", "upcoming")
-        .order("scheduled_at")
-        .limit(limit);
-}
+    function getTeams() {
+        return run(
+            db.from("teams")
+                .select("*")
+                .order("name"),
+            "getTeams"
+        );
+    }
 
-async function getRecentResults(limit = 6) {
-    return await overtimeDB
-        .from("matches")
-        .select(MATCH_SELECT)
-        .eq("status", "completed")
-        .order("scheduled_at", {
-            ascending: false
-        })
-        .limit(limit);
-}
+    function getTeam(id) {
+        return run(
+            db.from("teams")
+                .select("*")
+                .eq("id", id)
+                .single(),
+            "getTeam"
+        );
+    }
 
-// =============================================
-// STANDINGS
-// =============================================
+    function getPlayers() {
+        return run(
+            db.from("players")
+                .select("*, team:teams(*)")
+                .eq("active", true)
+                .order("gamer_tag"),
+            "getPlayers"
+        );
+    }
 
-async function getStandings(eventId) {
-    return await overtimeDB
-        .from("standings")
-        .select(`
-            *,
-            team:teams(*)
-        `)
-        .eq("event_id", eventId)
-        .order("position");
-}
+    function getEvents() {
+        return run(
+            db.from("events")
+                .select("*")
+                .order("start_date", { ascending: false }),
+            "getEvents"
+        );
+    }
 
-// =============================================
-// STREAMS
-// =============================================
+    function getFeaturedEvent() {
+        return run(
+            db.from("events")
+                .select("*")
+                .eq("featured", true)
+                .limit(1)
+                .maybeSingle(),
+            "getFeaturedEvent"
+        );
+    }
 
-async function getStreams() {
-    return await overtimeDB
-        .from("streams")
-        .select("*")
-        .eq("active", true)
-        .order("sort_order");
-}
+    function getMatches() {
+        return run(
+            db.from("matches")
+                .select(MATCH_SELECT)
+                .order("scheduled_at", { ascending: true }),
+            "getMatches"
+        );
+    }
 
-// =============================================
-// NEWS
-// =============================================
+    function getLiveMatches() {
+        return run(
+            db.from("matches")
+                .select(MATCH_SELECT)
+                .eq("status", "live")
+                .order("scheduled_at"),
+            "getLiveMatches"
+        );
+    }
 
-async function getNews(limit = 20) {
-    return await overtimeDB
-        .from("news")
-        .select("*")
-        .eq("published", true)
-        .order("published_at", {
-            ascending: false
-        })
-        .limit(limit);
-}
+    function getUpcomingMatches(limit = 6) {
+        return run(
+            db.from("matches")
+                .select(MATCH_SELECT)
+                .eq("status", "upcoming")
+                .order("scheduled_at")
+                .limit(limit),
+            "getUpcomingMatches"
+        );
+    }
 
-async function getFeaturedNews(limit = 3) {
-    return await overtimeDB
-        .from("news")
-        .select("*")
-        .eq("published", true)
-        .eq("featured", true)
-        .order("published_at", {
-            ascending: false
-        })
-        .limit(limit);
-}
+    function getRecentResults(limit = 6) {
+        return run(
+            db.from("matches")
+                .select(MATCH_SELECT)
+                .eq("status", "completed")
+                .order("scheduled_at", { ascending: false })
+                .limit(limit),
+            "getRecentResults"
+        );
+    }
 
-// =============================================
-// SITE SETTINGS
-// =============================================
+    function getStandings(eventId = null) {
+        let query = db
+            .from("standings")
+            .select("*, team:teams(*), event:events(*)")
+            .order("position");
 
-async function getSiteSettings() {
-    return await overtimeDB
-        .from("site_settings")
-        .select("*")
-        .eq("id", 1)
-        .single();
-}
+        if (eventId) {
+            query = query.eq("event_id", eventId);
+        }
 
-// =============================================
-// ADMIN CRUD
-// =============================================
+        return run(query, "getStandings");
+    }
 
-async function adminInsert(table, values) {
-    return await overtimeDB
-        .from(table)
-        .insert(values)
-        .select();
-}
+    function getStreams() {
+        return run(
+            db.from("streams")
+                .select("*")
+                .eq("active", true)
+                .order("sort_order"),
+            "getStreams"
+        );
+    }
 
-async function adminUpdate(table, id, values) {
-    return await overtimeDB
-        .from(table)
-        .update(values)
-        .eq("id", id)
-        .select();
-}
+    function getNews() {
+        return run(
+            db.from("news")
+                .select("*")
+                .eq("published", true)
+                .order("published_at", { ascending: false }),
+            "getNews"
+        );
+    }
 
-async function adminDelete(table, id) {
-    return await overtimeDB
-        .from(table)
-        .delete()
-        .eq("id", id);
-}
+    function getFeaturedNews(limit = 3) {
+        return run(
+            db.from("news")
+                .select("*")
+                .eq("published", true)
+                .eq("featured", true)
+                .order("published_at", { ascending: false })
+                .limit(limit),
+            "getFeaturedNews"
+        );
+    }
 
-// =============================================
-// EXPORT
-// =============================================
+    function getSiteSettings() {
+        return run(
+            db.from("site_settings")
+                .select("*")
+                .eq("id", 1)
+                .maybeSingle(),
+            "getSiteSettings"
+        );
+    }
 
-window.OvertimeDB = {
-    client: overtimeDB,
+    async function adminInsert(table, values) {
+        return run(
+            db.from(table)
+                .insert(values)
+                .select(),
+            `adminInsert:${table}`
+        );
+    }
 
-    getCurrentUser,
-    adminLogin,
-    adminLogout,
+    async function adminUpdate(table, id, values) {
+        return run(
+            db.from(table)
+                .update(values)
+                .eq("id", id)
+                .select(),
+            `adminUpdate:${table}`
+        );
+    }
 
-    getTeams,
-    getTeam,
-    getPlayers,
+    async function adminDelete(table, id) {
+        return run(
+            db.from(table)
+                .delete()
+                .eq("id", id),
+            `adminDelete:${table}`
+        );
+    }
 
-    getEvents,
-    getFeaturedEvent,
+    window.OvertimeSupabase = db;
 
-    getMatches,
-    getLiveMatches,
-    getUpcomingMatches,
-    getRecentResults,
+    window.OvertimeDB = {
+        getCurrentUser,
+        adminLogin,
+        adminLogout,
 
-    getStandings,
-    getStreams,
+        getTeams,
+        getTeam,
+        getPlayers,
+        getEvents,
+        getFeaturedEvent,
 
-    getNews,
-    getFeaturedNews,
+        getMatches,
+        getLiveMatches,
+        getUpcomingMatches,
+        getRecentResults,
 
-    getSiteSettings,
+        getStandings,
+        getStreams,
 
-    adminInsert,
-    adminUpdate,
-    adminDelete
-};
+        getNews,
+        getFeaturedNews,
+
+        getSiteSettings,
+
+        adminInsert,
+        adminUpdate,
+        adminDelete
+    };
+
+    console.log("[OVERTIME] database.js loaded");
+})();
