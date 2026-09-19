@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teams — Overtime</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+<header class="site-header"><div class="nav-container">
+<a href="index.html" class="brand"><div class="brand-mark">OT</div><div class="brand-copy"><strong>OVERTIME</strong><span>ROCKET LEAGUE ESPORTS</span></div></a>
+<nav class="desktop-nav"><a href="index.html">Home</a><a href="matches.html">Matches</a><a href="events.html">Events</a><a class="active" href="teams.html">Teams</a><a href="players.html">Players</a><a href="news.html">News</a><a href="watch.html">Watch</a></nav>
+<div class="nav-actions"><a href="watch.html" class="live-nav"><span></span>LIVE</a><a href="admin.html" class="admin-nav">Admin</a></div>
+</div></header>
+
+<section class="page-hero"><div class="container"><span class="section-kicker">ORGANIZATIONS</span><h1>Teams</h1><p>Teams competing across Rocket League esports.</p></div></section>
+<main class="page-content"><div class="container"><div id="teamGrid" class="entity-grid"><div class="loading-card">Loading teams...</div></div></div></main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script><script src="js/database.js"></script><script src="js/teams.js"></script>
+</body></html>
