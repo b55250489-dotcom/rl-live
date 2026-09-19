@@ -1,300 +1,562 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Overtime — Rocket League Esports</title>
-    <meta name="description" content="Rocket League esports matches, events, teams, players, news and live broadcasts.">
+
+    <meta
+        name="description"
+        content="Rocket League esports matches, events, teams, players, news and live broadcasts."
+    >
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/main.css">
 </head>
 
+
 <body>
 
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
 <header class="site-header">
+
     <div class="nav-container">
 
+        <!-- BRAND -->
+
         <a href="index.html" class="brand">
-            <div class="brand-mark">OT</div>
+
+            <div class="brand-mark">
+                OT
+            </div>
 
             <div class="brand-copy">
                 <strong>OVERTIME</strong>
                 <span>ROCKET LEAGUE ESPORTS</span>
             </div>
+
         </a>
 
+
+        <!-- NAVIGATION -->
+
         <nav class="desktop-nav">
-            <a class="active" href="index.html">Home</a>
-            <a href="matches.html">Matches</a>
-            <a href="events.html">Events</a>
-            <a href="teams.html">Teams</a>
-            <a href="players.html">Players</a>
-            <a href="news.html">News</a>
-            <a href="watch.html">Watch</a>
+
+            <a
+                class="active"
+                href="index.html"
+            >
+                Home
+            </a>
+
+            <a href="html/matches.html">
+                Matches
+            </a>
+
+            <a href="html/events.html">
+                Events
+            </a>
+
+            <a href="html/teams.html">
+                Teams
+            </a>
+
+            <a href="html/players.html">
+                Players
+            </a>
+
+            <a href="html/news.html">
+                News
+            </a>
+
+            <a href="html/watch.html">
+                Watch
+            </a>
+
         </nav>
 
+
+        <!-- RIGHT SIDE -->
+
         <div class="nav-actions">
-            <a href="watch.html" class="live-nav">
+
+            <a
+                href="html/watch.html"
+                class="live-nav"
+            >
                 <span></span>
                 LIVE
             </a>
 
-            <a href="admin.html" class="admin-nav">
+            <a
+                href="html/admin.html"
+                class="admin-nav"
+            >
                 Admin
             </a>
+
         </div>
 
     </div>
+
 </header>
 
 
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
 <main>
 
-    <!-- HERO -->
 
-    <section class="hero">
-        <div class="hero-glow"></div>
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-        <div class="container hero-container">
+<section class="hero">
 
-            <div class="hero-content">
+    <div class="hero-glow"></div>
 
-                <div class="hero-eyebrow">
-                    <span class="eyebrow-line"></span>
-                    ROCKET LEAGUE ESPORTS
-                </div>
+    <div class="container hero-container">
 
-                <h1>
-                    EVERY MATCH.<br>
-                    <span>EVERY MOMENT.</span>
-                </h1>
 
-                <p id="heroDescription">
-                    Follow Rocket League esports with live matches,
-                    schedules, results, events, teams and broadcasts
-                    all in one place.
-                </p>
+        <!-- LEFT SIDE -->
 
-                <div class="hero-actions">
-                    <a href="watch.html" class="button primary-button">
-                        <span class="button-live-dot"></span>
-                        WATCH LIVE
-                    </a>
+        <div class="hero-content">
 
-                    <a href="matches.html" class="button secondary-button">
-                        VIEW MATCHES
-                    </a>
-                </div>
+            <div class="hero-eyebrow">
+
+                <span class="eyebrow-line"></span>
+
+                ROCKET LEAGUE ESPORTS
 
             </div>
 
-            <div class="hero-panel">
 
-                <div class="hero-panel-top">
-                    <div>
-                        <span class="small-label">OVERTIME</span>
-                        <h3>Rocket League Esports</h3>
-                    </div>
-
-                    <div class="hero-ot">OT</div>
-                </div>
-
-                <div class="hero-stat-grid">
-                    <div>
-                        <strong id="heroLiveCount">0</strong>
-                        <span>LIVE MATCHES</span>
-                    </div>
-
-                    <div>
-                        <strong id="heroTeamCount">0</strong>
-                        <span>TEAMS</span>
-                    </div>
-
-                    <div>
-                        <strong id="heroEventCount">0</strong>
-                        <span>EVENTS</span>
-                    </div>
-                </div>
-
-                <div class="hero-panel-footer">
-                    <span class="status-dot"></span>
-                    LIVE DATA
-                </div>
-
-            </div>
-
-        </div>
-    </section>
+            <h1>
+                EVERY MATCH.<br>
+                <span>EVERY MOMENT.</span>
+            </h1>
 
 
-    <!-- MATCH CENTER -->
+            <p id="heroDescription">
+                Follow Rocket League esports with live matches,
+                schedules, results, events, teams and broadcasts
+                all in one place.
+            </p>
 
-    <section class="section">
-        <div class="container">
 
-            <div class="section-header">
-                <div>
-                    <span class="section-kicker">MATCH CENTER</span>
-                    <h2>What's happening</h2>
-                </div>
+            <div class="hero-actions">
 
-                <a href="matches.html" class="section-link">
-                    VIEW ALL MATCHES →
+                <a
+                    href="html/watch.html"
+                    class="button primary-button"
+                >
+                    <span class="button-live-dot"></span>
+                    WATCH LIVE
                 </a>
-            </div>
 
 
-            <!-- LIVE -->
-
-            <div id="liveSection" class="match-block hidden">
-
-                <div class="block-title">
-                    <div>
-                        <span class="live-dot"></span>
-                        LIVE NOW
-                    </div>
-                </div>
-
-                <div id="liveMatches" class="match-grid"></div>
-
-            </div>
-
-
-            <!-- UPCOMING -->
-
-            <div class="match-block">
-
-                <div class="block-title">
-                    UPCOMING
-                </div>
-
-                <div id="upcomingMatches" class="match-grid">
-
-                    <div class="loading-card">
-                        Loading upcoming matches...
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- RESULTS -->
-
-            <div class="match-block">
-
-                <div class="block-title">
-                    RECENT RESULTS
-                </div>
-
-                <div id="recentResults" class="match-grid">
-
-                    <div class="loading-card">
-                        Loading results...
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-
-
-    <!-- FEATURED EVENT -->
-
-    <section class="section alt-section">
-
-        <div class="container">
-
-            <div class="section-header">
-                <div>
-                    <span class="section-kicker">COMPETITION</span>
-                    <h2>Featured Event</h2>
-                </div>
-
-                <a href="events.html" class="section-link">
-                    ALL EVENTS →
+                <a
+                    href="html/matches.html"
+                    class="button secondary-button"
+                >
+                    VIEW MATCHES
                 </a>
-            </div>
 
-            <div id="featuredEvent">
-                <div class="loading-card large">
-                    No featured event yet.
-                </div>
             </div>
 
         </div>
 
-    </section>
 
 
-    <!-- NEWS -->
+        <!-- RIGHT SIDE -->
 
-    <section class="section">
+        <div class="hero-panel">
 
-        <div class="container">
 
-            <div class="section-header">
+            <div class="hero-panel-top">
+
                 <div>
-                    <span class="section-kicker">LATEST</span>
-                    <h2>Overtime News</h2>
+
+                    <span class="small-label">
+                        OVERTIME
+                    </span>
+
+                    <h3>
+                        Rocket League Esports
+                    </h3>
+
                 </div>
 
-                <a href="news.html" class="section-link">
-                    ALL NEWS →
-                </a>
-            </div>
 
-            <div id="newsGrid" class="news-grid">
-
-                <div class="loading-card">
-                    No news published yet.
+                <div class="hero-ot">
+                    OT
                 </div>
 
             </div>
+
+
+
+            <div class="hero-stat-grid">
+
+
+                <div>
+
+                    <strong id="heroLiveCount">
+                        0
+                    </strong>
+
+                    <span>
+                        LIVE MATCHES
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong id="heroTeamCount">
+                        0
+                    </strong>
+
+                    <span>
+                        TEAMS
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong id="heroEventCount">
+                        0
+                    </strong>
+
+                    <span>
+                        EVENTS
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="hero-panel-footer">
+
+                <span class="status-dot"></span>
+
+                LIVE DATA
+
+            </div>
+
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
 
-    <!-- WATCH CTA -->
 
-    <section class="watch-cta">
+<!-- =====================================================
+     MATCH CENTER
+===================================================== -->
 
-        <div class="container watch-cta-inner">
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-header">
 
             <div>
-                <span class="section-kicker">OVERTIME LIVE</span>
 
-                <h2>Watch every broadcast.</h2>
+                <span class="section-kicker">
+                    MATCH CENTER
+                </span>
 
-                <p>
-                    Switch between official Rocket League broadcasts
-                    or use Multi View to watch multiple streams at once.
-                </p>
+                <h2>
+                    What's happening
+                </h2>
+
             </div>
 
-            <a href="watch.html" class="button primary-button">
-                OPEN LIVE VIEWER
+
+            <a
+                href="html/matches.html"
+                class="section-link"
+            >
+                VIEW ALL MATCHES →
             </a>
 
         </div>
 
-    </section>
+
+
+        <!-- LIVE MATCHES -->
+
+        <div
+            id="liveSection"
+            class="match-block hidden"
+        >
+
+            <div class="block-title">
+
+                <div>
+
+                    <span class="live-dot"></span>
+
+                    LIVE NOW
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="liveMatches"
+                class="match-grid"
+            ></div>
+
+        </div>
+
+
+
+        <!-- UPCOMING MATCHES -->
+
+        <div class="match-block">
+
+            <div class="block-title">
+                UPCOMING
+            </div>
+
+
+            <div
+                id="upcomingMatches"
+                class="match-grid"
+            >
+
+                <div class="loading-card">
+                    Loading upcoming matches...
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- RESULTS -->
+
+        <div class="match-block">
+
+            <div class="block-title">
+                RECENT RESULTS
+            </div>
+
+
+            <div
+                id="recentResults"
+                class="match-grid"
+            >
+
+                <div class="loading-card">
+                    Loading results...
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURED EVENT
+===================================================== -->
+
+<section class="section alt-section">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    COMPETITION
+                </span>
+
+                <h2>
+                    Featured Event
+                </h2>
+
+            </div>
+
+
+            <a
+                href="html/events.html"
+                class="section-link"
+            >
+                ALL EVENTS →
+            </a>
+
+        </div>
+
+
+
+        <div id="featuredEvent">
+
+            <div class="loading-card large">
+                No featured event yet.
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NEWS
+===================================================== -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-header">
+
+            <div>
+
+                <span class="section-kicker">
+                    LATEST
+                </span>
+
+                <h2>
+                    Overtime News
+                </h2>
+
+            </div>
+
+
+            <a
+                href="html/news.html"
+                class="section-link"
+            >
+                ALL NEWS →
+            </a>
+
+        </div>
+
+
+
+        <div
+            id="newsGrid"
+            class="news-grid"
+        >
+
+            <div class="loading-card">
+                No news published yet.
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WATCH CTA
+===================================================== -->
+
+<section class="watch-cta">
+
+    <div class="container watch-cta-inner">
+
+
+        <div>
+
+            <span class="section-kicker">
+                OVERTIME LIVE
+            </span>
+
+            <h2>
+                Watch every broadcast.
+            </h2>
+
+            <p>
+                Switch between Rocket League broadcasts
+                or use Multi View to watch multiple
+                streams at once.
+            </p>
+
+        </div>
+
+
+        <a
+            href="html/watch.html"
+            class="button primary-button"
+        >
+            OPEN LIVE VIEWER
+        </a>
+
+
+    </div>
+
+</section>
+
 
 </main>
 
 
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer class="site-footer">
 
     <div class="container footer-inner">
+
 
         <div class="footer-brand">
 
@@ -302,35 +564,75 @@
                 OT
             </div>
 
+
             <div>
-                <strong>OVERTIME</strong>
-                <span>Rocket League Esports</span>
+
+                <strong>
+                    OVERTIME
+                </strong>
+
+                <span>
+                    Rocket League Esports
+                </span>
+
             </div>
 
         </div>
 
+
+
         <div class="footer-links">
-            <a href="matches.html">Matches</a>
-            <a href="events.html">Events</a>
-            <a href="teams.html">Teams</a>
-            <a href="players.html">Players</a>
-            <a href="watch.html">Watch</a>
+
+            <a href="html/matches.html">
+                Matches
+            </a>
+
+            <a href="html/events.html">
+                Events
+            </a>
+
+            <a href="html/teams.html">
+                Teams
+            </a>
+
+            <a href="html/players.html">
+                Players
+            </a>
+
+            <a href="html/watch.html">
+                Watch
+            </a>
+
         </div>
 
+
+
         <p>
-            Overtime is an independent Rocket League esports platform.
-            Not affiliated with Epic Games or Psyonix.
+            Overtime is an independent Rocket League
+            esports platform. Not affiliated with
+            Epic Games or Psyonix.
         </p>
+
 
     </div>
 
 </footer>
 
 
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="js/config.js"></script>
+
 <script src="js/database.js"></script>
+
 <script src="js/app.js"></script>
 
+
 </body>
+
 </html>
