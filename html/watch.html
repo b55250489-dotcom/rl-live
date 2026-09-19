@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Watch — Overtime</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/watch.css">
+</head>
+
+<body>
+
+<header class="site-header">
+<div class="nav-container">
+<a href="index.html" class="brand"><div class="brand-mark">OT</div><div class="brand-copy"><strong>OVERTIME</strong><span>ROCKET LEAGUE ESPORTS</span></div></a>
+<nav class="desktop-nav"><a href="index.html">Home</a><a href="matches.html">Matches</a><a href="events.html">Events</a><a href="teams.html">Teams</a><a href="players.html">Players</a><a href="news.html">News</a><a class="active" href="watch.html">Watch</a></nav>
+<div class="nav-actions"><a href="watch.html" class="live-nav"><span></span>LIVE</a><a href="admin.html" class="admin-nav">Admin</a></div>
+</div>
+</header>
+
+<section class="page-hero watch-heading">
+<div class="container">
+<span class="section-kicker">OVERTIME LIVE</span>
+<h1>Watch Rocket League</h1>
+<p>Official broadcasts with Single View and Overtime Multi View.</p>
+</div>
+</section>
+
+<main class="watch-main">
+<div class="container">
+
+<div class="watch-switcher">
+<button id="singleButton" class="watch-mode active">▣ SINGLE VIEW</button>
+<button id="multiButton" class="watch-mode">▦ MULTI VIEW</button>
+</div>
+
+<section id="singleView">
+
+<div class="stream-shell">
+<div class="stream-header">
+<div><span class="live-dot"></span><strong>LIVE BROADCAST</strong></div>
+<span id="currentStreamName">Loading...</span>
+</div>
+
+<div class="stream-player">
+<iframe id="mainPlayer" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
+</div>
+
+<div class="broadcast-heading">
+<span class="section-kicker">BROADCASTS</span>
+<h2>Available Streams</h2>
+</div>
+
+<div id="streamList" class="stream-list"></div>
+
+</section>
+
+<section id="multiView" class="hidden">
+
+<div class="multi-top">
+<div>
+<span class="section-kicker">MULTI VIEW</span>
+<h2>Your broadcasts</h2>
+</div>
+
+<div class="multi-tools">
+<span id="multiCount">0 STREAMS</span>
+<button id="addStreamBtn">+ ADD STREAM</button>
+</div>
+</div>
+
+<div id="multiGrid" class="overtime-multi-grid"></div>
+
+<div id="multiEmpty" class="multi-empty hidden">
+<strong>No streams selected</strong>
+<span>Add a broadcast to start Multi View.</span>
+</div>
+
+<div id="streamPicker" class="stream-picker hidden"></div>
+
+</section>
+
+</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/config.js"></script>
+<script src="js/database.js"></script>
+<script src="js/watch.js"></script>
+</body>
+</html>
