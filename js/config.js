@@ -1,21 +1,19 @@
-// =============================================
-// OVERTIME — GLOBAL CONFIG
-// =============================================
+"use strict";
 
-const OVERTIME_CONFIG = {
+window.OVERTIME_CONFIG = {
     supabaseUrl: "https://iufyccdxkvhqlcpyxabv.supabase.co",
 
-    supabaseKey:
-        "sb_publishable_9v34ldcSrg3jvCFrdtjcfw_X-o3iXIY",
+    // Publishable key only — never put a secret/service-role key here.
+    supabaseKey: "sb_publishable_9v34ldcSrg3jvCFrdtjcfw_X-o3iXIY",
 
-    twitchParent:
-        "b55250489-dotcom.github.io",
+    siteName: "Overtime",
+    siteDescription: "Rocket League Esports",
 
-    siteName:
-        "Overtime",
+    // GitHub Pages project path
+    basePath: "/rl-live",
 
-    siteDescription:
-        "Rocket League Esports"
+    // Twitch requires the hostname, not /rl-live/
+    twitchParent: "b55250489-dotcom.github.io"
 };
 
-window.OVERTIME_CONFIG = OVERTIME_CONFIG;
+console.log("[OVERTIME] config.js loaded");
