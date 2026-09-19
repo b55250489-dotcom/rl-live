@@ -1,128 +1,305 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Overtime Admin</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../css/main.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Overtime Admin</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- OVERTIME STYLES -->
+    <link rel="stylesheet" href="/rl-live/css/main.css">
+    <link rel="stylesheet" href="/rl-live/css/admin.css">
 </head>
 
 <body>
 
+<!-- ==========================================
+     LOGIN
+=========================================== -->
+
 <section id="loginScreen" class="login-screen">
 
-<div class="login-card">
+    <div class="login-card">
 
-<div class="admin-logo">OT</div>
+        <div class="admin-logo">OT</div>
 
-<span>OVERTIME</span>
-<h1>Admin</h1>
+        <span>OVERTIME</span>
+        <h1>Admin</h1>
 
-<p>Sign in to manage Overtime.</p>
+        <p>Sign in to manage Overtime.</p>
 
-<form id="loginForm">
-<label>Email</label>
-<input id="loginEmail" type="email" required>
+        <form id="loginForm">
 
-<label>Password</label>
-<input id="loginPassword" type="password" required>
+            <label for="loginEmail">Email</label>
+            <input
+                id="loginEmail"
+                type="email"
+                autocomplete="email"
+                required
+            >
 
-<button type="submit">SIGN IN</button>
+            <label for="loginPassword">Password</label>
+            <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                required
+            >
 
-<div id="loginError" class="form-error"></div>
-</form>
+            <button type="submit">
+                SIGN IN
+            </button>
 
-<a href="index.html" class="back-site">← Return to Overtime</a>
+            <div
+                id="loginError"
+                class="form-error"
+            ></div>
 
-</div>
+        </form>
+
+        <a
+            href="/rl-live/"
+            class="back-site"
+        >
+            ← Return to Overtime
+        </a>
+
+    </div>
 
 </section>
 
 
+<!-- ==========================================
+     ADMIN APPLICATION
+=========================================== -->
+
 <div id="adminApp" class="admin-app hidden">
 
-<aside class="admin-sidebar">
+    <!-- SIDEBAR -->
 
-<a href="index.html" class="admin-brand">
-<div>OT</div>
-<span><strong>OVERTIME</strong>ADMIN</span>
-</a>
+    <aside class="admin-sidebar">
 
-<nav>
-<button class="admin-nav-button active" data-page="dashboard">Dashboard</button>
-<button class="admin-nav-button" data-page="matches">Matches</button>
-<button class="admin-nav-button" data-page="teams">Teams</button>
-<button class="admin-nav-button" data-page="players">Players</button>
-<button class="admin-nav-button" data-page="events">Events</button>
-<button class="admin-nav-button" data-page="streams">Streams</button>
-<button class="admin-nav-button" data-page="news">News</button>
-<button class="admin-nav-button" data-page="standings">Standings</button>
-<button class="admin-nav-button" data-page="settings">Site Settings</button>
-</nav>
+        <a
+            href="/rl-live/"
+            class="admin-brand"
+        >
+            <div>OT</div>
 
-<div class="sidebar-bottom">
-<a href="index.html">View Website ↗</a>
-<button id="logoutButton">Sign Out</button>
+            <span>
+                <strong>OVERTIME</strong>
+                ADMIN
+            </span>
+        </a>
+
+
+        <nav>
+
+            <button
+                class="admin-nav-button active"
+                data-page="dashboard"
+            >
+                Dashboard
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="matches"
+            >
+                Matches
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="teams"
+            >
+                Teams
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="players"
+            >
+                Players
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="events"
+            >
+                Events
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="streams"
+            >
+                Streams
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="news"
+            >
+                News
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="standings"
+            >
+                Standings
+            </button>
+
+            <button
+                class="admin-nav-button"
+                data-page="settings"
+            >
+                Site Settings
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <a href="/rl-live/">
+                View Website ↗
+            </a>
+
+            <button id="logoutButton">
+                Sign Out
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN ADMIN CONTENT -->
+
+    <main class="admin-main">
+
+        <header class="admin-header">
+
+            <div>
+
+                <span>
+                    OVERTIME CONTROL CENTER
+                </span>
+
+                <h1 id="adminPageTitle">
+                    Dashboard
+                </h1>
+
+            </div>
+
+            <button
+                id="primaryAction"
+                class="primary-action hidden"
+            >
+                + ADD
+            </button>
+
+        </header>
+
+
+        <div id="adminContent"></div>
+
+    </main>
+
 </div>
 
-</aside>
+
+<!-- ==========================================
+     EDITOR MODAL
+=========================================== -->
+
+<div
+    id="modal"
+    class="modal hidden"
+>
+
+    <div
+        class="modal-backdrop"
+        id="modalBackdrop"
+    ></div>
 
 
-<main class="admin-main">
+    <div class="modal-card">
 
-<header class="admin-header">
-<div>
-<span>OVERTIME CONTROL CENTER</span>
-<h1 id="adminPageTitle">Dashboard</h1>
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Add
+            </h2>
+
+            <button
+                id="closeModal"
+                type="button"
+                aria-label="Close"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="entityForm">
+
+            <div id="formFields"></div>
+
+
+            <div class="modal-actions">
+
+                <button
+                    type="button"
+                    id="cancelModal"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="save-button"
+                >
+                    Save
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
 </div>
 
-<button id="primaryAction" class="primary-action hidden">
-+ ADD
-</button>
-</header>
 
-<div id="adminContent"></div>
+<!-- ==========================================
+     TOAST
+=========================================== -->
 
-</main>
-
-</div>
-
-
-<div id="modal" class="modal hidden">
-
-<div class="modal-backdrop" id="modalBackdrop"></div>
-
-<div class="modal-card">
-
-<div class="modal-header">
-<h2 id="modalTitle">Add</h2>
-<button id="closeModal">×</button>
-</div>
-
-<form id="entityForm">
-
-<div id="formFields"></div>
-
-<div class="modal-actions">
-<button type="button" id="cancelModal">Cancel</button>
-<button type="submit" class="save-button">Save</button>
-</div>
-
-</form>
-
-</div>
-
-</div>
+<div
+    id="toast"
+    class="toast hidden"
+></div>
 
 
-<div id="toast" class="toast hidden"></div>
+<!-- ==========================================
+     JAVASCRIPT
+=========================================== -->
 
-
+<!-- Supabase must load first -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js"></script>
-<script src="js/database.js"></script>
-<script src="js/admin.js"></script>
+
+<!-- Overtime -->
+<script src="/rl-live/js/config.js"></script>
+<script src="/rl-live/js/database.js"></script>
+<script src="/rl-live/js/admin.js"></script>
 
 </body>
 </html>
