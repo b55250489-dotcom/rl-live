@@ -1,22 +1,184 @@
+// =============================================
+// OVERTIME — DATABASE
+// =============================================
+
 "use strict";
 
 (function () {
-    if (!window.OVERTIME_CONFIG) {
-        console.error("[OVERTIME] OVERTIME_CONFIG is missing.");
-        return;
-    }
+
+    // =========================================
+    // SAFETY CHECKS
+    // =========================================
 
     if (!window.supabase) {
-        console.error("[OVERTIME] Supabase JS library is missing.");
+        console.error(
+            "[OVERTIME] Supabase library did not load."
+        );
         return;
     }
 
-    const config = window.OVERTIME_CONFIG;
+    if (!window.OVERTIME_CONFIG) {
+        console.error(
+            "[OVERTIME] config.js did not load."
+        );
+        return;
+    }
 
-    const db = window.supabase.createClient(
-        config.supabaseUrl,
-        config.supabaseKey
+
+    // =========================================
+    // SUPABASE CLIENT
+    // =========================================
+
+    const overtimeDB = window.supabase.createClient(
+        window.OVERTIME_CONFIG.supabaseUrl,
+        window.OVERTIME_CONFIG.supabaseKey
     );
+
+
+    // =========================================
+    // AUTH
+    // =========================================
+
+    async function getCurrentUser() {
+
+        const {
+            data: { user },
+            error
+        } = await overtimeDB.auth.getUser();
+
+        if (error) {
+            console.warn(
+                "[OVERTIME] Could not get current user:",
+                error.message
+            );
+
+            return null;
+        }
+
+        return user;
+    }
+
+
+    async function adminLogin(email, password) {
+
+        try {
+
+            return await overtimeDB.auth.signInWithPassword({
+                email,
+                password
+            });
+
+        } catch (error) {
+
+            console.error(
+                "[OVERTIME] Login error:",
+                error
+            );
+
+            return {
+                data: null,
+                error
+            };
+        }
+    }
+
+
+    async function adminLogout() {
+
+        try {
+
+            return await overtimeDB.auth.signOut();
+
+        } catch (error) {
+
+            console.error(
+                "[OVERTIME] Logout error:",
+                error
+            );
+
+            return {
+                error
+            };
+        }
+    }
+
+
+    // =========================================
+    // TEAMS
+    // =========================================
+
+    async function getTeams() {
+
+        return await overtimeDB
+            .from("teams")
+            .select("*")
+            .order("name");
+
+    }
+
+
+    async function getTeam(id) {
+
+        return await overtimeDB
+            .from("teams")
+            .select("*")
+            .eq("id", id)
+            .single();
+
+    }
+
+
+    // =========================================
+    // PLAYERS
+    // =========================================
+
+    async function getPlayers() {
+
+        return await overtimeDB
+            .from("players")
+            .select(`
+                *,
+                team:teams(*)
+            `)
+            .order("gamer_tag");
+
+    }
+
+
+    // =========================================
+    // EVENTS
+    // =========================================
+
+    async function getEvents() {
+
+        return await overtimeDB
+            .from("events")
+            .select("*")
+            .order(
+                "start_date",
+                {
+                    ascending: false
+                }
+            );
+
+    }
+
+
+    async function getFeaturedEvent() {
+
+        return await overtimeDB
+            .from("events")
+            .select("*")
+            .eq("featured", true)
+            .limit(1)
+            .maybeSingle();
+
+    }
+
+
+    // =========================================
+    // MATCHES
+    // =========================================
 
     const MATCH_SELECT = `
         *,
@@ -25,257 +187,326 @@
         team2:teams!matches_team2_id_fkey(*)
     `;
 
-    async function run(query, label) {
-        try {
-            const { data, error } = await query;
 
-            if (error) {
-                console.error(`[OVERTIME] ${label}:`, error);
-                throw error;
-            }
+    async function getMatches() {
 
-            return data;
-        } catch (error) {
-            console.error(`[OVERTIME] ${label} failed:`, error);
-            throw error;
-        }
+        return await overtimeDB
+            .from("matches")
+            .select(MATCH_SELECT)
+            .order("scheduled_at");
+
     }
 
-    async function getCurrentUser() {
-        const {
-            data: { user },
-            error
-        } = await db.auth.getUser();
 
-        if (error) {
-            console.error("[OVERTIME] getCurrentUser:", error);
-            return null;
-        }
+    async function getLiveMatches() {
 
-        return user;
+        return await overtimeDB
+            .from("matches")
+            .select(MATCH_SELECT)
+            .eq("status", "live")
+            .order("scheduled_at");
+
     }
 
-    async function adminLogin(email, password) {
-        const { data, error } =
-            await db.auth.signInWithPassword({
-                email,
-                password
-            });
 
-        if (error) throw error;
+    async function getUpcomingMatches(limit = 6) {
 
-        return data;
+        return await overtimeDB
+            .from("matches")
+            .select(MATCH_SELECT)
+            .eq("status", "upcoming")
+            .order("scheduled_at")
+            .limit(limit);
+
     }
 
-    async function adminLogout() {
-        const { error } = await db.auth.signOut();
 
-        if (error) throw error;
+    async function getRecentResults(limit = 6) {
+
+        return await overtimeDB
+            .from("matches")
+            .select(MATCH_SELECT)
+            .eq("status", "completed")
+            .order(
+                "scheduled_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(limit);
+
     }
 
-    function getTeams() {
-        return run(
-            db.from("teams")
-                .select("*")
-                .order("name"),
-            "getTeams"
-        );
-    }
 
-    function getTeam(id) {
-        return run(
-            db.from("teams")
-                .select("*")
-                .eq("id", id)
-                .single(),
-            "getTeam"
-        );
-    }
+    // =========================================
+    // STANDINGS
+    // =========================================
 
-    function getPlayers() {
-        return run(
-            db.from("players")
-                .select("*, team:teams(*)")
-                .eq("active", true)
-                .order("gamer_tag"),
-            "getPlayers"
-        );
-    }
+    async function getStandings(eventId = null) {
 
-    function getEvents() {
-        return run(
-            db.from("events")
-                .select("*")
-                .order("start_date", { ascending: false }),
-            "getEvents"
-        );
-    }
-
-    function getFeaturedEvent() {
-        return run(
-            db.from("events")
-                .select("*")
-                .eq("featured", true)
-                .limit(1)
-                .maybeSingle(),
-            "getFeaturedEvent"
-        );
-    }
-
-    function getMatches() {
-        return run(
-            db.from("matches")
-                .select(MATCH_SELECT)
-                .order("scheduled_at", { ascending: true }),
-            "getMatches"
-        );
-    }
-
-    function getLiveMatches() {
-        return run(
-            db.from("matches")
-                .select(MATCH_SELECT)
-                .eq("status", "live")
-                .order("scheduled_at"),
-            "getLiveMatches"
-        );
-    }
-
-    function getUpcomingMatches(limit = 6) {
-        return run(
-            db.from("matches")
-                .select(MATCH_SELECT)
-                .eq("status", "upcoming")
-                .order("scheduled_at")
-                .limit(limit),
-            "getUpcomingMatches"
-        );
-    }
-
-    function getRecentResults(limit = 6) {
-        return run(
-            db.from("matches")
-                .select(MATCH_SELECT)
-                .eq("status", "completed")
-                .order("scheduled_at", { ascending: false })
-                .limit(limit),
-            "getRecentResults"
-        );
-    }
-
-    function getStandings(eventId = null) {
-        let query = db
+        let query = overtimeDB
             .from("standings")
-            .select("*, team:teams(*), event:events(*)")
+            .select(`
+                *,
+                team:teams(*)
+            `)
             .order("position");
 
+
         if (eventId) {
-            query = query.eq("event_id", eventId);
+
+            query = query.eq(
+                "event_id",
+                eventId
+            );
+
         }
 
-        return run(query, "getStandings");
+
+        return await query;
+
     }
 
-    function getStreams() {
-        return run(
-            db.from("streams")
-                .select("*")
-                .eq("active", true)
-                .order("sort_order"),
-            "getStreams"
-        );
+
+    // =========================================
+    // STREAMS
+    // =========================================
+
+    async function getStreams() {
+
+        return await overtimeDB
+            .from("streams")
+            .select("*")
+            .eq("active", true)
+            .order("sort_order");
+
     }
 
-    function getNews() {
-        return run(
-            db.from("news")
-                .select("*")
-                .eq("published", true)
-                .order("published_at", { ascending: false }),
-            "getNews"
-        );
+
+    // =========================================
+    // NEWS
+    // =========================================
+
+    async function getNews(limit = 20) {
+
+        return await overtimeDB
+            .from("news")
+            .select("*")
+            .eq("published", true)
+            .order(
+                "published_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(limit);
+
     }
 
-    function getFeaturedNews(limit = 3) {
-        return run(
-            db.from("news")
-                .select("*")
-                .eq("published", true)
-                .eq("featured", true)
-                .order("published_at", { ascending: false })
-                .limit(limit),
-            "getFeaturedNews"
-        );
+
+    async function getFeaturedNews(limit = 3) {
+
+        return await overtimeDB
+            .from("news")
+            .select("*")
+            .eq("published", true)
+            .eq("featured", true)
+            .order(
+                "published_at",
+                {
+                    ascending: false
+                }
+            )
+            .limit(limit);
+
     }
 
-    function getSiteSettings() {
-        return run(
-            db.from("site_settings")
-                .select("*")
-                .eq("id", 1)
-                .maybeSingle(),
-            "getSiteSettings"
-        );
+
+    // =========================================
+    // SITE SETTINGS
+    // =========================================
+
+    async function getSiteSettings() {
+
+        return await overtimeDB
+            .from("site_settings")
+            .select("*")
+            .eq("id", 1)
+            .maybeSingle();
+
     }
+
+
+    // =========================================
+    // ADMIN — INSERT
+    // =========================================
 
     async function adminInsert(table, values) {
-        return run(
-            db.from(table)
+
+        try {
+
+            return await overtimeDB
+                .from(table)
                 .insert(values)
-                .select(),
-            `adminInsert:${table}`
-        );
+                .select();
+
+        } catch (error) {
+
+            console.error(
+                `[OVERTIME] Insert failed on ${table}:`,
+                error
+            );
+
+            return {
+                data: null,
+                error
+            };
+        }
+
     }
 
-    async function adminUpdate(table, id, values) {
-        return run(
-            db.from(table)
+
+    // =========================================
+    // ADMIN — UPDATE
+    // =========================================
+
+    async function adminUpdate(
+        table,
+        id,
+        values
+    ) {
+
+        try {
+
+            return await overtimeDB
+                .from(table)
                 .update(values)
                 .eq("id", id)
-                .select(),
-            `adminUpdate:${table}`
-        );
+                .select();
+
+        } catch (error) {
+
+            console.error(
+                `[OVERTIME] Update failed on ${table}:`,
+                error
+            );
+
+            return {
+                data: null,
+                error
+            };
+        }
+
     }
 
-    async function adminDelete(table, id) {
-        return run(
-            db.from(table)
+
+    // =========================================
+    // ADMIN — DELETE
+    // =========================================
+
+    async function adminDelete(
+        table,
+        id
+    ) {
+
+        try {
+
+            return await overtimeDB
+                .from(table)
                 .delete()
-                .eq("id", id),
-            `adminDelete:${table}`
-        );
+                .eq("id", id);
+
+        } catch (error) {
+
+            console.error(
+                `[OVERTIME] Delete failed on ${table}:`,
+                error
+            );
+
+            return {
+                data: null,
+                error
+            };
+        }
+
     }
 
-    window.OvertimeSupabase = db;
+
+    // =========================================
+    // EXPORT
+    // =========================================
+
+    /*
+        IMPORTANT:
+
+        admin.js directly uses:
+
+        OvertimeDB.client
+            .from(...)
+
+        Therefore the actual Supabase client MUST
+        be exported here.
+    */
 
     window.OvertimeDB = {
+
+        // Raw Supabase client
+        client: overtimeDB,
+
+        // Auth
         getCurrentUser,
         adminLogin,
         adminLogout,
 
+        // Teams
         getTeams,
         getTeam,
+
+        // Players
         getPlayers,
+
+        // Events
         getEvents,
         getFeaturedEvent,
 
+        // Matches
         getMatches,
         getLiveMatches,
         getUpcomingMatches,
         getRecentResults,
 
+        // Standings
         getStandings,
+
+        // Streams
         getStreams,
 
+        // News
         getNews,
         getFeaturedNews,
 
+        // Settings
         getSiteSettings,
 
+        // Admin CRUD
         adminInsert,
         adminUpdate,
         adminDelete
+
     };
 
-    console.log("[OVERTIME] database.js loaded");
+
+    // Optional direct reference for debugging
+    window.OvertimeSupabase = overtimeDB;
+
+
+    console.log(
+        "[OVERTIME] database.js loaded"
+    );
+
+    console.log(
+        "[OVERTIME] Supabase client ready:",
+        !!window.OvertimeDB.client
+    );
+
 })();
