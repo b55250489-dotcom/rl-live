@@ -1,0 +1,264 @@
+.watch-main {
+    padding: 30px 0 80px;
+}
+
+.watch-heading {
+    padding-bottom: 28px;
+}
+
+.watch-switcher {
+    margin-bottom: 17px;
+    padding: 4px;
+    display: inline-flex;
+    gap: 4px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
+.watch-mode {
+    height: 34px;
+    padding: 0 14px;
+    background: transparent;
+    color: var(--muted);
+    border: 0;
+    border-radius: 6px;
+    font-size: 7px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.watch-mode.active {
+    color: var(--blue-light);
+    background: var(--blue-soft);
+}
+
+.stream-shell {
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.stream-header {
+    height: 46px;
+    padding: 0 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--muted);
+    border-bottom: 1px solid var(--border);
+    font-size: 7px;
+}
+
+.stream-header div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stream-player {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000;
+}
+
+.stream-player iframe,
+.multi-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.broadcast-heading {
+    margin: 42px 0 18px;
+}
+
+.broadcast-heading h2,
+.multi-top h2 {
+    font-size: 22px;
+    letter-spacing: -.8px;
+}
+
+.stream-list {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 11px;
+}
+
+.stream-choice {
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: var(--surface);
+    color: white;
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    cursor: pointer;
+    text-align: left;
+}
+
+.stream-choice:hover,
+.stream-choice.active {
+    background: var(--surface2);
+    border-color: rgba(20,120,255,.35);
+}
+
+.stream-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface3);
+    border-radius: 7px;
+    color: var(--blue-light);
+    font-size: 9px;
+    font-weight: 900;
+}
+
+.stream-copy {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.stream-copy strong {
+    font-size: 9px;
+}
+
+.stream-copy span {
+    overflow: hidden;
+    color: var(--muted);
+    font-size: 7px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.multi-top {
+    margin-bottom: 17px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.multi-tools {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--muted);
+    font-size: 7px;
+    font-weight: 800;
+}
+
+.multi-tools button {
+    padding: 9px 12px;
+    background: var(--blue-soft);
+    color: var(--blue-light);
+    border: 1px solid rgba(20,120,255,.2);
+    border-radius: 6px;
+    font-size: 7px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.overtime-multi-grid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 11px;
+}
+
+.overtime-multi-grid.one {
+    grid-template-columns: 1fr;
+}
+
+.multi-card {
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.multi-card-header {
+    height: 43px;
+    padding: 0 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8px;
+}
+
+.multi-card-header button {
+    width: 25px;
+    height: 25px;
+    background: rgba(255,70,85,.07);
+    color: #ff7882;
+    border: 1px solid rgba(255,70,85,.13);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.multi-video {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000;
+}
+
+.multi-empty {
+    padding: 70px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 7px;
+    background: var(--surface);
+    color: var(--muted);
+    border: 1px dashed var(--border-strong);
+    border-radius: 10px;
+}
+
+.multi-empty strong {
+    color: white;
+}
+
+.stream-picker {
+    margin-top: 14px;
+    padding: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.picker-option {
+    width: 100%;
+    padding: 11px;
+    display: flex;
+    justify-content: space-between;
+    background: transparent;
+    color: white;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 8px;
+}
+
+.picker-option:hover {
+    background: var(--surface2);
+}
+
+@media(max-width:800px) {
+    .stream-list,
+    .overtime-multi-grid {
+        grid-template-columns:1fr;
+    }
+
+    .multi-top {
+        align-items:flex-start;
+        flex-direction:column;
+        gap:15px;
+    }
+}
