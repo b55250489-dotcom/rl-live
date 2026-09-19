@@ -82,11 +82,7 @@ a {
 }
 
 .container {
-    width: min(
-        calc(100% - 48px),
-        var(--container)
-    );
-
+    width: min(calc(100% - 48px), var(--container));
     margin: 0 auto;
 }
 
@@ -114,11 +110,7 @@ a {
 }
 
 .header-inner {
-    width: min(
-        calc(100% - 48px),
-        var(--container)
-    );
-
+    width: min(calc(100% - 48px), var(--container));
     height: 100%;
 
     margin: 0 auto;
@@ -131,40 +123,22 @@ a {
 .brand {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 14px;
 }
 
-.brand-mark {
-    width: 42px;
-    height: 42px;
+.overtime-logo {
+    width: 76px;
+    height: 48px;
 
-    display: grid;
-    place-items: center;
+    object-fit: contain;
+    object-position: center;
 
-    background: var(--blue);
-
-    color: white;
-
-    font-weight: 900;
-    font-size: 15px;
-
-    letter-spacing: -1px;
-
-    transform:
-        skewX(-8deg);
-}
-
-.brand-mark.small {
-    width: 36px;
-    height: 36px;
-
-    font-size: 13px;
+    flex-shrink: 0;
 }
 
 .brand-copy {
     display: flex;
     flex-direction: column;
-
     gap: 2px;
 }
 
@@ -239,8 +213,7 @@ a {
             transparent 1px
         );
 
-    background-size:
-        60px 60px;
+    background-size: 60px 60px;
 
     mask-image:
         linear-gradient(
@@ -533,8 +506,7 @@ a {
     border:
         1px solid var(--border);
 
-    background:
-        #000;
+    background: #000;
 
     border-radius: 8px;
 
@@ -602,8 +574,7 @@ a {
 }
 
 .external-button:hover {
-    color:
-        white;
+    color: white;
 }
 
 .video-frame {
@@ -614,8 +585,7 @@ a {
     aspect-ratio:
         16 / 9;
 
-    background:
-        #000;
+    background: #000;
 }
 
 .video-frame iframe {
@@ -704,8 +674,7 @@ a {
     background:
         var(--blue);
 
-    color:
-        white;
+    color: white;
 
     font-size: 9px;
     font-weight: 900;
@@ -810,8 +779,7 @@ a {
     border-color:
         var(--border-light);
 
-    color:
-        white;
+    color: white;
 }
 
 .multi-action.remove:hover {
@@ -830,8 +798,7 @@ a {
     aspect-ratio:
         16 / 9;
 
-    background:
-        black;
+    background: black;
 }
 
 .multi-video iframe {
@@ -860,24 +827,16 @@ a {
     text-align: center;
 }
 
-.empty-icon {
-    width: 54px;
-    height: 54px;
+.empty-overtime-logo {
+    display: block;
+
+    width: 130px;
+    height: auto;
+
+    object-fit: contain;
 
     margin:
-        0 auto 17px;
-
-    display: grid;
-    place-items: center;
-
-    background:
-        var(--blue);
-
-    font-size: 17px;
-    font-weight: 900;
-
-    transform:
-        skewX(-8deg);
+        0 auto 20px;
 }
 
 .empty-multi h3 {
@@ -1012,8 +971,7 @@ a {
     background:
         transparent;
 
-    color:
-        white;
+    color: white;
 
     text-align: left;
 }
@@ -1088,7 +1046,16 @@ a {
     display: flex;
     align-items: center;
 
-    gap: 11px;
+    gap: 12px;
+}
+
+.footer-overtime-logo {
+    width: 66px;
+    height: 42px;
+
+    object-fit: contain;
+
+    flex-shrink: 0;
 }
 
 .footer-brand > div:last-child {
@@ -1100,6 +1067,7 @@ a {
 
 .footer-brand strong {
     font-size: 13px;
+
     letter-spacing: 0.06em;
 }
 
@@ -1135,8 +1103,7 @@ a {
 @media (max-width: 950px) {
 
     .broadcast-layout {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
 
     .stream-list {
@@ -1147,9 +1114,9 @@ a {
     }
 
     .multi-grid {
-        grid-template-columns:
-            1fr;
+        grid-template-columns: 1fr;
     }
+
 }
 
 
@@ -1158,7 +1125,23 @@ a {
     .container,
     .header-inner {
         width:
-            min(calc(100% - 28px), var(--container));
+            min(
+                calc(100% - 28px),
+                var(--container)
+            );
+    }
+
+    .overtime-logo {
+        width: 62px;
+        height: 40px;
+    }
+
+    .brand {
+        gap: 9px;
+    }
+
+    .brand-copy strong {
+        font-size: 14px;
     }
 
     .brand-copy span {
@@ -1202,8 +1185,7 @@ a {
         flex-direction:
             column;
 
-        padding:
-            12px;
+        padding: 12px;
     }
 
     .multi-toolbar {
@@ -1226,7 +1208,7 @@ a {
     }
 
     .footer-inner p {
-        text-align:
-            left;
+        text-align: left;
     }
+
 }
